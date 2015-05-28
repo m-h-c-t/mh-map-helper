@@ -1,0 +1,24 @@
+<!-- Mice locations not found -->
+<div class="container-fluid" ng-show="!location_mice.length && !first_load">
+    <i class="glyphicon glyphicon-remove pull-right clickable large-gray" ng-click="reset()"></i>
+    <div class="alert alert-danger" role="alert">
+        <i class="glyphicon glyphicon-exclamation-sign"></i>
+        <strong>Did not find any valid mice in your list</strong>
+        <i class="glyphicon glyphicon-exclamation-sign"></i>
+    </div>
+</div>
+<br />
+
+<!-- Mice list -->
+<div class="container">
+<form ng-submit="micelist_form.$valid && get_location_mice()" novalidate name="micelist_form">
+    <div class="form-group row">
+        <h2><i class="glyphicon glyphicon-pencil"></i> Mice</h2>
+        <textarea rows="15" class="form-control" placeholder="Copy map mice list here..." autofocus="autofocus" ng-model="micelist" ng-trim="false" ng-list="&#10;" required ng-maxlength="2000"></textarea>
+    </div>
+    <div class="form-group row">
+        <button type="submit" class="btn btn-lg btn-primary col-sm-2 col-sm-offset-3"><i class="glyphicon glyphicon-chevron-right"></i> Submit <i class="glyphicon glyphicon-chevron-left"></i></button>
+        <button type="button" class="btn btn-lg btn-warning col-sm-2 col-sm-offset-2" ng-click="reset()"><i class="glyphicon glyphicon-remove"></i> Clear <i class="glyphicon glyphicon-remove"></i></button>
+    </div>
+</form>
+</div>

@@ -1,0 +1,14 @@
+<?php
+
+// db read user
+$config['dbhost'] = '';
+$config['dbname'] = '';
+$config['dbuser'] = '';
+$config['dbpassword'] = '';
+
+// db write user
+$config['dbwhost'] = '';
+$config['dbwname'] = '';
+$config['dbwuser'] = '';
+$config['dbwpassword'] = '';
+
