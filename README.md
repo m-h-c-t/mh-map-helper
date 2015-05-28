@@ -20,4 +20,20 @@
 * Mice list must be separated by new lines
 
  
+**Technologies making this project possible:**
+* Git
+* GitHub
+* Notepad++
+* Mysql
+* PhpMyAdmin
+* Dploy.io
+* AngularJS
+* Bootstrap
+* JQuery
+* PHP
+* JavaScript / Ajax
+* CSS
+* Linux/Windows/MacOS/Mobile Environments
+* SSH / SSH Keys
+
 *I wrote this as a hobby while learning new technologies, constructive feedback is appreciated.*
