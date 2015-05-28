@@ -2,7 +2,7 @@
 
 ### This tool is designed to help you catch MouseHunt game map mice as soon as possible.
 
-**To use it:**
+**To use it:**<br/>
 1. Copy mouse list from mousehunt map<br/>
 2. Paste the list into the [website](http://mhmaphelper.agiletravels.com/) and click submit<br/>
 3. Enjoy the list of locations, mice and cheeses<br/>
