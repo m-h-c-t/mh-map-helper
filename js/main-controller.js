@@ -11,7 +11,7 @@ app.controller('MainController', function($scope, $http) {
         $scope.location_mice = [];
 
         $http.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded;charset=utf-8';
-        $http.get("mhdb.php", {
+        $http.get("api.php", {
             params: {
                 action:'get_mice_info',
                 mice: JSON.stringify($scope.micelist),
