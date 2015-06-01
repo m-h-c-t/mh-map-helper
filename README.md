@@ -21,19 +21,15 @@
 
  
 **Technologies making this project possible:**
-* Git
-* GitHub
-* Notepad++
-* Mysql
-* PhpMyAdmin
+* Git / GitHub
+* Notepad++ / Sublime Text / Vim
+* Mysql / PhpMyAdmin
 * Dploy.io
-* AngularJS
-* Bootstrap
-* JQuery
+* Bootstrap / CSS
 * PHP
-* JavaScript / Ajax
-* CSS
+* AngularJS / JavaScript / Ajax / JQuery
+* HTML
 * Linux/Windows/MacOS/Mobile Environments
 * SSH / SSH Keys
 
-*I wrote this as a hobby while learning new technologies, constructive feedback is appreciated.*
+*I wrote this as a hobby, constructive feedback is appreciated.*
