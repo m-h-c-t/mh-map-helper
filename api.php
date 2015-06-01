@@ -1,6 +1,6 @@
 <?php
 
-require_once "db/db.php";
+// TODO: add autoloader
 
 if (!isset($_GET["action"])) {
     error_log('Error: action not set when accessing api.php');
@@ -21,41 +21,39 @@ echo json_encode($results);
 // Functions
 function get_mice_info()
 {
-    global $db;
+    require_once "models/mouse.php";
+    $results = array();
     if (!isset($_GET["mice"]) || empty($_GET["mice"])) {
-        return array();
+        return $results;
     }
-    
-    $mice = json_decode($_GET["mice"]);
-    $mice = array_map('trim', $mice);
-    $mice = array_map('strtoupper', $mice);
-    
-    if (!count($mice)) {
-        return array();
-    }
-        
-    $qmarks = str_repeat('?,', count($mice) - 1) . '?';
 
-    try {
-        $result = $db->prepare("
-            SELECT m.name as mouse, a.name as area, c.name as cheese
-            FROM mice m
-            INNER JOIN mice_areas ma ON ma.mice_id = m.id
-            INNER JOIN areas a ON a.id = ma.areas_id
-            INNER JOIN mice_cheeses mc ON mc.mice_id = m.id
-            INNER JOIN cheeses c ON c.id = mc.cheeses_id
-            WHERE m.name IN ($qmarks)");
+    $mice_names = json_decode($_GET["mice"]);
+    $mice_names = array_map('trim', $mice_names);
+    $mice_names = array_map('strtoupper', $mice_names);
 
-        $result->execute($mice);
-    } catch(PDOException $ex) {
-        error_log($ex->getMessage());
+    if (!count($mice_names)) {
+        return $results;
     }
-        
-    $output = array();
-    while($row = $result->fetch(PDO::FETCH_ASSOC)) {
-        $output[$row['area']][$row['mouse']][] = $row['cheese'];
+
+    $mice = array();
+    $mouse = new Mouse();
+    foreach ($mice_names as $mouse_name) {
+        $mouse->retrieve($mouse_name);
+        if ($mouse->is_valid) {
+            $mice[] = clone $mouse;
+        }
     }
-    return $output;
+    unset($mouse);
+
+    // TODO: Move this to controller, and structure according to group options (by location, by mouse)
+    foreach ($mice as $mouse) {
+        foreach ($mouse->locations as $location) {
+            foreach ($mouse->cheeses as $cheese) {
+                $results[$location][$mouse->name][] = $cheese;
+            }
+        }
+    }
+    return $results;
 }
 
 ?>
