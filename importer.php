@@ -11,7 +11,7 @@ $csv = array_map('str_getcsv', file('upload/mh_triple_import_5.25.2015.csv'));
 
 foreach ($csv as $row) {
     
-    // $row[0] is mouse name, row[1] are areas, row[2] are cheeses
+    // $row[0] is mouse name, row[1] are locations, row[2] are cheeses
     
     // Mice
     $mouse = strtoupper(trim($row[0]));
@@ -26,33 +26,33 @@ foreach ($csv as $row) {
         error_log($ex->getMessage());
     }
     
-    // Areas
+    // Locations
     $row[1] = strtoupper($row[1]);
-    $areas = explode("||", $row[1]);
-    $areas = array_map('trim',$areas);
+    $locations = explode("||", $row[1]);
+    $locations = array_map('trim',$locations);
     
-    foreach($areas as $area) {
-        if (empty($area))
+    foreach($locations as $location) {
+        if (empty($location))
             continue;
 
-        //insert ignore area into areas table
+        //insert ignore location into locations table
         try {
-            $result = $db->prepare("INSERT IGNORE INTO `areas`(`name`) VALUES (?)");
-            $result->execute(array($area));
+            $result = $db->prepare("INSERT IGNORE INTO `locations`(`name`) VALUES (?)");
+            $result->execute(array($location));
         } catch(PDOException $ex) {
             error_log($ex->getMessage());
         }
 
-        //insert ignore mice.id, areas.id into mice_areas where mice.name = $mouse and areas.name = $area
+        //insert ignore mice.id, locations.id into mice_locations where mice.name = $mouse and locations.name = $location
         try {
             $result = $db->prepare("
-                INSERT IGNORE INTO `mice_areas` (`mice_id`, `areas_id`)
-                SELECT m.id, a.id
+                INSERT IGNORE INTO `mice_locations` (`mice_id`, `locations_id`)
+                SELECT m.id, l.id
                 FROM mice m
-                INNER JOIN areas a ON a.name = ?
+                INNER JOIN locations l ON l.name = ?
                 WHERE m.name = ?
             ");
-            $result->execute(array($area, $mouse));
+            $result->execute(array($location, $mouse));
         } catch(PDOException $ex) {
             error_log($ex->getMessage());
         }
@@ -76,7 +76,7 @@ foreach ($csv as $row) {
                 continue;
         }
 
-         //insert ignore cheese into areas table
+         //insert ignore cheese into cheeses table
         try {
             $result = $db->prepare("INSERT IGNORE INTO `cheeses`(`name`) VALUES (?)");
             $result->execute(array($cheese));
@@ -84,7 +84,7 @@ foreach ($csv as $row) {
             error_log($ex->getMessage());
         }
 
-        //insert ignore mice.id, areas.id into mice_areas where mice.name = $mouse and cheese.name = $cheese
+        //insert ignore mice.id, cheese.id into mice_cheeses where mice.name = $mouse and cheese.name = $cheese
         try {
             $result = $db->prepare("
                 INSERT IGNORE INTO `mice_cheeses` (`mice_id`, `cheeses_id`)

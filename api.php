@@ -4,7 +4,7 @@
 
 if (!isset($_GET["action"])) {
     error_log('Error: action not set when accessing api.php');
-    header( 'Location: index.html' );
+    header( 'Location: ./' );
     return;
 }
 
