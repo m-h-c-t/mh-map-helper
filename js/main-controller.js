@@ -2,13 +2,13 @@ var app = angular.module('mainapp', []);
 
 app.controller('MainController', function($scope, $http) {
     $scope.micelist = [];
-    $scope.location_mice = [];
+    $scope.search_results = [];
     $scope.first_load = true;
 
     // Get locations and cheese for each mouse
-    $scope.get_location_mice = function() {
+    $scope.search = function() {
         $('#custom_loader').show();
-        $scope.location_mice = [];
+        $scope.search_results = [];
 
         $http.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded;charset=utf-8';
         $http.get("api.php", {
@@ -18,15 +18,23 @@ app.controller('MainController', function($scope, $http) {
                 }
             })
             .success(function (response) {
-                //format into array of objects [i][area][mice][cheeses];
-                angular.forEach(response, function(mice_array, location_name) {
-                    var location = {name: location_name, mice:[], size:0};
-                    angular.forEach(mice_array, function(cheeses_array, mouse_name) {
-                        var mouse = {name: mouse_name, cheeses: cheeses_array};
-                        location.mice.push(mouse);
+                // populate $scope.search_results grouped by location
+                angular.forEach(response, function(mouse) {
+                    angular.forEach(mouse.locations, function(location, location_id) {
+                        if (!$scope.search_results.hasOwnProperty(location_id)) {
+                            $scope.search_results[location_id] = {};
+                            $scope.search_results[location_id].mice = [];
+                        }
+                        $scope.search_results[location_id].name = location.name;
+                        $scope.search_results[location_id].stage = location.stage;
+
+                        var cheeses = [];
+                        angular.forEach(mouse.cheeses, function(cheese) {
+                            cheeses.push(cheese);
+                        });
+                        $scope.search_results[location_id].mice.push({name: mouse.name, cheeses: cheeses});
+                        $scope.search_results[location_id].size = $scope.search_results[location_id].mice.length;
                     });
-                    location.size = location.mice.length;
-                    $scope.location_mice.push(location);
                 });
 
                 $('#custom_loader').fadeOut('slow');
@@ -37,13 +45,13 @@ app.controller('MainController', function($scope, $http) {
     // Reset everything
     $scope.reset = function() {
         $scope.micelist = [];
-        $scope.location_mice = [];
+        $scope.search_results = [];
         $scope.first_load = true;
     };
 
     // Remove a mouse from list
     $scope.remove_a_mouse = function(mouse_name) {
-        angular.forEach($scope.location_mice, function(location) {
+        angular.forEach($scope.search_results, function(location) {
             angular.forEach(location.mice, function(mouse, key) {
                 if (mouse.name === mouse_name) {
                     location.mice.splice(key, 1);
@@ -61,10 +69,10 @@ app.directive('miceListForm', function() {
     };
 });
 
-app.directive('locations', function() {
+app.directive('searchResults', function() {
     return {
         restrict: 'E',
-        templateUrl: 'locations.html'
+        templateUrl: 'search-results.html'
     };
 });
 
