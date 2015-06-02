@@ -43,17 +43,8 @@ function get_mice_info()
             $mice[] = clone $mouse;
         }
     }
-    unset($mouse);
 
-    // TODO: Move this to controller, and structure according to group options (by location, by mouse)
-    foreach ($mice as $mouse) {
-        foreach ($mouse->locations as $location) {
-            foreach ($mouse->cheeses as $cheese) {
-                $results[$location][$mouse->name][] = $cheese;
-            }
-        }
-    }
-    return $results;
+    return $mice;
 }
 
 ?>

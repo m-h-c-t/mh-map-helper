@@ -25,7 +25,7 @@ class Mouse
 
         try {
             $result = $db->prepare("
-                SELECT m.id as mouse_id, l.id as location_id, l.name as location, c.id as cheese_id, c.name as cheese
+                SELECT m.id as mouse_id, l.id as location_id, l.name as location, l.stage, c.id as cheese_id, c.name as cheese
                 FROM mice m
                 INNER JOIN mice_locations ml ON ml.mice_id = m.id
                 INNER JOIN locations l ON l.id = ml.locations_id
@@ -41,7 +41,7 @@ class Mouse
         while($row = $result->fetch(PDO::FETCH_ASSOC)) {
             $this->name = $mouse_name;
             $this->id = $row['mouse_id'];
-            $this->locations[$row['location_id']] = $row['location'];
+            $this->locations[$row['location_id']] = array('name' => $row['location'], 'stage' => $row['stage']);
             $this->cheeses[$row['cheese_id']] = $row['cheese'];
             $this->is_valid = true;
         }
