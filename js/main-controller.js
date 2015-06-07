@@ -1,6 +1,6 @@
 var app = angular.module('mainapp', []);
 
-app.controller('MainController', function($scope, $http) {
+app.controller('MainController', ['$scope', '$http', function($scope, $http) {
     $scope.micelist = [];
     $scope.search_results = [];
     $scope.first_load = true;
@@ -60,7 +60,7 @@ app.controller('MainController', function($scope, $http) {
             });
         });
     };
-});
+}]);
 
 app.directive('miceListForm', function() {
     return {
