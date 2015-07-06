@@ -6,6 +6,7 @@ class Mouse
 {
     public $name = '';
     public $id = '';
+    public $mouse_wiki_url = '';
     public $locations = array();
     public $cheeses = array();
     public $is_valid = false;
@@ -41,6 +42,9 @@ class Mouse
         while($row = $result->fetch(PDO::FETCH_ASSOC)) {
             $this->name = $mouse_name;
             $this->id = $row['mouse_id'];
+            $mouse_wiki_url = str_replace(' ', '_', ucwords(strtolower($mouse_name)));
+            $this->mouse_wiki_url = (substr($mouse_name, -5, 5) === 'MOUSE' ? $mouse_wiki_url : $mouse_wiki_url . '_Mouse');
+            $this->mouse_wiki_url = 'http://mhwiki.hitgrab.com/wiki/index.php/' . $this->mouse_wiki_url;
             $this->locations[$row['location_id']] = array('name' => $row['location'], 'stage' => $row['stage']);
             $this->cheeses[$row['cheese_id']] = $row['cheese'];
             $this->is_valid = true;

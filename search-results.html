@@ -12,7 +12,7 @@
                 <div class="list-group-item" ng-repeat="mouse in location.mice | orderBy: 'name'">
                     <div class="row">
                         <div class="text-capitalize col-sm-6">
-                            <i class="glyphicon glyphicon-remove pull-left clickable large-gray" ng-click="remove_a_mouse(mouse.name)"></i>&nbsp;{{mouse.name | lowercase}}
+                            <i class="glyphicon glyphicon-remove pull-left clickable large-gray" ng-click="remove_a_mouse(mouse.name)"></i>&nbsp;<a href="{{mouse.mouse_wiki_url}}" target="_blank">{{mouse.name | lowercase}}</a>
                         </div>
                         <!-- Cheese list -->
                         <ul class="col-sm-6 list-group list-unstyled">

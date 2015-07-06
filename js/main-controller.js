@@ -32,7 +32,7 @@ app.controller('MainController', ['$scope', '$http', function($scope, $http) {
                         angular.forEach(mouse.cheeses, function(cheese) {
                             cheeses.push(cheese);
                         });
-                        $scope.search_results[location_id].mice.push({name: mouse.name, cheeses: cheeses});
+                        $scope.search_results[location_id].mice.push({name: mouse.name, mouse_wiki_url: mouse.mouse_wiki_url, cheeses: cheeses});
                         $scope.search_results[location_id].size = $scope.search_results[location_id].mice.length;
                     });
                 });
