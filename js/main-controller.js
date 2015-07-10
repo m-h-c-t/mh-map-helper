@@ -4,11 +4,13 @@ app.controller('MainController', ['$scope', '$http', function($scope, $http) {
     $scope.micelist = [];
     $scope.search_results = [];
     $scope.first_load = true;
+    $scope.mice_found = 0;
 
     // Get locations and cheese for each mouse
     $scope.search = function() {
         $('#custom_loader').show();
         $scope.search_results = [];
+        $scope.mice_found = 0;
 
         $http.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded;charset=utf-8';
         $http.get("api.php", {
@@ -18,6 +20,7 @@ app.controller('MainController', ['$scope', '$http', function($scope, $http) {
                 }
             })
             .success(function (response) {
+                $scope.mice_found = response.length;
                 // populate $scope.search_results grouped by location
                 angular.forEach(response, function(mouse) {
                     angular.forEach(mouse.locations, function(location, location_id) {
