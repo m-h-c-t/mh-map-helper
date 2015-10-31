@@ -2,10 +2,10 @@
 
 ### This tool is designed to help you catch MouseHunt game map mice as soon as possible.
 
-**To use it:**<br/>
+**Usage:**<br/>
 
-1. Copy mouse list from mousehunt map<br/>
-2. Paste the list into the [website](http://mhmaphelper.agiletravels.com/) and click submit<br/>
+1. Copy mouse list from mousehunt map or sample list<br/>
+2. Paste the list into the website and click submit<br/>
 3. Enjoy the list of locations, mice and cheeses<br/>
 
 
@@ -20,16 +20,11 @@
 * Mice list must be separated by new lines
 
  
-**Technologies making this project possible:**
+**Technologies used:**
 * Git / GitHub
-* Notepad++ / Sublime Text / Vim
 * Mysql / PhpMyAdmin
 * Dploy.io
 * Bootstrap / CSS
 * PHP
 * AngularJS / JavaScript / Ajax / JQuery
 * HTML
-* Linux/Windows/MacOS/Mobile Environments
-* SSH / SSH Keys
-
-*I wrote this as a hobby, constructive feedback is appreciated.*
