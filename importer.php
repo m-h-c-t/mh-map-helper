@@ -2,15 +2,14 @@
 
 
 // OFF SWITCH
-print "Turned off"; return;
+print "Turned off\n"; return;
 
 require_once "db/dbw.php";
 
 // This importer takes a csv with 3 columns: 1. Mice 2. Locations 3. Cheeses
-$csv = array_map('str_getcsv', file('upload/mh_triple_import_5.25.2015.csv'));
+$csv = array_map('str_getcsv', file('upload/mhimport.csv'));
 
 foreach ($csv as $row) {
-    
     // $row[0] is mouse name, row[1] are locations, row[2] are cheeses
     
     // Mice
@@ -18,6 +17,24 @@ foreach ($csv as $row) {
 
     if (empty($mouse))
         continue;
+
+    $mouse = str_replace(' MOUSE', '', $mouse);
+    // Check if mouse already exists, then skip it
+    try {
+        $result = $db->prepare("
+            SELECT COUNT(*)
+            FROM mice m
+            WHERE m.name LIKE ?");
+         $result->execute(array($mouse));
+    } catch(PDOException $ex) {
+        error_log($ex->getMessage());
+    }
+    $number_of_rows = $result->fetchColumn();
+
+    if ($number_of_rows > 0)
+        continue;
+    print('Adding new mouse: ' . $mouse . "\n");
+
     //insert mouse into mice table
     try {
         $result = $db->prepare("INSERT IGNORE INTO `mice`(`name`) VALUES (?)");
@@ -30,32 +47,50 @@ foreach ($csv as $row) {
     $row[1] = strtoupper($row[1]);
     $locations = explode("||", $row[1]);
     $locations = array_map('trim',$locations);
-    
+
     foreach($locations as $location) {
         if (empty($location))
             continue;
+        $stage = array('');
 
-        //insert ignore location into locations table
-        try {
-            $result = $db->prepare("INSERT IGNORE INTO `locations`(`name`) VALUES (?)");
-            $result->execute(array($location));
-        } catch(PDOException $ex) {
-            error_log($ex->getMessage());
-        }
+	if (preg_match('/^MANY\sLOCATIONS/', $location))
+		$location = 'SEE WIKI';
+	else if (preg_match('/^CALAMITY\sCARL/', $location))
+		$location = "CALAMITY CARL'S CRUISE";
+	else if (preg_match('/^FIERY\sWARPATH/', $location)) {
+		list($location, $stage[0]) = explode("--", $location);
+		if ($stage[0] == 'WAVES 1-3') {
+			$stage[0] = 'WAVE 1';
+			$stage[1] = 'WAVE 2';
+			$stage[2] = 'WAVE 3';
+		}
+	}
+	
 
-        //insert ignore mice.id, locations.id into mice_locations where mice.name = $mouse and locations.name = $location
-        try {
-            $result = $db->prepare("
-                INSERT IGNORE INTO `mice_locations` (`mice_id`, `locations_id`)
-                SELECT m.id, l.id
-                FROM mice m
-                INNER JOIN locations l ON l.name = ?
-                WHERE m.name = ?
-            ");
-            $result->execute(array($location, $mouse));
-        } catch(PDOException $ex) {
-            error_log($ex->getMessage());
-        }
+	foreach ($stage as $st) {
+		error_log('Mouse: ' . $mouse);
+	        //insert ignore location into locations table
+	        try {
+	            $result = $db->prepare("INSERT IGNORE INTO `locations`(`name`, `stage`) VALUES (?, ?)");
+	            $result->execute(array($location, $st));
+	        } catch(PDOException $ex) {
+	            error_log($ex->getMessage());
+	        }
+
+	        //insert ignore mice.id, locations.id into mice_locations where mice.name = $mouse and locations.name = $location
+	        try {
+	            $result = $db->prepare("
+	                INSERT IGNORE INTO `mice_locations` (`mice_id`, `locations_id`)
+	                SELECT m.id, l.id
+	                FROM mice m
+	                INNER JOIN locations l ON l.name = ?
+	                WHERE m.name = ?
+	            ");
+	            $result->execute(array($location, $mouse));
+	        } catch(PDOException $ex) {
+	            error_log($ex->getMessage());
+	        }
+	 }
     }
     
     // Cheese
@@ -101,6 +136,6 @@ foreach ($csv as $row) {
     }
 }
 
-print "Done!! Wooot! :)";
+print "Done!! Wooot! :)\n";
 
 ?>
