@@ -1,6 +1,5 @@
 <!-- Locations (with mice and cheese) -->
 <div class="container well" ng-show="search_results.length">
-    <i class="glyphicon glyphicon-remove pull-right clickable large-gray" ng-click="search_results=[];first_load=true;"></i>
     <h2><i class="glyphicon glyphicon-globe"></i> Locations</h2>
 
     <div ng-repeat="location in search_results | orderBy:['-size', 'name', 'stage'] | filter:{size: '!0'}">
@@ -28,3 +27,7 @@
     </div>
     <p class="col-xs-12 text-muted">(Sorted by number of mice) ({{mice_found}} {{mice_found === 1 ? "mouse" : "mice"}} found)</p>
 </div>
+<ul class="list-group container" role="alert" ng-show="mice_not_found.length">
+    <li class="list-group-item list-group-item-danger">Could not find the following mice:</li>
+    <li class="list-group-item"ng-repeat="mouse in mice_not_found">{{mouse.name}}</li>
+</ul>
