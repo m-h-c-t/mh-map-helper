@@ -10,6 +10,7 @@ app.controller('MainController', ['$scope', '$http', function($scope, $http) {
     $scope.search = function() {
         $('#custom_loader').show();
         $scope.search_results = [];
+	$scope.mice_not_found = [];
         $scope.mice_found = 0;
 
         $http.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded;charset=utf-8';
@@ -20,9 +21,10 @@ app.controller('MainController', ['$scope', '$http', function($scope, $http) {
                 }
             })
             .success(function (response) {
-                $scope.mice_found = response.length;
                 // populate $scope.search_results grouped by location
                 angular.forEach(response, function(mouse) {
+		    if (mouse.is_valid) {
+			$scope.mice_found++;
                     angular.forEach(mouse.locations, function(location, location_id) {
                         if (!$scope.search_results.hasOwnProperty(location_id)) {
                             $scope.search_results[location_id] = {};
@@ -38,6 +40,9 @@ app.controller('MainController', ['$scope', '$http', function($scope, $http) {
                         $scope.search_results[location_id].mice.push({name: mouse.name, mouse_wiki_url: mouse.mouse_wiki_url, cheeses: cheeses});
                         $scope.search_results[location_id].size = $scope.search_results[location_id].mice.length;
                     });
+		    } else if (mouse.name != '') {
+			$scope.mice_not_found.push({name: mouse.name});
+		    }
                 });
 
                 $('#custom_loader').fadeOut('slow');
@@ -50,6 +55,7 @@ app.controller('MainController', ['$scope', '$http', function($scope, $http) {
         $scope.micelist = [];
         $scope.search_results = [];
         $scope.first_load = true;
+	$scope.mice_not_found = [];
     };
 
     // Remove a mouse from list

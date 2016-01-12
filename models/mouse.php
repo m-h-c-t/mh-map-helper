@@ -24,6 +24,8 @@ class Mouse
             return;
         }
 
+        $this->name = $mouse_name;
+
         try {
             $result = $db->prepare("
                 SELECT m.id as mouse_id, l.id as location_id, l.name as location, l.stage, c.id as cheese_id, c.name as cheese
@@ -40,7 +42,6 @@ class Mouse
         }
 
         while($row = $result->fetch(PDO::FETCH_ASSOC)) {
-            $this->name = $mouse_name;
             $this->id = $row['mouse_id'];
             $mouse_wiki_url = str_replace(' ', '_', ucwords(strtolower($mouse_name)));
             $this->mouse_wiki_url = (substr($mouse_name, -5, 5) === 'MOUSE' ? $mouse_wiki_url : $mouse_wiki_url . '_Mouse');
