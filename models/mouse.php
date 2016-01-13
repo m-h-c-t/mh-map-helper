@@ -24,6 +24,7 @@ class Mouse
             return;
         }
 
+        $mouse_name = str_replace(' MOUSE', '', $mouse_name);
         $this->name = $mouse_name;
 
         try {
