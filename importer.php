@@ -5,11 +5,18 @@
 print "Turned off\n"; return;
 
 require_once "db/dbw.php";
-
+$filename = 'upload/mhimport.csv';
+if (!file_exists($filename)) {
+    print "File $filename doesn't exist...\n";
+    return;
+}
+$file = fopen($filename, "r");
+$num_rows = 0;
 // This importer takes a csv with 3 columns: 1. Mice 2. Locations 3. Cheeses
-$csv = array_map('str_getcsv', file('upload/mhimport.csv'));
-
-foreach ($csv as $row) {
+while (! feof($file)) {
+    $num_rows++;
+    $row = fgetcsv($file);
+    print "Processing file row $num_rows...\n";
     // $row[0] is mouse name, row[1] are locations, row[2] are cheeses
     
     // Mice
@@ -31,8 +38,10 @@ foreach ($csv as $row) {
     }
     $number_of_rows = $result->fetchColumn();
 
-    if ($number_of_rows > 0)
+    if ($number_of_rows > 0) {
+        print "Skipping existing mouse: $mouse\n";
         continue;
+    }
     print('Adding new mouse: ' . $mouse . "\n");
 
     //insert mouse into mice table
@@ -68,13 +77,12 @@ foreach ($csv as $row) {
 	
 
 	foreach ($stage as $st) {
-		error_log('Mouse: ' . $mouse);
 	        //insert ignore location into locations table
 	        try {
 	            $result = $db->prepare("INSERT IGNORE INTO `locations`(`name`, `stage`) VALUES (?, ?)");
 	            $result->execute(array($location, $st));
 	        } catch(PDOException $ex) {
-	            error_log($ex->getMessage());
+	            print($ex->getMessage());
 	        }
 
 	        //insert ignore mice.id, locations.id into mice_locations where mice.name = $mouse and locations.name = $location
@@ -88,16 +96,16 @@ foreach ($csv as $row) {
 	            ");
 	            $result->execute(array($location, $mouse));
 	        } catch(PDOException $ex) {
-	            error_log($ex->getMessage());
+	            print($ex->getMessage());
 	        }
 	 }
     }
     
     // Cheese
-    if (!array_key_exists(2, $row)) {
+    if (!array_key_exists(2, $row) || $row[2] == '') {
         $row[2] = 'REGULAR CHEESE';
     }
-    
+    print "Processing $row[2] cheese\n";
     $row[2] = strtoupper($row[2]);
     $cheeses = explode("||", $row[2]);
     $cheeses = array_map('trim',$cheeses);
@@ -136,6 +144,9 @@ foreach ($csv as $row) {
     }
 }
 
+fclose($file);
+print "Processed $num_rows\n";
 print "Done!! Wooot! :)\n";
 
 ?>
+
