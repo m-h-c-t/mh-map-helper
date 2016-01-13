@@ -37,9 +37,15 @@ function get_mice_info()
 
     $mice = array();
     $mouse = new Mouse();
+    $unique_mice = array();
     foreach ($mice_names as $mouse_name) {
         $mouse->retrieve($mouse_name);
-        $mice[] = clone $mouse;
+        if (!$mouse->is_valid)
+            $mice[] = clone $mouse;
+        else if(!array_key_exists($mouse->id, $unique_mice)) {
+            $mice[] = clone $mouse;
+            $unique_mice[$mouse->id] = true;
+        }
     }
 
     return $mice;
