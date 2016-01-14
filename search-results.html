@@ -27,7 +27,8 @@
     </div>
     <p class="col-xs-12 text-muted">(Sorted by number of mice) ({{mice_found}} {{mice_found === 1 ? "mouse" : "mice"}} found)</p>
 </div>
-<ul class="list-group container" role="alert" ng-show="mice_not_found.length">
-    <li class="list-group-item list-group-item-danger">Could not find the following mice:</li>
+<!-- Mice not found -->
+<ul class="list-group container" ng-show="mice_not_found.length" style="padding:0">
+    <li class="list-group-item list-group-item-danger"><strong>Could not find the following mice:</strong></li>
     <li class="list-group-item"ng-repeat="mouse in mice_not_found">{{mouse.name}}</li>
 </ul>

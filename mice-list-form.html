@@ -1,14 +1,3 @@
-<!-- Mice locations not found -->
-<div class="container-fluid" ng-show="!search_results.length && !first_load">
-    <i class="glyphicon glyphicon-remove pull-right clickable large-gray" ng-click="reset()"></i>
-    <div class="alert alert-danger" role="alert">
-        <i class="glyphicon glyphicon-exclamation-sign"></i>
-        <strong>Did not find any valid mice in your list</strong>
-        <i class="glyphicon glyphicon-exclamation-sign"></i>
-    </div>
-</div>
-<br />
-
 <!-- Mice list -->
 <div class="container">
 <form ng-submit="micelist_form.$valid && search()" novalidate name="micelist_form">
