@@ -1,9 +1,9 @@
 <!-- Locations (with mice and cheese) -->
 <div class="container well" ng-show="search_results.length">
-    <h2><i class="glyphicon glyphicon-globe"></i> Locations</h2>
+    <h2 style="margin-top:0;margin-bottom:1em;"><i class="glyphicon glyphicon-globe"></i> Locations</h2>
 
     <div ng-repeat="location in search_results | orderBy:['-size', 'name', 'stage'] | filter:{size: '!0'}">
-        <div class="list-group col-sm-4" ng-init="is_collapsed = true">
+        <div style="padding:0px 7px;" class="list-group col-sm-4" ng-init="is_collapsed = true">
             <!-- Location Title -->
             <a data-toggle="collapse" ng-click="is_collapsed = !is_collapsed" href="#location{{$id}}" class="text-capitalize list-group-item active">{{location.name | lowercase}} <span ng-show="location.stage.length">({{location.stage | lowercase}})</span><span class="badge pull-left">{{location.size}} {{location.size === 1 ? "mouse" : "mice"}}</span><i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': is_collapsed, 'glyphicon-chevron-up': !is_collapsed}"></i></a>
             <!-- Mice dropdown -->
