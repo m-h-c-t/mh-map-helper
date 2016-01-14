@@ -16,7 +16,7 @@ $num_rows = 0;
 while (! feof($file)) {
     $num_rows++;
     $row = fgetcsv($file);
-    print "Processing file row $num_rows...\n";
+//    print "Processing file row $num_rows...\n";
     // $row[0] is mouse name, row[1] are locations, row[2] are cheeses
     
     // Mice
@@ -42,7 +42,7 @@ while (! feof($file)) {
         print "Skipping existing mouse: $mouse\n";
         continue;
     }
-    print('Adding new mouse: ' . $mouse . "\n");
+//    print('Adding new mouse: ' . $mouse . "\n");
 
     //insert mouse into mice table
     try {
@@ -87,14 +87,19 @@ while (! feof($file)) {
 
 	        //insert ignore mice.id, locations.id into mice_locations where mice.name = $mouse and locations.name = $location
 	        try {
-	            $result = $db->prepare("
+                    $query = "
 	                INSERT IGNORE INTO `mice_locations` (`mice_id`, `locations_id`)
 	                SELECT m.id, l.id
 	                FROM mice m
 	                INNER JOIN locations l ON l.name = ?
-	                WHERE m.name = ?
-	            ");
-	            $result->execute(array($location, $mouse));
+	                WHERE m.name = ?";
+                    $query_params = array($location, $mouse);
+                    if ($st != '') {
+                        $query .= ' AND l.stage = ?';
+                        $query_params[] = $st;
+                    }
+	            $result = $db->prepare($query);
+	            $result->execute($query_params);
 	        } catch(PDOException $ex) {
 	            print($ex->getMessage());
 	        }
@@ -105,7 +110,7 @@ while (! feof($file)) {
     if (!array_key_exists(2, $row) || $row[2] == '') {
         $row[2] = 'REGULAR CHEESE';
     }
-    print "Processing $row[2] cheese\n";
+//  print "Processing $row[2] cheese\n";
     $row[2] = strtoupper($row[2]);
     $cheeses = explode("||", $row[2]);
     $cheeses = array_map('trim',$cheeses);
