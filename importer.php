@@ -26,6 +26,36 @@ foreach ($truncate_tables as $table) {
     $result->execute();
 }
 
+// Labyrinth stages
+static $labyrinth_mice_stages = array(
+    'ASH GOLEM'                 => array('PLAIN TECH', 'SUPERIOR TECH', 'EPIC TECH'),
+    'AUTOMATED STONE SENTRY'    => array('SUPERIOR TECH', 'EPIC TECH'),
+    'CORRIDOR BRUISER'          => array('PLAIN TECH', 'SUPERIOR TECH', 'EPIC TECH', 'PLAIN FEALTY', 'SUPERIOR FEALTY', 'EPIC FEALTY', 'PLAIN SCHOLAR', 'SUPERIOR SCHOLAR', 'EPIC SCHOLAR', 'PLAIN FARMING', 'SUPERIOR FARMING', 'PLAIN TREASURY', 'SUPERIOR TREASURY', 'INTERSECTIONS'),
+    'DARK TEMPLAR'              => array('EPIC FEALTY'),
+    'DRUDGE'                    => array('PLAIN FEALTY', 'SUPERIOR FEALTY', 'EPIC FEALTY'),
+    'FUNGAL TECHNOMORPH'        => array('EPIC TECH'),
+    'HIRED EIDOLON'             => array('PLAIN TREASURY', 'SUPERIOR TREASURY'),
+    'LOST'                      => array('PLAIN TECH', 'SUPERIOR TECH', 'EPIC TECH', 'PLAIN FEALTY', 'SUPERIOR FEALTY', 'EPIC FEALTY', 'PLAIN SCHOLAR', 'SUPERIOR SCHOLAR', 'EPIC SCHOLAR', 'PLAIN FARMING', 'SUPERIOR FARMING', 'PLAIN TREASURY', 'SUPERIOR TREASURY', 'INTERSECTIONS'),
+    'LOST LEGIONNAIRE'          => array('PLAIN TECH', 'SUPERIOR TECH', 'EPIC TECH', 'PLAIN FEALTY', 'SUPERIOR FEALTY', 'EPIC FEALTY', 'PLAIN SCHOLAR', 'SUPERIOR SCHOLAR', 'EPIC SCHOLAR', 'PLAIN FARMING', 'SUPERIOR FARMING', 'PLAIN TREASURY', 'SUPERIOR TREASURY', 'INTERSECTIONS'),
+    'MASKED PIKEMAN'            => array('PLAIN FEALTY', 'SUPERIOR FEALTY', 'EPIC FEALTY'),
+    'MIMIC'                     => array('PLAIN TREASURY', 'SUPERIOR TREASURY'),
+    'MIND TEARER'               => array('SUPERIOR FEALTY', 'EPIC FEALTY'),
+    'MUSH MONSTER'              => array('PLAIN FARMING', 'SUPERIOR FARMING'),
+    'MUSHROOM HARVESTER'        => array('PLAIN FARMING', 'SUPERIOR FARMING'),
+    'MYSTIC GUARDIAN'           => array('SUPERIOR SCHOLAR', 'EPIC SCHOLAR'),
+    'MYSTIC HERALD'             => array('SUPERIOR SCHOLAR', 'EPIC SCHOLAR'),
+    'MYSTIC SCHOLAR'            => array('EPIC SCHOLAR'),
+    'NIGHTSHADE NANNY'          => array('SUPERIOR FARMING'),
+    'REANIMATED CARVER'         => array('PLAIN TECH', 'SUPERIOR TECH', 'EPIC TECH', 'PLAIN FEALTY', 'SUPERIOR FEALTY', 'EPIC FEALTY', 'PLAIN SCHOLAR', 'SUPERIOR SCHOLAR', 'EPIC SCHOLAR', 'PLAIN FARMING', 'SUPERIOR FARMING', 'PLAIN TREASURY', 'SUPERIOR TREASURY'),
+    'RR-8'                      => array('PLAIN TECH', 'SUPERIOR TECH', 'EPIC TECH'),
+    'SANGUINARIAN'              => array('PLAIN SCHOLAR', 'SUPERIOR SCHOLAR', 'EPIC SCHOLAR'),
+    'SHADOW STALKER'            => array('PLAIN TECH', 'SUPERIOR TECH', 'EPIC TECH', 'PLAIN FEALTY', 'SUPERIOR FEALTY', 'EPIC FEALTY', 'PLAIN SCHOLAR', 'SUPERIOR SCHOLAR', 'EPIC SCHOLAR', 'PLAIN FARMING', 'SUPERIOR FARMING', 'PLAIN TREASURY', 'SUPERIOR TREASURY', 'INTERSECTIONS'),
+    'SOLEMN SOLDIER'            => array('SUPERIOR FEALTY', 'EPIC FEALTY'),
+    'SUMMONING SCHOLAR'         => array('PLAIN SCHOLAR', 'SUPERIOR SCHOLAR', 'EPIC SCHOLAR'),
+    'TECH GOLEM'                => array('SUPERIOR TECH', 'EPIC TECH'),
+    'TREASURE BRAWLER'          => array('SUPERIOR TREASURY'),
+);
+
 // Burroughs Rift stages
 static $burroughs_rift_mice_stages = array(
     'AMPLIFIED BROWN'                   => array('MIST 0'),
@@ -171,6 +201,13 @@ while (!feof($file)) {
         else if (preg_match('/^WHISKER\sWOODS\sRIFT/', $location)) {
             if (array_key_exists($mouse, $whisker_woods_rift_mice_stages)) {
                 foreach($whisker_woods_rift_mice_stages[$mouse] as $id => $stg) {
+                    $stage[$id] = $stg;
+                }
+            }
+        }
+        else if (preg_match('/^LABYRINTH/', $location)) {
+            if (array_key_exists($mouse, $labyrinth_mice_stages)) {
+                foreach($labyrinth_mice_stages[$mouse] as $id => $stg) {
                     $stage[$id] = $stg;
                 }
             }
