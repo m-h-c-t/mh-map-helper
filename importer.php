@@ -52,6 +52,35 @@ static $burroughs_rift_mice_stages = array(
     'ZOMBOT UNIPIRE THE THIRD'          => array('MIST 6-18')
 );
 
+static $whisker_woods_rift_mice_stages = array(
+    'BLOOMED SYLVAN'        => array('CC 0-24',                         'GGT 0-24', 'GGT 25-49',    'GGT 50',   'DL 0-24',  'DL 25-49', 'DL 50' ),
+    'CENTAUR RANGER'        => array('CC 0-24', 'CC 25-49', 'CC 50',                                'GGT 50',   'DL 0-24',  'DL 25-49', 'DL 50' ),
+    'CHERRY SPRITE'         => array('CC 0-24', 'CC 25-49', 'CC 50',    'GGT 0-24', 'GGT 25-49',    'GGT 50',   'DL 0-24',  'DL 25-49', 'DL 50' ),
+    'CRANKY CATERPILLAR'    => array('CC 0-24',                         'GGT 0-24', 'GGT 25-49',    'GGT 50',   'DL 0-24',  'DL 25-49', 'DL 50' ),
+    'CRAZED GOBLIN'         => array('CC 0-24', 'CC 25-49', 'CC 50',    'GGT 0-24', 'GGT 25-49',    'GGT 50',   'DL 0-24'                       ),
+    'CYCLOPS BARBARIAN'     => array(                       'CC 50',    'GGT 0-24', 'GGT 25-49',    'GGT 50',   'DL 0-24',  'DL 25-49', 'DL 50' ),
+    'FUNGAL FROG'           => array('CC 0-24', 'CC 25-49', 'CC 50',    'GGT 0-24',                             'DL 0-24',  'DL 25-49', 'DL 50' ),
+    'GILDED LEAF'           => array('CC 0-24', 'CC 25-49', 'CC 50',    'GGT 0-24', 'GGT 25-49',    'GGT 50',   'DL 0-24',  'DL 25-49', 'DL 50' ),
+    'GRIZZLED SILTH'        => array('CC 0-24', 'CC 25-49', 'CC 50',    'GGT 0-24', 'GGT 25-49',    'GGT 50',   'DL 0-24',  'DL 25-49', 'DL 50' ),
+    'KARMACHAMELEON'        => array('CC 0-24', 'CC 25-49', 'CC 50',    'GGT 0-24',                             'DL 0-24',  'DL 25-49', 'DL 50' ),
+    'MEDICINE'              => array('CC 0-24', 'CC 25-49', 'CC 50',    'GGT 0-24', 'GGT 25-49',    'GGT 50',               'DL 25-49'          ),
+    'MONSTROUS BLACK WIDOW' => array(           'CC 25-49', 'CC 50',                'GGT 25-49',    'GGT 50',               'DL 25-49', 'DL 50' ),
+    'MOSSY MOOSKER'         => array('CC 0-24',                         'GGT 0-24', 'GGT 25-49',    'GGT 50',   'DL 0-24',  'DL 25-49', 'DL 50' ),
+    'NATURALIST'            => array('CC 0-24', 'CC 25-49', 'CC 50',    'GGT 0-24', 'GGT 25-49',    'GGT 50',   'DL 0-24',  'DL 25-49', 'DL 50' ),
+    'NOMADIC WARRIOR'       => array('CC 0-24', 'CC 25-49', 'CC 50',                'GGT 25-49',                'DL 0-24',  'DL 25-49', 'DL 50' ),
+    'RED COAT BEAR'         => array('CC 0-24', 'CC 25-49', 'CC 50',                'GGT 25-49',                'DL 0-24',  'DL 25-49', 'DL 50' ),
+    'RED-EYED WATCHER OWL'  => array(           'CC 25-49',             'GGT 0-24', 'GGT 25-49',    'GGT 50',   'DL 0-24',  'DL 25-49', 'DL 50' ),
+    'RIFT TIGER'            => array('CC 0-24', 'CC 25-49', 'CC 50',                'GGT 25-49',                'DL 0-24',  'DL 25-49', 'DL 50' ),
+    'SPIRIT FOX'            => array(           'CC 25-49',             'GGT 0-24', 'GGT 25-49',    'GGT 50',   'DL 0-24',  'DL 25-49', 'DL 50' ),
+    'SPIRIT OF BALANCE'     => array('CC 0-24', 'CC 25-49', 'CC 50',    'GGT 0-24',                             'DL 0-24',  'DL 25-49', 'DL 50' ),
+    'TREANT QUEEN'          => array(           'CC 25-49',             'GGT 0-24', 'GGT 25-49',    'GGT 50',   'DL 0-24',  'DL 25-49', 'DL 50' ),
+    'TREE TROLL'            => array('CC 0-24', 'CC 25-49', 'CC 50',    'GGT 0-24', 'GGT 25-49',    'GGT 50',               'DL 25-49',         ),
+    'TRI-DRA'               => array('CC 0-24', 'CC 25-49', 'CC 50',    'GGT 0-24', 'GGT 25-49',    'GGT 50',                           'DL 50' ),
+    'TWISTED TREANT'        => array('CC 0-24', 'CC 25-49', 'CC 50',    'GGT 0-24', 'GGT 25-49',    'GGT 50',   'DL 0-24',                      ),
+    'WATER SPRITE'          => array('CC 0-24', 'CC 25-49', 'CC 50',    'GGT 0-24', 'GGT 25-49',    'GGT 50',   'DL 0-24',                      ),
+    'WINGED HARPY'          => array('CC 0-24', 'CC 25-49', 'CC 50',    'GGT 0-24', 'GGT 25-49',    'GGT 50',               'DL 25-49',         ),
+);
+
 // This importer takes a csv with 3 columns: 1. Mice 2. Locations 3. Cheeses
 while (!feof($file)) {
     $num_rows++;
@@ -118,6 +147,13 @@ while (!feof($file)) {
         else if (preg_match('/^BURROUGHS\sRIFT/', $location)) {
             if (array_key_exists($mouse, $burroughs_rift_mice_stages)) {
                 foreach($burroughs_rift_mice_stages[$mouse] as $id => $stg) {
+                    $stage[$id] = $stg;
+                }
+            }
+        }
+        else if (preg_match('/^WHISKER\sWOODS\sRIFT/', $location)) {
+            if (array_key_exists($mouse, $whisker_woods_rift_mice_stages)) {
+                foreach($whisker_woods_rift_mice_stages[$mouse] as $id => $stg) {
                     $stage[$id] = $stg;
                 }
             }
