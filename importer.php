@@ -14,9 +14,9 @@ $num_rows = 0;
 
 // TRUNCATE ALL TABLES
 $truncate_tables = array(
+    'mice',
     'cheeses',
     'locations',
-    'mice',
     'mice_cheeses',
     'mice_locations',
 );
@@ -25,6 +25,70 @@ foreach ($truncate_tables as $table) {
     $result = $db->prepare("TRUNCATE $table");
     $result->execute();
 }
+
+// Sunken stages
+static $sunken_city_mice_stages = array(
+    'CITY NOBLE'            => array('DOCKED'),
+    'CITY WORKER'           => array('DOCKED'),
+    'CLUMSY CARRIER'        => array('DOCKED'),
+    'ELITE GUARDIAN'        => array('DOCKED'),
+    'ENGINSEER'             => array('DOCKED'),
+    'HYDROLOGIST'           => array('DOCKED'),
+    'OXYGEN BARON'          => array('DOCKED'),
+    'SUNKEN CITIZEN'        => array('DOCKED'),
+    'BARNACLE BEAUTICIAN'   => array('0-2KM', '2-10KM'),
+    'BOTTOM FEEDER'         => array('0-2KM'),
+    'CRABOLIA'              => array('0-2KM', '2-10KM'),
+    'DEEP SEA DIVER'        => array('2-10KM', '10-15KM', '15-25KM', '25KM+'),
+    'DERANGED DECKHAND'     => array('10-15KM', '15-25KM', '25KM+'),
+    'DREAD PIRATE MOUSERT'  => array('2-10KM'),
+    'PIRATE ANCHOR'         => array('2-10KM', '10-15KM', '15-25KM', '25KM+'),
+    'SUNKEN BANSHEE'        => array('10-15KM', '15-25KM', '25KM+'),
+    'SWASHBLADE'            => array('10-15KM', '15-25KM', '25KM+'),
+    'CORAL'                 => array('0-2KM', '2-10KM'),
+    'CORAL CUDDLER'         => array('0-2KM'),
+    'CORAL DRAGON'          => array('2-10KM', '10-15KM', '15-25KM', '25KM+'),
+    'CORAL GARDENER'        => array('2-10KM', '10-15KM', '15-25KM', '25KM+'),
+    'CORAL GUARD'           => array('2-10KM', '10-15KM', '15-25KM', '25KM+'),
+    'CORAL HARVESTER'       => array('2-10KM'),
+    'CORAL QUEEN'           => array('10-15KM', '15-25KM', '25KM+'),
+    'SEADRAGON'             => array('0-2KM', '2-10KM'),
+    'TURRET GUARD'          => array('10-15KM', '15-25KM', '25KM+'),
+    'ANGELFISH'             => array('10-15KM', '15-25KM', '25KM+'),
+    'BETTA'                 => array('10-15KM', '15-25KM', '25KM+'),
+    'CLOWNFISH'             => array('0-2KM'),
+    'CUTTLE'                => array('0-2KM', '2-10KM'),
+    'EEL'                   => array('10-15KM', '15-25KM', '25KM+'),
+    'JELLYFISH'             => array('2-10KM', '10-15KM', '15-25KM', '25KM+'),
+    'KOIMAID'               => array('2-10KM', '10-15KM', '15-25KM', '25KM+'),
+    'MANATEE'               => array('0-2KM', '2-10KM'),
+    'MLOUNDER FLOUNDER'     => array('0-2KM'),
+    'PUFFER'                => array('0-2KM', '2-10KM'),
+    'STINGRAY'              => array('2-10KM', '10-15KM', '15-25KM', '25KM+'),
+    'ANCIENT OF THE DEEP'   => array('10-15KM', '15-25KM', '25KM+'),
+    'BARRACUDA'             => array('0-2KM'),
+    'CARNIVORE'             => array('2-10KM', '10-15KM', '15-25KM', '25KM+'),
+    'DERPSHARK'             => array('0-2KM', '2-10KM'),
+    'SERPENT MONSTER'       => array('2-10KM', '10-15KM', '15-25KM', '25KM+'),
+    'SPEAR FISHER'          => array('0-2KM', '2-10KM'),
+    'TRITUS'                => array('10-15KM', '15-25KM', '25KM+'),
+    'ANGLER'                => array('10-15KM', '15-25KM', '25KM+'),
+    'GUPPY'                 => array('0-2KM', '2-10KM'),
+    'MERMOUSETTE'           => array('2-10KM'),
+    'MERSHARK'              => array('2-10KM', '10-15KM', '15-25KM', '25KM+'),
+    'OCTOMERMAID'           => array('2-10KM', '10-15KM', '15-25KM', '25KM+'),
+    'OLD ONE'               => array('10-15KM', '15-25KM', '25KM+'),
+    'SCHOOL OF MISH'        => array('0-2KM'),
+    'TADPOLE'               => array('0-2KM', '2-10KM'),
+    'URCHIN KING'           => array('10-15KM', '15-25KM', '25KM+'),
+    'PEARL'                 => array('2-10KM', '10-15KM', '15-25KM', '25KM+'),
+    'PEARL DIVER'           => array('2-10KM', '10-15KM', '15-25KM', '25KM+'),
+    'SALTWATER AXOLOTL'     => array('0-2KM', '2-10KM'),
+    'SAND DOLLAR DIVER'     => array('0-2KM'),
+    'SAND DOLLAR QUEEN'     => array('0-2KM', '2-10KM'),
+    'TREASURE HOARDER'      => array('10-15KM', '15-25KM', '25KM+'),
+    'TREASURE KEEPER'       => array('10-15KM', '15-25KM', '25KM+'),
+);
 
 // Zokor stages
 static $zokor_mice_stages = array(
@@ -257,6 +321,13 @@ while (!feof($file)) {
         else if (preg_match('/^ZOKOR/', $location)) {
             if (array_key_exists($mouse, $zokor_mice_stages)) {
                 foreach($zokor_mice_stages[$mouse] as $id => $stg) {
+                    $stage[$id] = $stg;
+                }
+            }
+        }
+        else if (preg_match('/^SUNKEN\sCITY/', $location)) {
+            if (array_key_exists($mouse, $sunken_city_mice_stages)) {
+                foreach($sunken_city_mice_stages[$mouse] as $id => $stg) {
                     $stage[$id] = $stg;
                 }
             }
