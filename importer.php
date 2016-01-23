@@ -1,7 +1,7 @@
 <?php
 
 // OFF SWITCH
-print "Turned off\n"; return;
+//print "Turned off\n"; return;
 
 require_once "db/dbw.php";
 $filename = 'upload/mhimport.csv';
@@ -11,6 +11,46 @@ if (!file_exists($filename)) {
 }
 $file = fopen($filename, "r");
 $num_rows = 0;
+
+static $burroughs_rift_mice_stages = [
+    'AMPLIFIED BROWN'                   => ['MIST 0'],
+    'AMPLIFIED GREY'                    => ['MIST 0'],
+    'AMPLIFIED WHITE'                   => ['MIST 0'],
+    'ASSASSIN BEAST'                    => ['MIST 19-20'],
+    'AUTOMATED SENTRY'                  => ['MIST 0'],
+    'BIG BAD BEHEMOTH BURROUGHS'        => ['MIST 19-20'],
+    'BOULDER BITER'                     => ['MIST 6-18'],
+    'CLUMP'                             => ['MIST 1-5', 'MIST 6-18'],
+    'COUNT VAMPIRE'                     => ['MIST 1-5', 'MIST 6-18'],
+    'CYBER MINER'                       => ['MIST 1-5', 'MIST 6-18'],
+    'CYBERNETIC SPECIALIST'             => ['MIST 0'],
+    'DOKTOR'                            => ['MIST 0'],
+    'EVIL SCIENTIST'                    => ['MIST 0'],
+    'ITTY BITTY RIFTY BURROUGHS'        => ['MIST 1-5', 'MIST 6-18'],
+    'LAMBENT'                           => ['MIST 6-18'],
+    'LYCANOID'                          => ['MIST 6-18'],
+    'MASTER EXPLODER'                   => ['MIST 6-18'],
+    'MECHA TAIL'                        => ['MIST 1-5', 'MIST 6-18'],
+    'MONSTROUS ABOMINATION'             => ['MIST 19-20'],
+    'PHASE ZOMBIE'                      => ['MIST 1-5', 'MIST 6-18'],
+    'PLUTONIUM TENTACLE'                => ['MIST 19-20'],
+    'PNEUMATIC DIRT DISPLACEMENT'       => ['MIST 1-5', 'MIST 6-18'],
+    'PORTABLE GENERATOR'                => ['MIST 0'],
+    'PROTOTYPE'                         => ['MIST 1-5', 'MIST 6-18'],
+    'RADIOACTIVE OOZE'                  => ['MIST 1-5', 'MIST 6-18'],
+    'RANCID BOG BEAST'                  => ['MIST 6-18', 'MIST 19-20'],
+    'REVENANT'                          => ['MIST 6-18'],
+    'RIFT BIO ENGINEER'                 => ['MIST 0'],
+    'RIFTERRANIAN'                      => ['MIST 1-5', 'MIST 6-18'],
+    'ROBAT'                             => ['MIST 1-5', 'MIST 6-18'],
+    'SUPER MEGA MECHA ULTRA ROBOGOLD'   => ['MIST 6-18', 'MIST 19-20'],
+    'SURGEON BOT'                       => ['MIST 0'],
+    'TECH RAVENOUS ZOMBIE'              => ['MIST 1-5', 'MIST 6-18'],
+    'THE MENACE OF THE RIFT'            => ['MIST 19-20'],
+    'TOXIC AVENGER'                     => ['MIST 6-18', 'MIST 19-20'],
+    'TOXIKINETIC'                       => ['MIST 1-5', 'MIST 6-18'],
+    'ZOMBOT UNIPIRE THE THIRD'          => ['MIST 6-18']
+];
 
 // This importer takes a csv with 3 columns: 1. Mice 2. Locations 3. Cheeses
 while (!feof($file)) {
@@ -73,6 +113,13 @@ while (!feof($file)) {
                 $stage[0] = 'WAVE 1';
                 $stage[1] = 'WAVE 2';
                 $stage[2] = 'WAVE 3';
+            }
+        }
+        else if (preg_match('/^BURROUGHS\sRIFT/', $location)) {
+            if (array_key_exists($mouse, $burroughs_rift_mice_stages)) {
+                foreach($burroughs_rift_mice_stages[$mouse] as $id => $stg) {
+                    $stage[$id] = $stg;
+                }
             }
         }
 
