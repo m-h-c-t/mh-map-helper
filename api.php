@@ -4,7 +4,7 @@
 
 if (!isset($_GET["action"])) {
     error_log('Error: action not set when accessing api.php');
-    header( 'Location: ./' );
+    header('Location: ./');
     return;
 }
 
@@ -19,8 +19,7 @@ header("Content-Type: application/json; charset=UTF-8");
 echo json_encode($results);
 
 // Functions
-function get_mice_info()
-{
+function get_mice_info() {
     require_once "models/mouse.php";
     $results = array();
     if (!isset($_GET["mice"]) || empty($_GET["mice"])) {
@@ -40,9 +39,8 @@ function get_mice_info()
     $unique_mice = array();
     foreach ($mice_names as $mouse_name) {
         $mouse->retrieve($mouse_name);
-        if (!$mouse->is_valid)
-            $mice[] = clone $mouse;
-        else if(!array_key_exists($mouse->id, $unique_mice)) {
+        if (!$mouse->is_valid) $mice[] = clone $mouse;
+        else if (!array_key_exists($mouse->id, $unique_mice)) {
             $mice[] = clone $mouse;
             $unique_mice[$mouse->id] = true;
         }
@@ -50,5 +48,4 @@ function get_mice_info()
 
     return $mice;
 }
-
 ?>
