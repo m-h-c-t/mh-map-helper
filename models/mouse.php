@@ -1,5 +1,4 @@
 <?php
-
 require_once "__FILE__/../db/db.php";
 
 class Mouse
@@ -11,8 +10,7 @@ class Mouse
     public $cheeses = array();
     public $is_valid = false;
 
-    public function retrieve($mouse_name)
-    {
+    public function retrieve($mouse_name) {
         global $db;
         $this->name = '';
         $this->id = '';
@@ -38,11 +36,12 @@ class Mouse
                 WHERE m.name LIKE ?");
 
             $result->execute(array($mouse_name));
-        } catch(PDOException $ex) {
+        }
+        catch(PDOException $ex) {
             error_log($ex->getMessage());
         }
 
-        while($row = $result->fetch(PDO::FETCH_ASSOC)) {
+        while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
             $this->id = $row['mouse_id'];
             $mouse_wiki_url = str_replace(' ', '_', ucwords(strtolower($mouse_name)));
             $this->mouse_wiki_url = (substr($mouse_name, -5, 5) === 'MOUSE' ? $mouse_wiki_url : $mouse_wiki_url . '_Mouse');
