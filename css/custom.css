@@ -9,12 +9,10 @@
     display:none;
 }
 
-.jumbotron h1{
-    text-shadow: 0 0 0.1em black;
-}
-
 .jumbotron {
     background:url("../images/croppedcat.jpg") center no-repeat;
+    text-shadow: 0 0 1em black;
+    color: white;
 }
 
 html {
@@ -23,7 +21,7 @@ html {
 }
 
 body {
-    margin-bottom: 3em;
+    margin-bottom: 4.5em;
 }
 
 .footer {
