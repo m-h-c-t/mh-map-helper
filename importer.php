@@ -14,17 +14,59 @@ $num_rows = 0;
 
 // TRUNCATE ALL TABLES
 $truncate_tables = array(
-'cheeses',
-'locations',
-'mice',
-'mice_cheeses',
-'mice_locations',
+    'cheeses',
+    'locations',
+    'mice',
+    'mice_cheeses',
+    'mice_locations',
 );
 
 foreach ($truncate_tables as $table) {
     $result = $db->prepare("TRUNCATE $table");
     $result->execute();
 }
+
+// Zokor stages
+static $zokor_mice_stages = array(
+    'MUSH MONSTER'              => array('FARMING 0+', 'FARMING 50+'),
+    'MUSHROOM HARVESTER'        => array('FARMING 0+', 'FARMING 50+'),
+    'NIGHTSHADE FUNGALMANCER'   => array('FARMING 50+'),
+    'NIGHTSHADE NANNY'          => array('FARMING 0+', 'FARMING 50+'),
+    'SHADOW STALKER'            => array('FEALTY 15+', 'FEALTY 50+', 'FEALTY 80+', 'TECH 15+', 'TECH 50+', 'TECH 80+', 'SCHOLAR 15+', 'SCHOLAR 50+', 'SCHOLAR 80+', 'TREASURY 15+', 'TREASURY 50+', 'FARMING 0+', 'FARMING 50+', 'LAIR - EACH 30+'),
+    'BATTLE CLERIC'             => array('FEALTY 15+', 'FEALTY 50+', 'FEALTY 80+'),
+    'DARK TEMPLAR'              => array('FEALTY 80+'),
+    'DRUDGE'                    => array('FEALTY 15+', 'FEALTY 50+', 'FEALTY 80+'),
+    'MASKED PIKEMAN'            => array('FEALTY 15+', 'FEALTY 50+', 'FEALTY 80+'),
+    'MIND TEARER'               => array('FEALTY 50+', 'FEALTY 80+'),
+    'PALADIN WEAPON MASTER'     => array('FEALTY 80+'),
+    'SIR FLEEKIO'               => array('FEALTY 50+', 'FEALTY 80+'),
+    'SOLEMN SOLDIER'            => array('FEALTY 50+', 'FEALTY 80+'),
+    'ANCIENT SCRIBE'            => array('SCHOLAR 50+', 'SCHOLAR 80+'),
+    'ETHEREAL GUARDIAN'         => array('SCHOLAR 15+', 'SCHOLAR 50+', 'SCHOLAR 80+'),
+    'MYSTIC GUARDIAN'           => array('SCHOLAR 50+', 'SCHOLAR 80+'),
+    'MYSTIC HERALD'             => array('SCHOLAR 50+', 'SCHOLAR 80+'),
+    'MYSTIC SCHOLAR'            => array('SCHOLAR 80+'),
+    'SANGUINARIAN'              => array('SCHOLAR 15+', 'SCHOLAR 50+', 'SCHOLAR 80+'),
+    'SOUL BINDER'               => array('SCHOLAR 80+'),
+    'SUMMONING SCHOLAR'         => array('SCHOLAR 15+', 'SCHOLAR 50+', 'SCHOLAR 80+'),
+    'ASH GOLEM'                 => array('TECH 15+', 'TECH 50+', 'TECH 80+'),
+    'AUTOMATED STONE SENTRY'    => array('TECH 50+', 'TECH 80+'),
+    'EXO-TECH'                  => array('TECH 15+', 'TECH 50+', 'TECH 80+'),
+    'FUNGAL TECHNOMORPH'        => array('TECH 80+'),
+    'MANAFORGE SMITH'           => array('TECH 80+'),
+    'MATRON OF MACHINERY'       => array('TECH 50+', 'TECH 80+'),
+    'RR-8'                      => array('TECH 15+', 'TECH 50+', 'TECH 80+'),
+    'TECH GOLEM'                => array('TECH 50+', 'TECH 80+'),
+    'HIRED EIDOLON'             => array('TREASURY 15+', 'TREASURY 50+'),
+    'MATRON OF WEALTH'          => array('TREASURY 15+', 'TREASURY 50+'),
+    'MIMIC'                     => array('TREASURY 15+', 'TREASURY 50+'),
+    'MOLTEN MIDAS'              => array('TREASURY 50+'),
+    'TREASURE BRAWLER'          => array('TREASURY 50+'),
+    'CORRIDOR BRUISER'          => array('LAIR - EACH 30+'),
+    'DECREPIT TENTACLE TERROR'  => array('LAIR - EACH 30+'),
+    'RETIRED MINOTAUR'          => array('LAIR - EACH 30+'),
+    'REANIMATED CARVER'         => array('FEALTY 15+', 'FEALTY 50+', 'FEALTY 80+', 'TECH 15+', 'TECH 50+', 'TECH 80+', 'SCHOLAR 15+', 'SCHOLAR 50+', 'SCHOLAR 80+', 'TREASURY 15+', 'TREASURY 50+', 'FARMING 0+', 'FARMING 50+', 'LAIR - EACH 30+'),
+);
 
 // Labyrinth stages
 static $labyrinth_mice_stages = array(
@@ -208,6 +250,13 @@ while (!feof($file)) {
         else if (preg_match('/^LABYRINTH/', $location)) {
             if (array_key_exists($mouse, $labyrinth_mice_stages)) {
                 foreach($labyrinth_mice_stages[$mouse] as $id => $stg) {
+                    $stage[$id] = $stg;
+                }
+            }
+        }
+        else if (preg_match('/^ZOKOR/', $location)) {
+            if (array_key_exists($mouse, $zokor_mice_stages)) {
+                foreach($zokor_mice_stages[$mouse] as $id => $stg) {
                     $stage[$id] = $stg;
                 }
             }
