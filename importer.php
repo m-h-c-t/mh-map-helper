@@ -1,7 +1,7 @@
 <?php
 
 // OFF SWITCH
-//print "Turned off\n"; return;
+print "Turned off\n"; return;
 
 require_once "db/dbw.php";
 $filename = 'upload/mhimport.csv';
