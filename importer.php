@@ -12,6 +12,21 @@ if (!file_exists($filename)) {
 $file = fopen($filename, "r");
 $num_rows = 0;
 
+// TRUNCATE ALL TABLES
+$truncate_tables = array(
+'cheeses',
+'locations',
+'mice',
+'mice_cheeses',
+'mice_locations',
+);
+
+foreach ($truncate_tables as $table) {
+    $result = $db->prepare("TRUNCATE $table");
+    $result->execute();
+}
+
+// Burroughs Rift stages
 static $burroughs_rift_mice_stages = array(
     'AMPLIFIED BROWN'                   => array('MIST 0'),
     'AMPLIFIED GREY'                    => array('MIST 0'),
@@ -52,6 +67,8 @@ static $burroughs_rift_mice_stages = array(
     'ZOMBOT UNIPIRE THE THIRD'          => array('MIST 6-18')
 );
 
+
+// Whisker Woods Rift stages
 static $whisker_woods_rift_mice_stages = array(
     'BLOOMED SYLVAN'        => array('CC 0-24',                         'GGT 0-24', 'GGT 25-49',    'GGT 50',   'DL 0-24',  'DL 25-49', 'DL 50' ),
     'CENTAUR RANGER'        => array('CC 0-24', 'CC 25-49', 'CC 50',                                'GGT 50',   'DL 0-24',  'DL 25-49', 'DL 50' ),
