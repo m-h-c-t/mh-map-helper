@@ -53,3 +53,7 @@ body {
     border-color: #d9534f;
     box-shadow:0 0 3px 1px #d9534f;
 }
+
+.hide_class {
+  display: none;
+}
