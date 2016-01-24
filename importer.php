@@ -26,6 +26,41 @@ foreach ($truncate_tables as $table) {
     $result->execute();
 }
 
+// Gnawnian Express stages
+static $gnawnian_express_mice_stages = array(
+    'ANGRY TRAIN STAFF'         => array('STATION', '1ST PHASE', '2ND PHASE', '3RD PHASE'),
+    'BARTENDER'                 => array('STATION', '1ST PHASE', '2ND PHASE', '3RD PHASE'),
+    'FARRIER'                   => array('STATION', '1ST PHASE', '2ND PHASE', '3RD PHASE'),
+    'MYSTERIOUS TRAVELLER'      => array('STATION', '1ST PHASE', '2ND PHASE', '3RD PHASE'),
+    'PARLOUR PLAYER'            => array('STATION', '1ST PHASE', '2ND PHASE', '3RD PHASE'),
+    'PASSENGER'                 => array('STATION', '1ST PHASE', '2ND PHASE', '3RD PHASE'),
+    'PHOTOGRAPHER'              => array('STATION', '1ST PHASE', '2ND PHASE', '3RD PHASE'),
+    'STOWAWAY'                  => array('STATION', '1ST PHASE', '2ND PHASE', '3RD PHASE'),
+    'STUFFY BANKER'             => array('STATION', '1ST PHASE', '2ND PHASE', '3RD PHASE'),
+    'TONIC SALESMAN'            => array('STATION', '1ST PHASE', '2ND PHASE', '3RD PHASE'),
+    'TRAIN CONDUCTOR'           => array('STATION', '1ST PHASE', '2ND PHASE', '3RD PHASE'),
+    'TRAVELLING BARBER'         => array('STATION', '1ST PHASE', '2ND PHASE', '3RD PHASE'),
+    'UPPER CLASS LADY'          => array('STATION', '1ST PHASE', '2ND PHASE', '3RD PHASE'),
+    'CRATE CAMO'                => array('1ST PHASE'),
+    'CUTE CRATE CARRIER'        => array('1ST PHASE'),
+    'SUPPLY HOARDER'            => array('1ST PHASE'),
+    'WAREHOUSE MANAGER'         => array('1ST PHASE'),
+    'AUTOMORAT'                 => array('2ND PHASE'),
+    'CANNONBALL'                => array('2ND PHASE'),
+    'DANGEROUS DUO'             => array('2ND PHASE'),
+    'HOOKSHOT'                  => array('2ND PHASE'),
+    'MOUSE WITH NO NAME'        => array('2ND PHASE'),
+    'SHARPSHOOTER'              => array('2ND PHASE'),
+    'STEEL HORSE RIDER'         => array('2ND PHASE'),
+    'STOUTGEAR'                 => array('2ND PHASE'),
+    'BLACK POWDER THIEF'        => array('3RD PHASE'),
+    'COAL SHOVELLER'            => array('3RD PHASE'),
+    'FUEL'                      => array('3RD PHASE'),
+    'MAGMATIC CRYSTAL THIEF'    => array('3RD PHASE'),
+    'MAGMATIC GOLEM'            => array('3RD PHASE'),
+    'TRAIN ENGINEER'            => array('3RD PHASE'),
+);
+
 // Sunken stages
 static $sunken_city_mice_stages = array(
     'CITY NOBLE'            => array('DOCKED'),
@@ -328,6 +363,13 @@ while (!feof($file)) {
         else if (preg_match('/^SUNKEN\sCITY/', $location)) {
             if (array_key_exists($mouse, $sunken_city_mice_stages)) {
                 foreach($sunken_city_mice_stages[$mouse] as $id => $stg) {
+                    $stage[$id] = $stg;
+                }
+            }
+        }
+        else if (preg_match('/^GNAWNIAN\sEXPRESS\sSTATION/', $location)) {
+            if (array_key_exists($mouse, $gnawnian_express_mice_stages)) {
+                foreach($gnawnian_express_mice_stages[$mouse] as $id => $stg) {
                     $stage[$id] = $stg;
                 }
             }
