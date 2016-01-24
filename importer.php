@@ -26,6 +26,20 @@ foreach ($truncate_tables as $table) {
     $result->execute();
 }
 
+// Balack's Cove stages
+static $balacks_cove_mice_stages = array(
+    'BALACK THE BANISHED'   => array('LOW TIDE', 'MEDIUM TIDE'),
+    'BRIMSTONE'             => array('LOW TIDE', 'MEDIUM TIDE'),
+    'DAVY JONES'            => array('LOW TIDE', 'MEDIUM TIDE'),
+    'DERR LICH'             => array('LOW TIDE', 'MEDIUM TIDE'),
+    'ELUB LICH'             => array('LOW TIDE', 'MEDIUM TIDE'),
+    'ENSLAVED SPIRIT'       => array('LOW TIDE', 'MEDIUM TIDE'),
+    'NERG LICH'             => array('LOW TIDE', 'MEDIUM TIDE'),
+    'RIPTIDE'               => array('MEDIUM TIDE', 'HIGH TIDE'),
+    'TIDAL FISHER'          => array('LOW TIDE'),
+    'TWISTED FIEND'         => array('LOW TIDE', 'MEDIUM TIDE'),
+);
+
 // Gnawnian Express stages
 static $gnawnian_express_mice_stages = array(
     'ANGRY TRAIN STAFF'         => array('STATION', '1ST PHASE', '2ND PHASE', '3RD PHASE'),
@@ -370,6 +384,13 @@ while (!feof($file)) {
         else if (preg_match('/^GNAWNIAN\sEXPRESS\sSTATION/', $location)) {
             if (array_key_exists($mouse, $gnawnian_express_mice_stages)) {
                 foreach($gnawnian_express_mice_stages[$mouse] as $id => $stg) {
+                    $stage[$id] = $stg;
+                }
+            }
+        }
+        else if (preg_match('/^BALACK\'S\sCOVE/', $location)) {
+            if (array_key_exists($mouse, $balacks_cove_mice_stages)) {
+                foreach($balacks_cove_mice_stages[$mouse] as $id => $stg) {
                     $stage[$id] = $stg;
                 }
             }
