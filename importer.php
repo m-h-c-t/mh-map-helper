@@ -26,6 +26,36 @@ foreach ($truncate_tables as $table) {
     $result->execute();
 }
 
+// Iceberg stages
+static $iceberg_mice_stages = array(
+    'GENERAL DRHELLER'          => array('GENERALS'),
+    'LADY COLDSNAP'             => array('GENERALS'),
+    'LORD SPLODINGTON'          => array('GENERALS'),
+    'PRINCESS FIST'             => array('GENERALS'),
+    'LIVING SALT'               => array('0-300FT', '301-600FT', '601-1600FT', '1601-1800FT', '1801-2000FT'),
+    'POLAR BEAR'                => array('0-300FT', '301-600FT'),
+    'SNOW SLINGER'              => array('0-300FT', '301-600FT', '601-1600FT'),
+    'CHIPPER'                   => array('0-300FT', '601-1600FT', '1601-1800FT'),
+    'ICEBREAKER'                => array('0-300FT', '601-1600FT'),
+    'INCOMPETENT ICE CLIMBER'   => array('0-300FT'),
+    'SNOW SOLDIER'              => array('0-300FT'),
+    'ICEBLOCK'                  => array('301-600FT', '601-1600FT', '1601-1800FT'),
+    'MAMMOTH'                   => array('301-600FT'),
+    'SNOW BOWLER'               => array('301-600FT', '601-1600FT', '1601-1800FT'),
+    'YETI'                      => array('301-600FT'),
+    'HEAVY BLASTER'             => array('601-1600FT'),
+    'SABOTEUR'                  => array('601-1600FT'),
+    'STICKYBOMBER'              => array('601-1600FT'),
+    'WOLFSKIE'                  => array('601-1600FT', '1601-1800FT'),
+    'ICEBLADE'                  => array('1601-1800FT'),
+    'SNOWBLIND'                 => array('1601-1800FT'),
+    'WATER WIELDER'             => array('1601-1800FT'),
+    'FROSTLANCE GUARD'          => array('1801-2000FT'),
+    'FROSTWING COMMANDER'       => array('1801-2000FT'),
+    'ICEWING'                   => array('1801-2000FT'),
+    'DEEP'                      => array('2000FT'),
+);
+
 // Balack's Cove stages
 static $balacks_cove_mice_stages = array(
     'BALACK THE BANISHED'   => array('LOW TIDE', 'MEDIUM TIDE'),
@@ -391,6 +421,13 @@ while (!feof($file)) {
         else if (preg_match('/^BALACK\'S\sCOVE/', $location)) {
             if (array_key_exists($mouse, $balacks_cove_mice_stages)) {
                 foreach($balacks_cove_mice_stages[$mouse] as $id => $stg) {
+                    $stage[$id] = $stg;
+                }
+            }
+        }
+        else if (preg_match('/^ICEBERG/', $location)) {
+            if (array_key_exists($mouse, $iceberg_mice_stages)) {
+                foreach($iceberg_mice_stages[$mouse] as $id => $stg) {
                     $stage[$id] = $stg;
                 }
             }
