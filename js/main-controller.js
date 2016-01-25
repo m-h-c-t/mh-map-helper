@@ -77,19 +77,21 @@ app.controller('MainController', ['$scope', '$http', function($scope, $http) {
     // Remove a mouse from list
     $scope.remove_a_mouse = function(mouse_name) {
         angular.forEach($scope.search_results, function(location) {
+            var reduce_location = false;
             angular.forEach(location.stages, function(stage, stage_name) {
                 angular.forEach(stage.mice, function(mouse, key) {
                     if (mouse.name === mouse_name) {
                         stage.mice.splice(key, 1);
+                        reduce_location = true;
                     }
                 });
             });
-            location.size--;
+            if (reduce_location) location.size--;
         });
         $scope.mice_found--;
     };
     $scope.toggle_stage = function(id) {
-        $('#stage' + id).toggleClass("hide_class");
+        $('#stage' + id).toggleClass("hide_class", 0);
     };
 }]);
 app.directive('miceListForm', function() {
