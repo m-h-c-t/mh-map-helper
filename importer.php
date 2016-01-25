@@ -366,7 +366,10 @@ while (!feof($file)) {
         if (empty($location)) continue;
         $stage = array('');
 
-        if (preg_match('/^MANY\sLOCATIONS/', $location)) $location = 'SEE WIKI';
+        if (preg_match('/^MANY\sLOCATIONS/', $location)
+            || preg_match('/^ALL\sLOCATIONS\sEXCEPT/', $location)
+            || preg_match('/^ALL\sEXCEPT/', $location)
+            ) $location = 'SEE WIKI';
         else if (preg_match('/^CALAMITY\sCARL/', $location)) $location = "CALAMITY CARL'S CRUISE";
         else if (preg_match('/^FIERY\sWARPATH/', $location)) {
             list($location, $stage[0]) = explode("--", $location);
