@@ -1,7 +1,7 @@
 <?php
 
 // OFF SWITCH
-print "Turned off\n"; return;
+//print "Turned off\n"; return;
 
 require_once "db/dbw.php";
 $filename = 'upload/mhimport.csv';
@@ -313,6 +313,33 @@ static $whisker_woods_rift_mice_stages = array(
     'WINGED HARPY'          => array(                                                                                       'DL 25-49',         ),
 );
 
+// Toxic Spill stages
+static $spill_mice_stages = array(
+    'BIOHAZARD'             => array('COUNT / COUNTESS', 'DUKE / DUCHESS', 'GRAND DUKE / GRAND DUCHESS', 'ARCHDUKE / ARCHDUCHESS'),
+    'BOG BEAST'             => array('HERO', 'KNIGHT', 'LORD / LADY', 'BARON / BARONESS', 'COUNT / COUNTESS', 'DUKE / DUCHESS'),
+    'GELATINOUS OCTAHEDRON' => array('KNIGHT', 'LORD / LADY', 'BARON / BARONESS', 'COUNT / COUNTESS', 'DUKE / DUCHESS'),
+    'HAZMAT'                => array('HERO', 'KNIGHT', 'LORD / LADY', 'BARON / BARONESS', 'COUNT / COUNTESS', 'DUKE / DUCHESS', 'GRAND DUKE / GRAND DUCHESS', 'ARCHDUKE / ARCHDUCHESS'),
+    'LAB TECHNICIAN'        => array('HERO', 'KNIGHT', 'LORD / LADY', 'BARON / BARONESS', 'COUNT / COUNTESS', 'DUKE / DUCHESS', 'GRAND DUKE / GRAND DUCHESS', 'ARCHDUKE / ARCHDUCHESS'),
+    'MONSTER TAIL'          => array('HERO', 'KNIGHT', 'LORD / LADY', 'BARON / BARONESS', 'COUNT / COUNTESS', 'DUKE / DUCHESS'),
+    'MUTANT MONGREL'        => array('DUKE / DUCHESS', 'GRAND DUKE / GRAND DUCHESS', 'ARCHDUKE / ARCHDUCHESS'),
+    'MUTANT NINJA'          => array('COUNT / COUNTESS', 'DUKE / DUCHESS', 'GRAND DUKE / GRAND DUCHESS', 'ARCHDUKE / ARCHDUCHESS'),
+    'MUTATED BEHEMOTH'      => array('ARCHDUKE / ARCHDUCHESS'),
+    'MUTATED SIBLINGS'      => array('HERO', 'KNIGHT', 'LORD / LADY', 'BARON / BARONESS', 'COUNT / COUNTESS', 'DUKE / DUCHESS'),
+    'OUTBREAK ASSASSIN'     => array('DUKE / DUCHESS', 'GRAND DUKE / GRAND DUCHESS', 'ARCHDUKE / ARCHDUCHESS'),
+    'PLAGUE HAG'            => array('LORD / LADY', 'BARON / BARONESS', 'COUNT / COUNTESS', 'DUKE / DUCHESS', 'GRAND DUKE / GRAND DUCHESS', 'ARCHDUKE / ARCHDUCHESS'),
+    'SCRAP METAL MONSTER'   => array('LORD / LADY', 'BARON / BARONESS', 'COUNT / COUNTESS', 'DUKE / DUCHESS', 'GRAND DUKE / GRAND DUCHESS', 'ARCHDUKE / ARCHDUCHESS'),
+    'SLIMEFIST'             => array('DUKE / DUCHESS', 'GRAND DUKE / GRAND DUCHESS', 'ARCHDUKE / ARCHDUCHESS'),
+    'SLUDGE'                => array('HERO', 'KNIGHT', 'LORD / LADY', 'BARON / BARONESS', 'COUNT / COUNTESS', 'DUKE / DUCHESS'),
+    'SLUDGE SOAKER'         => array('LORD / LADY', 'BARON / BARONESS', 'COUNT / COUNTESS', 'DUKE / DUCHESS', 'GRAND DUKE / GRAND DUCHESS', 'ARCHDUKE / ARCHDUCHESS'),
+    'SLUDGE SWIMMER'        => array('GRAND DUKE / GRAND DUCHESS', 'ARCHDUKE / ARCHDUCHESS'),
+    'SPORE'                 => array('HERO', 'KNIGHT', 'LORD / LADY', 'BARON / BARONESS', 'COUNT / COUNTESS', 'DUKE / DUCHESS'),
+    'SWAMP RUNNER'          => array('HERO', 'KNIGHT', 'LORD / LADY', 'BARON / BARONESS', 'COUNT / COUNTESS', 'DUKE / DUCHESS'),
+    'TELEKINETIC MUTANT'    => array('COUNT / COUNTESS', 'DUKE / DUCHESS', 'GRAND DUKE / GRAND DUCHESS', 'ARCHDUKE / ARCHDUCHESS'),
+    'TENTACLE'              => array('COUNT / COUNTESS', 'DUKE / DUCHESS', 'GRAND DUKE / GRAND DUCHESS', 'ARCHDUKE / ARCHDUCHESS'),
+    'THE MENACE'            => array('GRAND DUKE / GRAND DUCHESS', 'ARCHDUKE / ARCHDUCHESS'),
+    'TOXIC WARRIOR'         => array('DUKE / DUCHESS', 'GRAND DUKE / GRAND DUCHESS', 'ARCHDUKE / ARCHDUCHESS'),
+);
+
 // This importer takes a csv with 3 columns: 1. Mice 2. Locations 3. Cheeses
 while (!feof($file)) {
     $num_rows++;
@@ -431,6 +458,13 @@ while (!feof($file)) {
         else if (preg_match('/^ICEBERG/', $location)) {
             if (array_key_exists($mouse, $iceberg_mice_stages)) {
                 foreach($iceberg_mice_stages[$mouse] as $id => $stg) {
+                    $stage[$id] = $stg;
+                }
+            }
+        }
+        else if (preg_match('/^TOXIC\sSPILL/', $location)) {
+            if (array_key_exists($mouse, $spill_mice_stages)) {
+                foreach($spill_mice_stages[$mouse] as $id => $stg) {
                     $stage[$id] = $stg;
                 }
             }
