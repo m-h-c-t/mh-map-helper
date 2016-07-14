@@ -1,9 +1,6 @@
-config.php
-error_log
-/400.shtml
-/401.shtml
-/403.shtml
-/404.shtml
-/500.shtml
-/500.php
-
+/vendor
+/node_modules
+/public/storage
+Homestead.yaml
+Homestead.json
+.env

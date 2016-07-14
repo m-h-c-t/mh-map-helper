@@ -1,30 +1,27 @@
-# MouseHunt map helper
+# Laravel PHP Framework
 
-### This tool is designed to help you catch MouseHunt game map mice as soon as possible.
+[![Build Status](https://travis-ci.org/laravel/framework.svg)](https://travis-ci.org/laravel/framework)
+[![Total Downloads](https://poser.pugx.org/laravel/framework/d/total.svg)](https://packagist.org/packages/laravel/framework)
+[![Latest Stable Version](https://poser.pugx.org/laravel/framework/v/stable.svg)](https://packagist.org/packages/laravel/framework)
+[![Latest Unstable Version](https://poser.pugx.org/laravel/framework/v/unstable.svg)](https://packagist.org/packages/laravel/framework)
+[![License](https://poser.pugx.org/laravel/framework/license.svg)](https://packagist.org/packages/laravel/framework)
 
-**Usage:**<br/>
+Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable, creative experience to be truly fulfilling. Laravel attempts to take the pain out of development by easing common tasks used in the majority of web projects, such as authentication, routing, sessions, queueing, and caching.
 
-1. Copy mouse list from mousehunt map or sample list<br/>
-2. Paste the list into the website and click submit<br/>
-3. Enjoy the list of locations, mice and cheeses<br/>
+Laravel is accessible, yet powerful, providing tools needed for large, robust applications. A superb inversion of control container, expressive migration system, and tightly integrated unit testing support give you the tools you need to build any application with which you are tasked.
 
+## Official Documentation
 
-**Features:**
-* It is sorted by the most mice per location
-* Removing a mouse removes it from all locations
-* If location has zero mice, it is removed
-* Only recognized mice will be in the results (filters other text out)
+Documentation for the framework can be found on the [Laravel website](http://laravel.com/docs).
 
- 
-**Requirements:**
-* Mice list must be separated by new lines
+## Contributing
 
- 
-**Technologies used:**
-* Git / GitHub
-* Mysql / PhpMyAdmin
-* Dploy.io
-* Bootstrap / CSS
-* PHP
-* AngularJS / JavaScript / Ajax / JQuery
-* HTML
+Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](http://laravel.com/docs/contributions).
+
+## Security Vulnerabilities
+
+If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell at taylor@laravel.com. All security vulnerabilities will be promptly addressed.
+
+## License
+
+The Laravel framework is open-sourced software licensed under the [MIT license](http://opensource.org/licenses/MIT).
