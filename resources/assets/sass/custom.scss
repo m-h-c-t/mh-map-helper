@@ -96,3 +96,18 @@ body {
 .gray {
   color: gray;
 }
+
+#invalid_mice_title {
+  background-color: #f2dede;
+  color: #a94442;
+}
+
+.collapse-toggle:after {
+  font-family: 'Glyphicons Halflings';
+  content: "\2212";
+  float: right;
+}
+
+.collapse-toggle.collapsed:after {
+  content: "\2b";
+}

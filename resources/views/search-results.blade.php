@@ -5,17 +5,16 @@
     {{--Valid Mice--}}
     @if( !empty( $setups ) )
         <h2><i class="glyphicon glyphicon-globe"></i> Locations</h2>
-        <span class="gray">( Mice found: {{ $valid_mice_count }} - Mice not found: {{ count($invalid_mice) }} )</span>
+        <span class="gray">( Sorted by number of mice per location ) ( Mice found: {{ $valid_mice_count }} - Mice not found: {{ count($invalid_mice) }} )</span>
         <div class="container well">
             {{--Locations--}}
             @foreach( $setups as $location_name => $location )
                 <div class="list-group col-sm-6 col-md-4 location">
                     {{--Location Name--}}
                     <a data-toggle="collapse" href="#location{{ $location['id'] }}"
-                       class="text-capitalize list-group-item active">
+                       class="text-capitalize list-group-item active collapse-toggle collapsed">
                         {{ $location_name }}
                         <span class="badge pull-left">{{ count( $location['mice_count'] ) }}</span>
-                        <i class="pull-right glyphicon glyphicon-chevron-down"></i>
                     </a>
 
                     <div id="location{{$location['id']}}" class="collapse">
@@ -65,10 +64,9 @@
     @if ( !empty( $invalid_mice ) )
         <div class="container">
             <ul class="list-group col-sm-6 col-sm-offset-3" style="padding:0">
-                <a data-toggle="collapse" href="#invalid_mice"
-                   class="text-capitalize list-group-item">
+                <a data-toggle="collapse" href="#invalid_mice" id="invalid_mice_title"
+                   class="text-capitalize list-group-item collapse-toggle collapsed">
                     Could not find {{ count($invalid_mice) }} @if( count($invalid_mice) > 1) mice @else mouse @endif
-                    <i class="pull-right glyphicon glyphicon-chevron-down"></i>
                 </a>
                 <div class="collapse" id="invalid_mice">
                     @foreach ( $invalid_mice as $mouse_name )
