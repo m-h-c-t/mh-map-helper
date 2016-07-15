@@ -5,7 +5,7 @@
     {{--Valid Mice--}}
     @if( !empty( $setups ) )
         <h2><i class="glyphicon glyphicon-globe"></i> Locations</h2>
-        Mice found: {{ $valid_mice_count }} - Mice not found: {{ count($invalid_mice) }}
+        <span class="gray">( Mice found: {{ $valid_mice_count }} - Mice not found: {{ count($invalid_mice) }} )</span>
         <div class="container well">
             {{--Locations--}}
             @foreach( $setups as $location_name => $location )
@@ -19,7 +19,7 @@
                     </a>
 
                     <div id="location{{$location['id']}}" class="collapse">
-                        {{--Mice with stages--}}
+                        {{--Stages--}}
                         @foreach( $location['stages'] as $stage_name => $stage )
 
                             <div class="list-group stage">
@@ -29,7 +29,7 @@
                                     </div>
                                 @endif
 
-                                {{--Mice without stages--}}
+                                {{--Mice--}}
                                 @foreach( $stage['mice'] as $mouse)
                                     <div class="list-group-item">
                                         <div class="row">
@@ -66,7 +66,7 @@
         <div class="container">
             <ul class="list-group col-sm-6 col-sm-offset-3" style="padding:0">
                 <a data-toggle="collapse" href="#invalid_mice"
-                   class="text-capitalize list-group-item bg-danger">
+                   class="text-capitalize list-group-item">
                     Could not find {{ count($invalid_mice) }} @if( count($invalid_mice) > 1) mice @else mouse @endif
                     <i class="pull-right glyphicon glyphicon-chevron-down"></i>
                 </a>

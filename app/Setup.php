@@ -2,19 +2,22 @@
 
 namespace App;
 
-use Illuminate\Database\Eloquent\Model;
-
 use DB;
+use Illuminate\Database\Eloquent\Model;
 
 class Setup extends Model
 {
+    public $timestamps = false;
+    protected $table = 'setups';
+
     /**
      * Gets setups by given mouse name
      * Returns array with location -> mouse -> cheese
      *
      * @param $mouse_name
      */
-    public static function getByMouse($mouse_name) {
+    public static function getByMouse($mouse_name)
+    {
         global $db;
 //        $this->name = '';
 //        $this->id = '';
@@ -69,5 +72,20 @@ class Setup extends Model
             $setups[$row->location]['mice_count'][$row->mouse_id] = 1;
         }
         return $setups;
+    }
+
+    public function mouse()
+    {
+        return $this->belongsTo(Mouse::class);
+    }
+
+    public function location()
+    {
+        return $this->belongsTo(Location::class);
+    }
+
+    public function cheese()
+    {
+        return $this->belongsTo(Cheese::class);
     }
 }
