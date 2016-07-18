@@ -5,7 +5,8 @@
     {{--Valid Mice--}}
     @if( !empty( $setups ) )
         <h2><i class="glyphicon glyphicon-globe"></i> Locations</h2>
-        <span class="gray">( Sorted by number of mice per location ) ( Mice found: {{ $valid_mice_count }} - Mice not found: {{ count($invalid_mice) }} )</span>
+        <span class="gray">( Sorted by number of mice per location ) ( Mice found: {{ $valid_mice_count }}
+            @if( !empty( $invalid_mice ) ) - Mice not found: {{ count($invalid_mice) }} @endif )</span>
         <div class="container well">
             {{--Locations--}}
             @foreach( $setups as $location_name => $location )
