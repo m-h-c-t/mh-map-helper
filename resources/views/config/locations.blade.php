@@ -1,8 +1,9 @@
 {{--Add New Location--}}
+<div class="container">
 <form method="POST" action="/config/locations/add">
     {{ csrf_field() }}
-    <div class="container">
-        <div class="col-lg-6 col-lg-offset-3">
+
+        <div class="col-md-6 no-left-padding">
             <div class="form-group input-group">
                 <span class="input-group-addon">New Location:</span>
                 <input type="text" class="form-control" name="name" placeholder="Location Name..." required/>
@@ -11,12 +12,11 @@
                     </span>
             </div>
         </div>
-    </div>
 </form>
 
 {{--List All Locations--}}
-<div class="container">
-    <ul class="list-group col-lg-6 col-lg-offset-3">
+
+    <ul class="list-group col-md-6">
         <a data-toggle="collapse" href="#locations"
            class="list-group-item active collapse-toggle collapsed">
             Current Locations

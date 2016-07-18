@@ -1,8 +1,9 @@
 {{--Add New Cheese--}}
-<form method="POST" action="/config/cheeses/add">
-    {{ csrf_field() }}
-    <div class="container">
-        <div class="col-lg-6 col-lg-offset-3">
+<div class="container">
+    <form method="POST" action="/config/cheeses/add">
+        {{ csrf_field() }}
+
+        <div class="col-md-6 no-left-padding">
             <div class="form-group input-group">
                 <span class="input-group-addon">New Cheese:</span>
                 <input type="text" class="form-control" name="name" placeholder="Cheese Name..." required/>
@@ -11,12 +12,11 @@
                     </span>
             </div>
         </div>
-    </div>
-</form>
 
-{{--List All Cheeses--}}
-<div class="container">
-    <ul class="list-group col-lg-6 col-lg-offset-3">
+    </form>
+
+    {{--List All Cheeses--}}
+    <ul class="list-group col-md-6">
         <a data-toggle="collapse" href="#cheeses"
            class="list-group-item active collapse-toggle collapsed">
             Current Cheeses

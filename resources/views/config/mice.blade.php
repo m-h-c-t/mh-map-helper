@@ -1,8 +1,8 @@
 {{--Add New Mouse--}}
-<form method="POST" action="/config/mice/add">
-    {{ csrf_field() }}
-    <div class="container">
-        <div class="col-lg-6 col-lg-offset-3">
+<div class="container">
+    <form method="POST" action="/config/mice/add">
+        {{ csrf_field() }}
+        <div class="col-md-6 no-left-padding">
             <div class="form-group input-group">
                 <span class="input-group-addon">New Mouse:</span>
                 <input type="text" class="form-control" name="name" placeholder="Mouse Name..." required/>
@@ -11,12 +11,10 @@
                     </span>
             </div>
         </div>
-    </div>
-</form>
+    </form>
 
-{{--List All Mice--}}
-<div class="container">
-    <ul class="list-group col-lg-6 col-lg-offset-3">
+    {{--List All Mice--}}
+    <ul class="list-group col-md-6">
         <a data-toggle="collapse" href="#mice"
            class="list-group-item active collapse-toggle collapsed">
             Current Mice
