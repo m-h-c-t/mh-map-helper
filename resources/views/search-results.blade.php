@@ -7,13 +7,14 @@
         <h2><i class="glyphicon glyphicon-globe"></i> Locations</h2>
         <span class="gray">( Sorted by number of mice per location ) ( Mice found: {{ $valid_mice_count }}
             @if( !empty( $invalid_mice ) ) - Mice not found: {{ count($invalid_mice) }} @endif )</span>
-        <div class="container well">
+        <div class="container well" id="main-search-results">
             {{--Locations--}}
             @foreach( $setups as $location_name => $location )
                 <div class="list-group col-sm-6 col-md-4 location">
                     {{--Location Name--}}
                     <a data-toggle="collapse" href="#location{{ $location['id'] }}"
-                       class="text-capitalize list-group-item active collapse-toggle collapsed">
+                       class="text-capitalize list-group-item active collapse-toggle collapsed"
+                       data-parent="#main-search-results">
                         {{ $location_name }}
                         <span class="badge pull-left">{{ count( $location['mice_count'] ) }}</span>
                     </a>
@@ -24,35 +25,40 @@
 
                             <div class="list-group stage">
                                 @if( $stage_name != '' )
-                                    <div class="stage-name">
+                                    <a href="#stage-search-results{{ $stage['id'] }}" class="list-group-item stage-name"
+                                       data-toggle="collapse" data-parent="#stage-search-results{{ $stage['id'] }}">
                                         {{ $stage_name }}
-                                    </div>
-                                @endif
+                                    </a>
+                                    <div class="collapse list-group-submenu" id="stage-search-results{{ $stage['id'] }}">
+                                        @endif
 
-                                {{--Mice--}}
-                                @foreach( $stage['mice'] as $mouse)
-                                    <div class="list-group-item">
-                                        <div class="row">
+                                        {{--Mice--}}
+                                        @foreach( $stage['mice'] as $mouse)
+                                            <div class="list-group-item" data-parent="#stage-search-results{{ $stage['id'] }}">
+                                                <div class="row">
 
-                                            <div class="text-capitalize col-sm-6 text-left">
-                                                <div>
-                                                    <a href="{{ $mouse['link'] }}" target="_blank">
-                                                        {{ $mouse['name'] }}
-                                                    </a>
+                                                    <div class="text-capitalize col-sm-6 text-left">
+                                                        <div>
+                                                            <a href="{{ $mouse['link'] }}" target="_blank">
+                                                                {{ $mouse['name'] }}
+                                                            </a>
+                                                        </div>
+                                                    </div>
+                                                    <!-- Cheese list -->
+                                                    <ul class="col-sm-6 list-group list-unstyled cheese">
+                                                        @foreach( $mouse['cheese'] as $cheese)
+                                                            <li class="text-capitalize small list-group-item-warning">
+                                                                <small>{{ $cheese }}</small>
+                                                            </li>
+                                                        @endforeach
+                                                    </ul>
+
                                                 </div>
                                             </div>
-                                            <!-- Cheese list -->
-                                            <ul class="col-sm-6 list-group list-unstyled cheese">
-                                                @foreach( $mouse['cheese'] as $cheese)
-                                                    <li class="text-capitalize small list-group-item-warning">
-                                                        <small>{{ $cheese }}</small>
-                                                    </li>
-                                                @endforeach
-                                            </ul>
-
-                                        </div>
+                                        @endforeach
+                                        @if( $stage_name != '' )
                                     </div>
-                                @endforeach
+                                @endif
                             </div>
                         @endforeach
                     </div>

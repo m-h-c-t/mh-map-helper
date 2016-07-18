@@ -46,7 +46,7 @@ class SearchController extends Controller
             }
             $valid_mice_count++;
 
-            $mouse_setups = $this->organizeMouseSetupsByLocation($mouse);
+            $this->organizeMouseSetupsByLocation($mouse);
         }
         asort($invalid_mice);
 
@@ -83,18 +83,20 @@ class SearchController extends Controller
             // Add location id and name
             $this->setups[$mouse_setup->location->name]['id'] = $mouse_setup->location->id;
 
-            // Add stage name
-            $stage = (count($mouse_setup->location->stage) ? $mouse_setup->location->stage->name : '');
+            // Add stage name and id
+            $stage_name = (count($mouse_setup->location->stage) ? $mouse_setup->location->stage->name : '');
+            $stage_id = (count($mouse_setup->location->stage) ? $mouse_setup->location->stage->id : '');
+            $this->setups[$mouse_setup->location->name]['stages'][$stage_name]['id'] = $stage_id;
 
             // Add mouse id and name
-            $this->setups[$mouse_setup->location->name]['stages'][$stage]['mice'][$mouse->id]['name'] = $mouse->name;
+            $this->setups[$mouse_setup->location->name]['stages'][$stage_name]['mice'][$mouse->id]['name'] = $mouse->name;
 
             // Add cheese name
-            $this->setups[$mouse_setup->location->name]['stages'][$stage]['mice'][$mouse->id]['cheese'][] = $mouse_setup->cheese->name;
+            $this->setups[$mouse_setup->location->name]['stages'][$stage_name]['mice'][$mouse->id]['cheese'][] = $mouse_setup->cheese->name;
 
             // TODO: add wiki links to db/entity
             // Add mouse wiki link
-            $this->setups[$mouse_setup->location->name]['stages'][$stage]['mice'][$mouse->id]['link'] = $mouse->getWikiUrl();
+            $this->setups[$mouse_setup->location->name]['stages'][$stage_name]['mice'][$mouse->id]['link'] = $mouse->getWikiUrl();
 
             $this->setups[$mouse_setup->location->name]['mice_count'][$mouse->id] = 1;
         }
