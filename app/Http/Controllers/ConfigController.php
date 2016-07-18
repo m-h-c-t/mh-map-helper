@@ -5,22 +5,22 @@ namespace App\Http\Controllers;
 use App\Cheese;
 use App\Location;
 use App\Mouse;
+use App\Setup;
+use App\Stage;
 use Illuminate\Http\Request;
 
 class ConfigController extends Controller
 {
     public function main($message = '', $message_type = 'success')
     {
-        $mice = Mouse::all();
-        $locations = Location::all();
-        $cheeses = Cheese::all();
-
         return view('config/main', [
             'message' => $message,
             'message_type' => $message_type,
-            'mice' => $mice,
-            'locations' => $locations,
-            'cheeses' => $cheeses
+            'mice' => Mouse::all(),
+            'locations' => Location::all(),
+            'cheeses' => Cheese::all(),
+            'stages' => Stage::all(),
+            'setups' => Setup::all()
         ]);
     }
 
@@ -36,7 +36,7 @@ class ConfigController extends Controller
 
         $mouse->save();
 
-        return redirect('config')
+        return back()
             ->with(['message' => 'Added mouse #' . $mouse->id . ' named: ' . $mouse->name . '!']);
     }
 
@@ -48,7 +48,7 @@ class ConfigController extends Controller
 
         $mouse->delete();
 
-        return redirect('config')
+        return back()
             ->with(['message' => 'Removed mouse #' . $id . ' named ' . $name . '!']);
     }
 
@@ -61,9 +61,13 @@ class ConfigController extends Controller
 
         $location->name = strtoupper(trim($request->name));
 
+        if ($request->has("stage_id") && is_numeric($request->stage_id)) {
+            $location->stage_id = $request->stage_id;
+        }
+
         $location->save();
 
-        return redirect('config')
+        return back()
             ->with(['message' => 'Added location #' . $location->id . ' named: ' . $location->name . '!']);
     }
 
@@ -75,7 +79,7 @@ class ConfigController extends Controller
 
         $location->delete();
 
-        return redirect('config')
+        return back()
             ->with(['message' => 'Removed location #' . $id . ' named ' . $name . '!']);
     }
 
@@ -90,7 +94,7 @@ class ConfigController extends Controller
 
         $cheese->save();
 
-        return redirect('config')
+        return back()
             ->with(['message' => 'Added cheese #' . $cheese->id . ' named: ' . $cheese->name . '!']);
     }
 
@@ -102,7 +106,68 @@ class ConfigController extends Controller
 
         $cheese->delete();
 
-        return redirect('config')
+        return back()
             ->with(['message' => 'Removed cheese #' . $id . ' named ' . $name . '!']);
+    }
+
+    public function addStage(Request $request)
+    {
+        if (!$request->has("name")) {
+            return redirect('config')->with(['message' => 'Could not add stage without name!', 'message_type' => 'error']);
+        }
+        $stage = new Stage();
+
+        $stage->name = strtoupper(trim($request->name));
+
+        $stage->save();
+
+        return back()
+            ->with(['message' => 'Added stage #' . $stage->id . ' named: ' . $stage->name . '!']);
+    }
+
+    public function removeStage(Stage $stage)
+    {
+
+        $id = $stage->id;
+        $name = $stage->name;
+
+        $stage->delete();
+
+        return back()
+            ->with(['message' => 'Removed stage #' . $id . ' named ' . $name . '!']);
+    }
+
+    public function addSetup(Request $request)
+    {
+        $setup = new Setup();
+        $setup->location_id = $request->location;
+        $setup->mouse_id = $request->mouse;
+        $setup->cheese_id = $request->cheese;
+        $setup->save();
+
+        return back()
+            ->with(['message' => 'Added setup #' . $setup->id
+                . ' Location: ' . $setup->location->name
+                . ' Mouse: ' . $setup->mouse->name
+                . ' Cheese: ' . $setup->cheese->name
+                . '!']);
+    }
+
+    public function removeSetup(Setup $setup)
+    {
+
+        $id = $setup->id;
+        $location = $setup->location->name;
+        $mouse = $setup->mouse->name;
+        $cheese = $setup->cheese->name;
+
+        $setup->delete();
+
+        return back()
+            ->with(['message' => 'Removed setup #' . $id
+                . ' Location: ' . $location
+                . ' Mouse: ' . $mouse
+                . ' Cheese: ' . $cheese
+                . '!']);
     }
 }

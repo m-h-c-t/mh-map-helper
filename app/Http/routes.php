@@ -29,3 +29,11 @@ Route::get('config/locations/remove/{location}', array('middleware' => 'auth.bas
 // Config - cheeses
 Route::post('config/cheeses/add', array('middleware' => 'auth.basic', 'uses' => 'ConfigController@addCheese'));
 Route::get('config/cheeses/remove/{cheese}', array('middleware' => 'auth.basic', 'uses' => 'ConfigController@removeCheese'));
+
+// Config - stages
+Route::post('config/stages/add', array('middleware' => 'auth.basic', 'uses' => 'ConfigController@addStage'));
+Route::get('config/stages/remove/{stage}', array('middleware' => 'auth.basic', 'uses' => 'ConfigController@removeStage'));
+
+// Config - setups
+Route::post('config/setups/add', array('middleware' => 'auth.basic', 'uses' => 'ConfigController@addSetup'));
+Route::get('config/setups/remove/{setup}', array('middleware' => 'auth.basic', 'uses' => 'ConfigController@removeSetup'));
