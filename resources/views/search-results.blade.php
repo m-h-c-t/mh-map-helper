@@ -16,7 +16,7 @@
                        class="text-capitalize list-group-item active collapse-toggle collapsed"
                        data-parent="#main-search-results">
                         {{ $location_name }}
-                        <span class="badge pull-left">{{ count( $location['mice_count'] ) }}</span>
+                        <span class="badge pull-left">{{ count( $location['mice_count'] ) }} @if(count( $location['mice_count']) > 1 ) Mice @else Mouse @endif</span>
                     </a>
 
                     <div id="location{{$location['id']}}" class="collapse">
@@ -25,9 +25,10 @@
 
                             <div class="list-group stage">
                                 @if( $stage_name != '' )
-                                    <a href="#stage-search-results{{ $stage['id'] }}" class="list-group-item stage-name"
+                                    <a href="#stage-search-results{{ $stage['id'] }}" class="list-group-item stage-name collapse-toggle-two collapsed"
                                        data-toggle="collapse" data-parent="#stage-search-results{{ $stage['id'] }}">
                                         {{ $stage_name }}
+                                        <span class="badge pull-left">{{ count( $stage['mice'] ) }} @if(count( $stage['mice']) > 1 ) Mice @else Mouse @endif</span>
                                     </a>
                                     <div class="collapse list-group-submenu" id="stage-search-results{{ $stage['id'] }}">
                                         @endif

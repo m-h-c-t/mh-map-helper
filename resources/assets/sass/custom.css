@@ -76,10 +76,18 @@ body {
 
 .collapse-toggle:after {
   font-family: 'Glyphicons Halflings';
-  content: "\2212";
+  content: "\e113";
   float: right; }
 
 .collapse-toggle.collapsed:after {
+  content: "\e114"; }
+
+.collapse-toggle-two:after {
+  font-family: 'Glyphicons Halflings';
+  content: "\2212";
+  float: right; }
+
+.collapse-toggle-two.collapsed:after {
   content: "\2b"; }
 
 .no-left-padding {

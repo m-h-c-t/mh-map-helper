@@ -98,6 +98,7 @@ class SearchController extends Controller
             // Add mouse wiki link
             $this->setups[$mouse_setup->location->name]['stages'][$stage_name]['mice'][$mouse->id]['link'] = $mouse->getWikiUrl();
 
+            // Add mouse counts per location
             $this->setups[$mouse_setup->location->name]['mice_count'][$mouse->id] = 1;
         }
     }
