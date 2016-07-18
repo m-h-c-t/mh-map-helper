@@ -15,6 +15,7 @@
   background: url("/images/croppedcat.jpg") center no-repeat;
   text-shadow: 0 0 1em black;
   color: white;
+  margin-bottom: 0px;
 }
 
 html {
@@ -38,6 +39,10 @@ body {
   margin: 1em auto 0 auto;
 }
 
+.content {
+  margin-top: 2em;
+}
+
 .clickable {
   cursor: pointer;
 }
@@ -50,12 +55,6 @@ body {
 .hide_class {
   display: none;
 }
-
-//.location-divs {
-//  display: flex;
-//  flex-flow: row wrap;
-//  justify-content: space-around;
-//}
 
 .list-group.location {
   padding: 0px 7px;

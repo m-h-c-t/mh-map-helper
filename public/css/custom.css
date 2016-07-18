@@ -11,7 +11,8 @@
 .jumbotron {
   background: url("/images/croppedcat.jpg") center no-repeat;
   text-shadow: 0 0 1em black;
-  color: white; }
+  color: white;
+  margin-bottom: 0px; }
 
 html {
   position: relative;
@@ -29,6 +30,9 @@ body {
 
 .footer p {
   margin: 1em auto 0 auto; }
+
+.content {
+  margin-top: 2em; }
 
 .clickable {
   cursor: pointer; }
