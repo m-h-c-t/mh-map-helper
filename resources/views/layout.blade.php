@@ -28,9 +28,22 @@
 
 @include('custom-footer')
 
-<!-- JS Includes -->
-<script defer src="//code.jquery.com/jquery-1.11.3.min.js"></script>
-<script defer src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+<!-- jQuery -->
+<script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+<script defer>window.jQuery || document.write('<script src="/js/jquery.min.js"><\/script>')</script>
+
+<!-- Bootstrap -->
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+<script defer>window.jQuery.fn.modal || document.write('<script src="/js/bootstrap.min.js"><\/script>')</script>
+<script>
+    (function($) {
+        $(function() {
+            if ($('body').css('color') !== 'rgb(51, 51, 51)') {
+                $('head').prepend('<link rel="stylesheet" href="/css/bootstrap.min.css">');
+            }
+        });
+    })(window.jQuery);
+</script>
 
 </body>
 </html>
