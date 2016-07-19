@@ -12,15 +12,20 @@ app.controller('MainController', ['$scope', '$http', function($scope, $http) {
         $scope.mice_found = 0;
 
         $http.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded;charset=utf-8';
-        $http.get("api.php", {
+        $http.get("http://api.mhmaphelper.agiletravels.com/search", {
             params: {
-                action: 'get_mice_info',
                 mice: JSON.stringify($scope.micelist),
             }
         }).success(function(response) {
-            var structured_locations = {};
+            console.log(response);
+            var structured_setups = {};
             // build location objects from mice objects in response
-            angular.forEach(response, function(mouse) {
+            angular.forEach(response.setup, function(setup) {
+
+
+
+
+                /*
                 if (mouse.is_valid) {
                     $scope.mice_found++;
                     angular.forEach(mouse.locations, function(location, location_id) {
@@ -54,11 +59,11 @@ app.controller('MainController', ['$scope', '$http', function($scope, $http) {
                     $scope.mice_not_found.push({
                         name: mouse.name
                     });
-                }
+                }*/
             });
 
             // populate $scope.search_results grouped by location
-            angular.forEach(structured_locations, function(location) {
+            angular.forEach(structured_setups, function(location) {
                 $scope.search_results.push(location);
             });
 

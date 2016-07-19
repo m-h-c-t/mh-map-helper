@@ -13,7 +13,7 @@
 
 //Route::get('/', 'SearchController@main');
 
-Route::get('search', 'SearchController@search');
+Route::get('search', array('middleware' => 'cors', 'uses' => 'SearchController@search'));
 
 // Config
 Route::get('config', array('middleware' => 'auth.basic', 'uses' => 'ConfigController@main'));

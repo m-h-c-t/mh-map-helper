@@ -4,27 +4,20 @@ namespace App\Http\Controllers;
 
 use App\Mouse;
 use Illuminate\Http\Request;
+use Log;
 
 class SearchController extends Controller
 {
-//    public function main()
-//    {
-//        return view('main');
-//    }
 
     public function search(Request $request)
     {
 
         $results = array();
-        if (!$request->has("mice")) {
-            return ''; // TODO: return an error message
+        if (!$request->has("mice") || empty($request->input("mice"))) {
+            return ['error' => 'No mice supplied'];
         }
 
-        $mice_names = $this->filterMouseNames($request->input("mice"));
-
-        if (!count($mice_names)) {
-            return ''; // TODO: return an error message
-        }
+        $mice_names = $this->filterMouseNames(json_decode($request->input("mice")));
 
         $valid_mice_count = 0;
         $invalid_mice = array();
@@ -45,7 +38,7 @@ class SearchController extends Controller
 
         $setups = $this->sortSetups($setups);
 
-        return view('search-results', [
+        return response()->json([
             'setups' => $setups,
             'valid_mice_count' => $valid_mice_count,
             'invalid_mice' => $invalid_mice,
@@ -61,8 +54,7 @@ class SearchController extends Controller
      */
     private function filterMouseNames($mice_names)
     {
-        $mice_names = explode("\n", $mice_names);
-        $mice_names = array_map('App\Mouse::formatName',$mice_names);
+        $mice_names = array_map('App\Mouse::formatName', $mice_names);
         $mice_names = array_filter($mice_names);
         $mice_names = array_unique($mice_names);
 
