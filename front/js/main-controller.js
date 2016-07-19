@@ -12,12 +12,12 @@ app.controller('MainController', ['$scope', '$http', function($scope, $http) {
         $scope.mice_found = 0;
 
         $http.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded;charset=utf-8';
-        $http.get("search", {
+        $http.get("api.php", {
             params: {
+                action: 'get_mice_info',
                 mice: JSON.stringify($scope.micelist),
             }
         }).success(function(response) {
-            console.log(response);
             var structured_locations = {};
             // build location objects from mice objects in response
             angular.forEach(response, function(mouse) {
@@ -64,10 +64,6 @@ app.controller('MainController', ['$scope', '$http', function($scope, $http) {
 
             $('#custom_loader').fadeOut('slow');
             $scope.first_load = false;
-        })
-        .error(function(response) {
-            alert("Failed to reach server, please try again later.");
-            console.log(response);
         });
     };
     // Reset everything
@@ -98,3 +94,27 @@ app.controller('MainController', ['$scope', '$http', function($scope, $http) {
         $('#stage' + id).toggleClass("hide_class", 0);
     };
 }]);
+app.directive('miceListForm', function() {
+    return {
+        restrict: 'E',
+        templateUrl: 'mice-list-form.html'
+    };
+});
+app.directive('searchResults', function() {
+    return {
+        restrict: 'E',
+        templateUrl: 'search-results.html'
+    };
+});
+app.directive('customFooter', function() {
+    return {
+        restrict: 'E',
+        templateUrl: 'custom-footer.html'
+    };
+});
+app.directive('customHeader', function() {
+    return {
+        restrict: 'E',
+        templateUrl: 'custom-header.html'
+    };
+});

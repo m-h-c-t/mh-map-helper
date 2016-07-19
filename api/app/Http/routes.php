@@ -11,7 +11,7 @@
 |
 */
 
-Route::get('/', 'SearchController@main');
+//Route::get('/', 'SearchController@main');
 
 Route::get('search', 'SearchController@search');
 

@@ -7,23 +7,23 @@ use Illuminate\Http\Request;
 
 class SearchController extends Controller
 {
-    public function main()
-    {
-        return view('main');
-    }
+//    public function main()
+//    {
+//        return view('main');
+//    }
 
     public function search(Request $request)
     {
 
         $results = array();
         if (!$request->has("mice")) {
-            return view('main');
+            return ''; // TODO: return an error message
         }
 
         $mice_names = $this->filterMouseNames($request->input("mice"));
 
         if (!count($mice_names)) {
-            return view('main');
+            return ''; // TODO: return an error message
         }
 
         $valid_mice_count = 0;

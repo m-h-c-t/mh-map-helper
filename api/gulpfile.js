@@ -1,4 +1,4 @@
-// Includes
+// Includes // TODO: move this all to /front/ gulp
 var elixir = require('laravel-elixir');
 const gulp = require('gulp');
 const imagemin = require('gulp-imagemin');
