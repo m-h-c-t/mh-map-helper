@@ -31,8 +31,7 @@ class ConfigController extends Controller
         }
         $mouse = new Mouse();
 
-        $mouse->name = strtoupper(trim($request->name));
-        $mouse->name = str_replace(' MOUSE', '', $mouse->name); // TODO: using this in search too, move to mouse class
+        $mouse->name = $mouse->formatName($request->name);
 
         $mouse->save();
 

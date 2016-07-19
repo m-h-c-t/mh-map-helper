@@ -2,13 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Mouse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Log;
 
 class SearchController extends Controller
 {
-    public $setups = [];
-
     public function main()
     {
         return view('main');
@@ -30,13 +28,8 @@ class SearchController extends Controller
 
         $valid_mice_count = 0;
         $invalid_mice = array();
-        $this->setups = array();
+        $setups = array();
         foreach ($mice_names as $mouse_name) {
-            $mouse_name = str_replace(' MOUSE', '', $mouse_name); // TODO: Move to filterMouseNames
-
-            if (empty($mouse_name)) { // TODO: Move to filterMouseNames
-                continue;
-            }
 
             $mouse = \App\Mouse::where('name', $mouse_name)->first();
 
@@ -46,14 +39,14 @@ class SearchController extends Controller
             }
             $valid_mice_count++;
 
-            $this->organizeMouseSetupsByLocation($mouse);
+            $setups = $this->organizeMouseSetupsByLocation($mouse, $setups);
         }
         asort($invalid_mice);
 
-        $this->sortSetups();
+        $setups = $this->sortSetups($setups);
 
         return view('search-results', [
-            'setups' => $this->setups,
+            'setups' => $setups,
             'valid_mice_count' => $valid_mice_count,
             'invalid_mice' => $invalid_mice,
             'micelist' => $request->input("mice")]);
@@ -69,57 +62,58 @@ class SearchController extends Controller
     private function filterMouseNames($mice_names)
     {
         $mice_names = explode("\n", $mice_names);
-        $mice_names = array_map('trim', $mice_names);
+        $mice_names = array_map('App\Mouse::formatName',$mice_names);
         $mice_names = array_filter($mice_names);
-        $mice_names = array_map('strtoupper', $mice_names);
         $mice_names = array_unique($mice_names);
 
         return $mice_names;
     }
 
-    private function organizeMouseSetupsByLocation($mouse)
+    private function organizeMouseSetupsByLocation($mouse, $setups)
     {
         foreach ($mouse->setups as $mouse_setup) {
             // Add location id and name
-            $this->setups[$mouse_setup->location->name]['id'] = $mouse_setup->location->id;
+            $setups[$mouse_setup->location->name]['id'] = $mouse_setup->location->id;
 
             // Add stage name and id
             $stage_name = (count($mouse_setup->location->stage) ? $mouse_setup->location->stage->name : '');
             $stage_id = (count($mouse_setup->location->stage) ? $mouse_setup->location->stage->id : '');
-            $this->setups[$mouse_setup->location->name]['stages'][$stage_name]['id'] = $stage_id;
+            $setups[$mouse_setup->location->name]['stages'][$stage_name]['id'] = $stage_id;
 
             // Add mouse id and name
-            $this->setups[$mouse_setup->location->name]['stages'][$stage_name]['mice'][$mouse->id]['name'] = $mouse->name;
+            $setups[$mouse_setup->location->name]['stages'][$stage_name]['mice'][$mouse->id]['name'] = $mouse->name;
 
             // Add cheese name
-            $this->setups[$mouse_setup->location->name]['stages'][$stage_name]['mice'][$mouse->id]['cheese'][] = $mouse_setup->cheese->name;
+            $setups[$mouse_setup->location->name]['stages'][$stage_name]['mice'][$mouse->id]['cheese'][] = $mouse_setup->cheese->name;
 
             // TODO: add wiki links to db/entity
             // Add mouse wiki link
-            $this->setups[$mouse_setup->location->name]['stages'][$stage_name]['mice'][$mouse->id]['link'] = $mouse->getWikiUrl();
+            $setups[$mouse_setup->location->name]['stages'][$stage_name]['mice'][$mouse->id]['link'] = $mouse->getWikiUrl();
 
             // Add mouse counts per location
-            $this->setups[$mouse_setup->location->name]['mice_count'][$mouse->id] = 1;
+            $setups[$mouse_setup->location->name]['mice_count'][$mouse->id] = 1;
         }
+        return $setups;
     }
 
-    private function sortSetups()
+    private function sortSetups($setups)
     {
         // TODO: Sort iceberg stages somehow
 
-        foreach ($this->setups as $location_name => $location) {
-            ksort($this->setups[$location_name]['stages']);
+        foreach ($setups as $location_name => $location) {
+            ksort($setups[$location_name]['stages']);
             foreach ($location['stages'] as $stage_name => $stage) {
-                ksort($this->setups[$location_name]['stages'][$stage_name]['mice']);
+                ksort($setups[$location_name]['stages'][$stage_name]['mice']);
                 foreach ($stage['mice'] as $mouse_id => $mouse) {
-                    asort($this->setups[$location_name]['stages'][$stage_name]['mice'][$mouse_id]['cheese']);
+                    asort($setups[$location_name]['stages'][$stage_name]['mice'][$mouse_id]['cheese']);
                 }
             }
         }
 
         // Sort location arrays by mice count
-        uasort($this->setups, function ($a, $b) {
+        uasort($setups, function ($a, $b) {
             return count($b['mice_count']) <=> count($a['mice_count']);
         });
+        return $setups;
     }
 }

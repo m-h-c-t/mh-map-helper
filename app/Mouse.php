@@ -29,4 +29,10 @@ class Mouse extends Model
     {
         return $this->hasMany(Setup::class);
     }
+
+    public static function formatName($name) {
+        $name = strtoupper(trim($name));
+        $name = str_replace(' MOUSE', '', $name);
+        return $name;
+    }
 }
