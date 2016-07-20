@@ -76,11 +76,11 @@ class SearchController extends Controller
             $setups[$mouse_setup->location->name]['stages'][$stage_name]['mice'][$mouse->id]['name'] = $mouse->name;
 
             // Add cheese name
-            $setups[$mouse_setup->location->name]['stages'][$stage_name]['mice'][$mouse->id]['cheese'][] = $mouse_setup->cheese->name;
+            $setups[$mouse_setup->location->name]['stages'][$stage_name]['mice'][$mouse->id]['cheeses'][] = $mouse_setup->cheese->name;
 
             // TODO: add wiki links to db/entity
             // Add mouse wiki link
-            $setups[$mouse_setup->location->name]['stages'][$stage_name]['mice'][$mouse->id]['link'] = $mouse->getWikiUrl();
+            $setups[$mouse_setup->location->name]['stages'][$stage_name]['mice'][$mouse->id]['wiki_url'] = $mouse->getWikiUrl();
 
             // Add mouse counts per location
             $setups[$mouse_setup->location->name]['mice_count'][$mouse->id] = 1;
@@ -97,7 +97,7 @@ class SearchController extends Controller
             foreach ($location['stages'] as $stage_name => $stage) {
                 ksort($setups[$location_name]['stages'][$stage_name]['mice']);
                 foreach ($stage['mice'] as $mouse_id => $mouse) {
-                    asort($setups[$location_name]['stages'][$stage_name]['mice'][$mouse_id]['cheese']);
+                    asort($setups[$location_name]['stages'][$stage_name]['mice'][$mouse_id]['cheeses']);
                 }
             }
         }
