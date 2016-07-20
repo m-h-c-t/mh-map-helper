@@ -1,60 +1,67 @@
 <!-- Locations (with mice and cheese) -->
 <div class="container well" ng-show="search_results.valid_mice_count" id="main-search-results">
     <h2 style="margin-top:0;"><i class="glyphicon glyphicon-globe"></i> Locations</h2>
+
     <span class="gray">( Sorted by number of mice per location ) ( Mice found: {{ search_results.valid_mice_count }}
-        <span ng-show="search_results.invalid_mice.length"> - Mice not found: {{ search_results.invalid_mice.length }}</span> )</span>
+        <span ng-show="search_results.invalid_mice.length"> - Mice not found: {{ search_results.invalid_mice.length }}</span>)</span>
+    <br style="clear:both;"/>
     <div ng-repeat="(location_name, location) in search_results.setups | orderBy:['-mice_count.length', 'location_name']"
-         ng-hide="$.isEmptyObject(location['mice_count'])">
+         ng-hide="$.isEmptyObject(location['mice_count'])" class="location col-sm-6 col-md-4 list-group">
+        <!-- Location Title -->
+        <a data-toggle="collapse" href="#location{{$id}}"
+           class="text-capitalize list-group-item active collapsed collapse-toggle"
+           data-parent="#main-search-results">
+            {{location_name | lowercase}}
+            <span class="badge pull-left">{{(location['mice_count']).length}} {{location.size === 1 ? "mouse" : "mice"}}</span>
+            <!--{{(location['mice_count']).length}} TODO: fix this-->
+        </a>
+        <!-- Mice dropdown -->
+        <div id="location{{$id}}" class="collapse">
+            <!-- Stages -->
+            <div ng-repeat="(stage_name, stage) in location.stages | orderBy: stage_name">
+                <!-- Mice With Stages -->
+                <a href="#stage{{stage.id}}" class="list-group-item text-capitalize collapsed collapse-toggle-two"
+                   style="background-color:lightgray"
+                   ng-if="stage_name.length" data-toggle="collapse" data-parent="#stage{{stage.id}}">
+                    <!--ng-if="stage_name.length && stage.mice.length" TODO: fix stage without mice-->
+                    <span class="badge pull-left">{{stage.mice.length}} {{stage.mice.length === 1 ? "mouse" : "mice"}}</span>
+                    {{stage_name | lowercase}}
+                </a>
+                <div id="stage{{stage.id}}" ng-attr-class="{{stage_name.length ? 'collapse' : undefined }}">
+                    <div class="list-group-item" ng-repeat="mouse in stage.mice | orderBy: 'name'"
+                         data-parent="#stage{{stage.id}}">
+                        <div class="row">
+                            <div class="text-capitalize col-sm-6 text-left">
+                                <i class="glyphicon glyphicon-remove pull-left clickable large-gray"
+                                   ng-click="remove_a_mouse(mouse.name)"></i>&nbsp;
 
-        <div style="padding:0px 7px;" class="list-group col-sm-4">
-            <!-- Location Title -->
-            <a data-toggle="collapse" href="#location{{$id}}"
-               class="text-capitalize list-group-item active collapsed collapse-toggle"
-               data-parent="#main-search-results">
-                {{location_name | lowercase}}
-                <span class="badge pull-left">{{(location['mice_count']).length}} {{location.size === 1 ? "mouse" : "mice"}}</span>
-                <!--{{(location['mice_count']).length}} TODO: fix this-->
-            </a>
-            <!-- Mice dropdown -->
-            <div id="location{{$id}}" class="collapse">
-                <!-- Stages -->
-                <div ng-repeat="(stage_name, stage) in location.stages | orderBy: stage_name">
-                    <!-- Mice With Stages -->
-                    <a href="#stage{{stage.id}}" class="list-group-item text-capitalize collapsed collapse-toggle-two"
-                       style="background-color:lightgray"
-                       ng-if="stage_name.length" data-toggle="collapse" data-parent="#stage{{stage.id}}">
-                        <!--ng-if="stage_name.length && stage.mice.length" TODO: fix stage without mice-->
-                        <span class="badge pull-left">{{stage.mice.length}} {{stage.mice.length === 1 ? "mouse" : "mice"}}</span>
-                        {{stage_name | lowercase}}
-                    </a>
-                    <div id="stage{{stage.id}}" ng-attr-class="{{stage_name.length ? 'collapse' : undefined }}">
-                        <div class="list-group-item" ng-repeat="mouse in stage.mice | orderBy: 'name'"
-                             data-parent="#stage{{stage.id}}">
-                            <div class="row">
-                                <div class="text-capitalize col-sm-6 text-left">
-                                    <i class="glyphicon glyphicon-remove pull-left clickable large-gray"
-                                       ng-click="remove_a_mouse(mouse.name)"></i>&nbsp;
-
-                                    <a href="{{mouse.wiki_url}}" target="_blank">{{mouse.name | lowercase}}</a>
-                                </div>
-                                <!-- Cheese list -->
-                                <ul class="col-sm-6 list-group list-unstyled pull-right" style="margin-bottom:0;">
-                                    <li class="text-capitalize small list-group-item-warning"
-                                        ng-repeat="cheese in mouse.cheeses | orderBy">
-                                        <small>{{cheese | lowercase}}</small>
-                                    </li>
-                                </ul>
+                                <a href="{{mouse.wiki_url}}" target="_blank">{{mouse.name | lowercase}}</a>
                             </div>
+                            <!-- Cheese list -->
+                            <ul class="col-sm-6 list-group list-unstyled pull-right" style="margin-bottom:0;">
+                                <li class="text-capitalize small list-group-item-warning"
+                                    ng-repeat="cheese in mouse.cheeses | orderBy">
+                                    <small>{{cheese | lowercase}}</small>
+                                </li>
+                            </ul>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <br ng-if="($index+1)%3==0" style="clear:both"/>
     </div>
 </div>
 <!-- Mice not found -->
-<ul class="list-group container" ng-show="search_results.invalid_mice.length" style="padding:0">
-    <li class="list-group-item list-group-item-danger"><strong>Could not find the following mice:</strong></li>
-    <li class="list-group-item" ng-repeat="mouse_name in search_results.invalid_mice">{{mouse_name}}</li>
-</ul>
+<div class="container" ng-show="search_results.invalid_mice.length">
+    <div class="list-group col-sm-6 col-sm-offset-3" id="invalid_mice_parent">
+        <a href="#invalid_mice_list" class="list-group-item list-group-item-danger collapsed collapse-toggle"
+           data-parent="#invalid_mice_parent" data-toggle="collapse"><strong>Could not find {{
+            search_results.invalid_mice.length }}
+            mice</strong></a>
+        <div id="invalid_mice_list" class="collapse">
+            <div class="list-group-item" data-parent="#invalid_mice_parent"
+                 ng-repeat="mouse_name in search_results.invalid_mice">{{mouse_name}}
+            </div>
+        </div>
+    </div>
+</div>

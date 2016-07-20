@@ -79,23 +79,23 @@ body {
     color: gray;
 }
 
-/*.list-group.location {*/
-    /*padding: 0px 7px;*/
-    /*margin-bottom: 1em;*/
-/*}*/
+.list-group.location {
+    padding: 0px 7px;
+    margin-bottom: 1em;
+}
 
-/*@media (min-width: 750px) {*/
-    /*.list-group.location:nth-of-type(2n+1) {*/
-        /*clear: both;*/
-    /*}*/
-/*}*/
+@media (min-width: 750px) {
+    .location:nth-of-type(2n+1) {
+        clear: both;
+    }
+}
 
-/*@media (min-width: 970px) {*/
-    /*.list-group.location:nth-of-type(2n+1) {*/
-        /*clear: none;*/
-    /*}*/
+@media (min-width: 970px) {
+    .location:nth-of-type(2n+1) {
+        clear: none;
+    }
 
-    /*.list-group.location:nth-of-type(3n+1) {*/
-        /*clear: both;*/
-    /*}*/
-/*}*/
+    .location:nth-of-type(3n+1) {
+        clear: both;
+    }
+}
