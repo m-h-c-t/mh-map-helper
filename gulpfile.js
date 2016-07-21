@@ -20,6 +20,9 @@ gulp.task('watch', function() {
 // JAVASCRIPTS
 const minify = require('gulp-minify');
 gulp.task('js', function () {
+    gulp.src('node_modules/js-cookie/src/js.cookie.js')
+        .pipe(gulp.dest('front/js/dist'));
+
     gulp.src('front/js/source/*.js')
         .pipe(minify({
             ext: {

@@ -1,15 +1,21 @@
 var app = angular.module('mainapp', []);
 app.controller('MainController', ['$scope', '$http', function ($scope, $http) {
     $scope.micelist = [];
-    $scope.search_results = [];
-    $scope.first_load = true;
-    // $scope.mice_found = 0;
+    $scope.invalid_mice = [];
+    $scope.setups = {};
+    $scope.setups.locations = {};
+    $scope.setups.mice_count = [];
+    $scope.setups.mice_count_number = 0;
+
+
     // Get locations and cheese for each mouse
     $scope.search = function () {
         $('#custom_loader').show();
-        $scope.search_results = [];
-        // $scope.mice_not_found = [];
-        // $scope.mice_found = 0;
+        $scope.invalid_mice = [];
+        $scope.setups = {};
+        $scope.setups.locations = {};
+        $scope.setups.mice_count = {};
+        $scope.setups.mice_count_number = 0;
 
         $http.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded;charset=utf-8';
         $http.get("http://api.mhmaphelper.agiletravels.com/search", {
@@ -17,83 +23,117 @@ app.controller('MainController', ['$scope', '$http', function ($scope, $http) {
                 mice: JSON.stringify($scope.micelist),
             }
         }).success(function (response) {
-            console.log(response);
-            // var structured_setups = {};
-            // build location objects from mice objects in response
-            // angular.forEach(response.setup, function(setup) {
+            $scope.invalid_mice = response.invalid_mice;
 
+            // Build structured array and dedup everything by grouping
+            angular.forEach(response.valid_mice, function (mouse) {
 
-            /*
-             if (mouse.is_valid) {
-             $scope.mice_found++;
-             angular.forEach(mouse.locations, function(location, location_id) {
-             if (!structured_locations.hasOwnProperty(location.name)) {
-             structured_locations[location.name] = {};
-             structured_locations[location.name].mice = {};
-             structured_locations[location.name].stages ={};
-             }
-             if (!structured_locations[location.name].stages.hasOwnProperty(location.stage)) {
-             structured_locations[location.name].stages[location.stage] = {};
-             structured_locations[location.name].stages[location.stage].mice = [];
-             structured_locations[location.name].stages[location.stage].size = 0;
-             structured_locations[location.name].stages[location.stage].id = location_id;
-             }
-             structured_locations[location.name].name = location.name;
+                angular.forEach(mouse.setups, function (setup) {
+                    // Add location
+                    // Using location name as index instead of id because we have different location ids for different stages
+                    if (!(setup.location.name in $scope.setups.locations)) {
+                        $scope.setups.locations[setup.location.name] = {};
+                        $scope.setups.locations[setup.location.name].stages = {};
+                        $scope.setups.locations[setup.location.name].mice_count = {};
+                    }
+                    $scope.setups.locations[setup.location.name].id = setup.location.id;
+                    $scope.setups.locations[setup.location.name].name = setup.location.name;
 
-             var cheeses = [];
-             angular.forEach(mouse.cheeses, function(cheese) {
-             cheeses.push(cheese);
-             });
-             structured_locations[location.name].stages[location.stage].mice.push({
-             name: mouse.name,
-             mouse_wiki_url: mouse.mouse_wiki_url,
-             cheeses: cheeses
-             });
+                    // Add stage
+                    var stage_name = (setup.location.stage == null) ? '' : setup.location.stage.name;
+                    var stage_id = (setup.location.stage == null) ? '' : setup.location.stage.id;
+                    if (!(stage_id in $scope.setups.locations[setup.location.name].stages)) {
+                        $scope.setups.locations[setup.location.name].stages[stage_id] = {};
+                        $scope.setups.locations[setup.location.name].stages[stage_id].mice = {};
+                        $scope.setups.locations[setup.location.name].stages[stage_id].mice_count = {};
+                    }
+                    $scope.setups.locations[setup.location.name].stages[stage_id].id = stage_id;
+                    $scope.setups.locations[setup.location.name].stages[stage_id].name = stage_name;
 
-             structured_locations[location.name].mice[mouse.name] = true;
-             structured_locations[location.name].size = Object.keys(structured_locations[location.name].mice).length;
-             });
-             } else if (mouse.name != '') {
-             $scope.mice_not_found.push({
-             name: mouse.name
-             });
-             }*/
-            // });
+                    // Add mouse
+                    if (!(setup.mouse.id in $scope.setups.locations[setup.location.name].stages[stage_id].mice)) {
+                        $scope.setups.locations[setup.location.name].stages[stage_id].mice[setup.mouse.id] = {};
+                        $scope.setups.locations[setup.location.name].stages[stage_id].mice[setup.mouse.id].cheeses = {};
+                    }
+                    $scope.setups.locations[setup.location.name].stages[stage_id].mice[setup.mouse.id].id = setup.mouse.id;
+                    $scope.setups.locations[setup.location.name].stages[stage_id].mice[setup.mouse.id].name = setup.mouse.name;
+                    // TODO: Fix wiki urls
+                    // $scope.setups[setup.location.id].stages[setup.location.stage.id].mice[setup.mouse.id].wiki_url = setup.mouse.wiki_url;
 
-            // // populate $scope.search_results grouped by location
-            // angular.forEach(structured_setups, function(location) {
-            //     $scope.search_results.push(location);
-            // });
-            $scope.search_results = response;
+                    // Add cheese
+                    if (!(setup.cheese.id in $scope.setups.locations[setup.location.name].stages[stage_id].mice[setup.mouse.id].cheeses)) {
+                        $scope.setups.locations[setup.location.name].stages[stage_id].mice[setup.mouse.id].cheeses[setup.cheese.id] = {};
+                    }
+                    $scope.setups.locations[setup.location.name].stages[stage_id].mice[setup.mouse.id].cheeses[setup.cheese.id].id = setup.cheese.id;
+                    $scope.setups.locations[setup.location.name].stages[stage_id].mice[setup.mouse.id].cheeses[setup.cheese.id].name = setup.cheese.name;
+
+                    // Mice counts
+                    $scope.setups.mice_count[setup.mouse.id] = true;
+                    $scope.setups.mice_count_number = Object.keys($scope.setups.mice_count).length;
+                    $scope.setups.locations[setup.location.name].mice_count[setup.mouse.id] = true;
+                    $scope.setups.locations[setup.location.name].mice_count_number = Object.keys($scope.setups.locations[setup.location.name].mice_count).length;
+                    $scope.setups.locations[setup.location.name].stages[stage_id].mice_count[setup.mouse.id] = true;
+                    $scope.setups.locations[setup.location.name].stages[stage_id].mice_count_number = Object.keys($scope.setups.locations[setup.location.name].stages[stage_id].mice_count).length;
+                });
+            });
+
+            // Converting to arrays for easy sorting
+            // Not doing this right away to dedup first
+            var temp_locations = $scope.setups.locations;
+            $scope.setups.locations = [];
+            angular.forEach(temp_locations, function (location) {
+                var temp_stages = location.stages;
+                location.stages = [];
+                angular.forEach(temp_stages, function (stage) {
+                    var temp_mice = stage.mice;
+                    stage.mice = [];
+                    angular.forEach(temp_mice, function (mouse) {
+                        var temp_cheeses = mouse.cheeses;
+                        mouse.cheeses = [];
+                        angular.forEach(temp_cheeses, function (cheese) {
+                            mouse.cheeses.push(cheese);
+                        });
+                        stage.mice.push(mouse);
+                    });
+                    location.stages.push(stage);
+                });
+                $scope.setups.locations.push(location);
+            });
 
             $('#custom_loader').fadeOut('slow');
-            $scope.first_load = false;
+
         });
     };
     // Reset everything
     $scope.reset = function () {
         $scope.micelist = [];
-        $scope.search_results = [];
-        $scope.first_load = true;
-        // $scope.mice_not_found = [];
-        // $scope.mice_found = 0;
+        $scope.invalid_mice = [];
+        $scope.setups = {};
     };
-    // Remove a mouse from list
-    $scope.remove_a_mouse = function (mouse_name) {
-        angular.forEach($scope.search_results, function (location) {
-            var reduce_location = false;
-            angular.forEach(location.stages, function (stage, stage_name) {
-                angular.forEach(stage.mice, function (mouse, key) {
-                    if (mouse.name === mouse_name) {
-                        stage.mice.splice(key, 1);
-                        reduce_location = true;
+
+    // Remove a mouse from list // TODO: FIX
+    $scope.remove_a_mouse = function (mouse_id) {
+        console.log('fired1');
+        var removed_mouse = false;
+        angular.forEach($scope.setups.locations, function (location) {
+            var removed_location_mouse = false;
+            angular.forEach(location.stages, function (stage) {
+                var removed_stage_mouse = false;
+                angular.forEach(stage.mice, function (mouse, index) {
+                    if (mouse.id === mouse_id) {
+                        stage.mice.splice(index, 1);
+                        removed_mouse = true;
+                        removed_location_mouse = true;
+                        removed_stage_mouse = true;
                     }
                 });
+                if (removed_stage_mouse) stage.mice_count_number--;
             });
-            if (reduce_location) location.size--;
+            if (removed_location_mouse) location.mice_count_number--;
         });
-        $scope.mice_found--;
+        if (removed_mouse) $scope.setups.mice_count_number--;
     };
+
 }]);
 
 // Input form

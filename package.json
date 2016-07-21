@@ -12,7 +12,8 @@
     "gulp-imagemin": "^3.0.2",
     "gulp-livereload": "^3.8.1",
     "gulp-minify": "0.0.13",
-    "gulp-rename": "^1.2.2"
+    "gulp-rename": "^1.2.2",
+    "js-cookie": "^2.1.2"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"

@@ -9,6 +9,7 @@ class Setup extends Model
 {
     public $timestamps = false;
     protected $table = 'setups';
+    protected $with = ['mouse', 'location', 'cheese'];
 
     public function mouse()
     {
