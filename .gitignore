@@ -1,6 +1,7 @@
 api/vendor
-*/node_modules
+node_modules/
 api/public/storage
 api/public/build
 .env
 .idea
+dist/

@@ -1,26 +1,44 @@
 // Includes // TODO: move this all to /front/ gulp
-var elixir = require('laravel-elixir');
+// var elixir = require('laravel-elixir');
 const gulp = require('gulp');
+const rename = require('gulp-rename');
 const imagemin = require('gulp-imagemin');
 
-// Config
-elixir.config.js.browserify.watchify.options.poll = true;
-
-// Process
-elixir.extend('images', function () {
-    new elixir.Task('images', function () {
-        return gulp.src('resources/assets/images/*')
-            .pipe(imagemin())
-            .pipe(gulp.dest('public/images'));
-    }).watch('resources/assets/images/*');
+// DEFAULT
+gulp.task('default', function() {
+    gulp.start('js', 'img', 'css');
 });
 
-elixir(function (mix) {
-    mix.sass('custom.scss');
+// JAVASCRIPTS
+const minify = require('gulp-minify');
+gulp.task('js', function () {
+    gulp.src('front/js/source/*.js')
+        .pipe(minify({
+            ext: {
+                src: '.js',
+                min: '.min.js'
+            },
+            noSource: true,
+            // exclude: ['tasks'],
+            // ignoreFiles: ['.combo.js', '-min.js']
+        }))
+        .pipe(gulp.dest('front/js/dist'));
+});
 
-    mix.scripts('main-controller.js');
+// IMAGES
+gulp.task('img', function () {
+    gulp.src('front/images/source/*')
+        .pipe(imagemin())
+        .pipe(gulp.dest('front/images/dist'));
+});
 
-    mix.version(['public/css/custom.css', 'public/js/main-controller.js'], 'public/build');
-
-    mix.images();
+// CSS
+const cleanCSS = require('gulp-clean-css');
+gulp.task('css', function () {
+    return gulp.src('front/css/source/*.css')
+        .pipe(cleanCSS({compatibility: 'ie8'}))
+        .pipe(rename({
+            suffix: '.min'
+        }))
+        .pipe(gulp.dest('front/css/dist'));
 });
