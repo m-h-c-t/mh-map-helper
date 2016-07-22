@@ -30,7 +30,7 @@
         <div id="locations" class="collapse">
             @foreach( $locations as $location )
                 <li class="list-group-item"><span class="pull-left">{{ $location->id }}</span>
-                    {{ $location->name }} @if($location->stage) - {{ $location->stage->name }} @endif
+                    <a href="locations/{{ $location->id }}">{{ $location->name }} @if($location->stage) - {{ $location->stage->name }} @endif </a>
                     <a href="/config/locations/remove/{{ $location->id }}">
                         <i class="pull-right glyphicon glyphicon-remove text-danger" style="font-size: 1.4em;"></i>
                     </a>

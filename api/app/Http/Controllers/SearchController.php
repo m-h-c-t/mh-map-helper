@@ -3,6 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Mouse;
+use App\Location;
+use App\Setup;
+use App\Stage;
+use App\Cheese;
 use Illuminate\Http\Request;
 
 class SearchController extends Controller
@@ -54,5 +58,21 @@ class SearchController extends Controller
         $mice_names = array_unique($mice_names);
 
         return $mice_names;
+    }
+
+    public function mouseDetails(Mouse $mouse) {
+        return view('individual', ['main' => $mouse, 'setups' => $mouse->setups]);
+    }
+
+    public function locationDetails(Location $location) {
+        return view('individual', ['main' => $location, 'setups' => Setup::where('location_id', $location->id)->get()]);
+    }
+
+    public function stageDetails(Stage $stage) {
+        return view('individual', ['main' => $stage, 'setups' => Setup::where('location_id', $stage->location->id)->get()]);
+    }
+
+    public function cheeseDetails(Cheese $cheese) {
+        return view('individual', ['main' => $cheese, 'setups' => Setup::where('cheese_id', $cheese->id)->get()]);
     }
 }
