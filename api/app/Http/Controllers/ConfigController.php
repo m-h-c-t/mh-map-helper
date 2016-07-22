@@ -169,4 +169,9 @@ class ConfigController extends Controller
                 . ' Cheese: ' . $cheese
                 . '!']);
     }
+
+    public function updateMiceWikiUrls() {
+        $mice_updated = Mouse::updateWikiUrls();
+        return back() ->with(['message' => 'Updated ' . $mice_updated . ' mice!']);
+    }
 }

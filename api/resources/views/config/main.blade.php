@@ -10,4 +10,5 @@
     @include('config/locations')
     <hr/>
     @include('config/setups')
+    <br/>
 @stop

@@ -11,19 +11,7 @@ class Mouse extends Model
 {
     public $timestamps = false;
 
-    public $wiki_url;
-
     protected $table = 'mice';
-
-    public function getWikiUrl()
-    {
-        if (empty($this->wiki_url)) {
-            $this->wiki_url = str_replace(' ', '_', ucwords(strtolower($this->name)));
-            $this->wiki_url = (substr($this->name, -5, 5) === 'MOUSE' ? $this->wiki_url : $this->wiki_url . '_Mouse');
-            $this->wiki_url = 'http://mhwiki.hitgrab.com/wiki/index.php/' . $this->wiki_url;
-        }
-        return $this->wiki_url;
-    }
 
     public function setups()
     {
@@ -34,5 +22,19 @@ class Mouse extends Model
         $name = strtoupper(trim($name));
         $name = str_replace(' MOUSE', '', $name);
         return $name;
+    }
+
+    public static function updateWikiUrls() {
+        $counter = 0;
+        foreach ( Mouse::all() as $one_mouse ){
+            if (empty($one_mouse->wiki_url)) {
+                $one_mouse->wiki_url = str_replace(' ', '_', ucwords(strtolower($one_mouse->name)));
+                $one_mouse->wiki_url = (substr($one_mouse->name, -5, 5) === 'MOUSE' ? $one_mouse->wiki_url : $one_mouse->wiki_url . '_Mouse');
+                $one_mouse->wiki_url = 'http://mhwiki.hitgrab.com/wiki/index.php/' . $one_mouse->wiki_url;
+                $one_mouse->save();
+                $counter++;
+            }
+        }
+        return $counter;
     }
 }

@@ -1,5 +1,5 @@
 {{--Add New Cheese--}}
-<div class="container">
+<div class="container well">
     <form method="POST" action="/config/cheeses/add">
         {{ csrf_field() }}
 

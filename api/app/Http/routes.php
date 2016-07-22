@@ -21,6 +21,7 @@ Route::get('config', array('middleware' => 'auth.basic', 'uses' => 'ConfigContro
 // Config - mice
 Route::post('config/mice/add', array('middleware' => 'auth.basic', 'uses' => 'ConfigController@addMouse'));
 Route::get('config/mice/remove/{mouse}', array('middleware' => 'auth.basic', 'uses' => 'ConfigController@removeMouse'));
+Route::get('config/mice/update_wiki_urls', array('middleware' => 'auth.basic', 'uses' => 'ConfigController@updateMiceWikiUrls'));
 
 // Config - locations
 Route::post('config/locations/add', array('middleware' => 'auth.basic', 'uses' => 'ConfigController@addLocation'));

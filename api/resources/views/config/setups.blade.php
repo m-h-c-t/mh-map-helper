@@ -1,5 +1,5 @@
 {{--Add New Setup--}}
-<div class="container">
+<div class="container well">
     <form method="POST" action="/config/setups/add">
         {{ csrf_field() }}
         <div class="col-md-6 col-md-offset-3 no-left-padding">
@@ -27,10 +27,8 @@
             </div>
         </div>
     </form>
-</div>
 
-{{--List All Setups--}}
-<div class="container">
+    {{--List All Setups--}}
     <ul class="list-group col-md-8 col-md-offset-2">
         <a data-toggle="collapse" href="#setups"
            class="list-group-item active collapse-toggle collapsed">

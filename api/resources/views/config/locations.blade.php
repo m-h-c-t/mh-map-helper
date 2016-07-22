@@ -1,5 +1,5 @@
 {{--Add New Location--}}
-<div class="container">
+<div class="container well">
     <form method="POST" action="/config/locations/add">
         {{ csrf_field() }}
         <div class="col-md-6 no-left-padding">
