@@ -63,8 +63,7 @@ app.controller('MainController', ['$scope', '$http', function ($scope, $http) {
                     }
                     $scope.setups.locations[setup.location.name].stages[stage_id].mice[setup.mouse.id].id = setup.mouse.id;
                     $scope.setups.locations[setup.location.name].stages[stage_id].mice[setup.mouse.id].name = setup.mouse.name;
-                    // TODO: Fix wiki urls
-                    // $scope.setups[setup.location.id].stages[setup.location.stage.id].mice[setup.mouse.id].wiki_url = setup.mouse.wiki_url;
+                    $scope.setups.locations[setup.location.name].stages[stage_id].mice[setup.mouse.id].wiki_url = setup.mouse.wiki_url;
 
                     // Add cheese
                     if (!(setup.cheese.id in $scope.setups.locations[setup.location.name].stages[stage_id].mice[setup.mouse.id].cheeses)) {
