@@ -1,12 +1,15 @@
 var app = angular.module('mainapp', []);
 app.controller('MainController', ['$scope', '$http', function ($scope, $http) {
-    $scope.micelist = [];
+    $scope.mice_list = [];
     $scope.invalid_mice = [];
     $scope.setups = {};
     $scope.setups.locations = {};
     $scope.setups.mice_count = [];
     $scope.setups.mice_count_number = 0;
 
+    if (Cookies.get('mice') != null) {
+        var cookie_mice = JSON.parse(Cookies.get('mice'));
+    }
 
     // Get locations and cheese for each mouse
     $scope.search = function () {
@@ -20,15 +23,18 @@ app.controller('MainController', ['$scope', '$http', function ($scope, $http) {
         $http.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded;charset=utf-8';
         $http.get("http://api.mhmaphelper.agiletravels.com/search", {
             params: {
-                mice: JSON.stringify($scope.micelist),
+                mice: JSON.stringify($scope.mice_list),
             }
         }).success(function (response) {
             $scope.invalid_mice = response.invalid_mice;
+            cookie_mice = [];
 
             // Build structured array and dedup everything by grouping
             angular.forEach(response.valid_mice, function (mouse) {
+                cookie_mice.push(mouse.name);
 
                 angular.forEach(mouse.setups, function (setup) {
+
                     // Add location
                     // Using location name as index instead of id because we have different location ids for different stages
                     if (!(setup.location.name in $scope.setups.locations)) {
@@ -100,27 +106,37 @@ app.controller('MainController', ['$scope', '$http', function ($scope, $http) {
                 $scope.setups.locations.push(location);
             });
 
+            Cookies.set('mice', JSON.stringify(cookie_mice), { expires: 30 });
             $('#custom_loader').fadeOut('slow');
-
         });
     };
+
+
+    if (cookie_mice != null && cookie_mice.length) {
+        $scope.mice_list = cookie_mice;
+        $scope.search();
+    }
+
     // Reset everything
     $scope.reset = function () {
-        $scope.micelist = [];
+        $scope.mice_list = [];
         $scope.invalid_mice = [];
         $scope.setups = {};
+        cookie_mice = '';
+        Cookies.remove('mice');
     };
 
-    // Remove a mouse from list // TODO: FIX
+    // Remove a mouse from list
     $scope.remove_a_mouse = function (mouse_id) {
-        console.log('fired1');
         var removed_mouse = false;
+        var remove_mouse_name = '';
         angular.forEach($scope.setups.locations, function (location) {
             var removed_location_mouse = false;
             angular.forEach(location.stages, function (stage) {
                 var removed_stage_mouse = false;
                 angular.forEach(stage.mice, function (mouse, index) {
                     if (mouse.id === mouse_id) {
+                        remove_mouse_name = stage.mice[index].name;
                         stage.mice.splice(index, 1);
                         removed_mouse = true;
                         removed_location_mouse = true;
@@ -131,7 +147,19 @@ app.controller('MainController', ['$scope', '$http', function ($scope, $http) {
             });
             if (removed_location_mouse) location.mice_count_number--;
         });
-        if (removed_mouse) $scope.setups.mice_count_number--;
+
+        if (removed_mouse) {
+            $scope.setups.mice_count_number--;
+
+            // Update cookie
+            cookie_mice = JSON.parse(Cookies.get('mice'));
+            angular.forEach(cookie_mice, function (cookie_mouse_name, index) {
+                if (remove_mouse_name == cookie_mouse_name) {
+                    cookie_mice.splice(index, 1);
+                }
+            });
+            Cookies.set('mice', JSON.stringify(cookie_mice), { expires: 30 });
+        }
     };
 
 }]);
