@@ -3,7 +3,7 @@
 <form ng-submit="mice_list_form.$valid && search()" novalidate name="mice_list_form">
     <div class="form-group row">
         <h2><i class="glyphicon glyphicon-pencil"></i> Mice</h2>
-        <textarea rows="10" class="form-control input-lg" placeholder="Copy map mice list here..." autofocus="autofocus" ng-model="mice_list" ng-trim="false" ng-list="&#10;" required ng-maxlength="2000"></textarea>
+        <textarea rows="10" class="form-control input-lg" placeholder="Copy map mice list here..." ng-model="mice_list" ng-trim="false" ng-list="&#10;" required ng-maxlength="2000"></textarea>
     </div>
     <div class="form-group row">
         <button type="submit" class="btn btn-lg btn-primary col-xs-4 col-xs-offset-1 col-sm-2 col-sm-offset-3">Search</button>
