@@ -20,7 +20,7 @@
                 @foreach( $setups as $setup )
                     <tr>
                         <td><a href="/mice/{{$setup->mouse->id}}">{{$setup->mouse->name}}</a></td>
-                        <td><a href="/locations/{{$setup->location->id}}">{{$setup->location->name}} - @if($setup->location->stage){{$setup->location->stage->name}}@endif</a></td>
+                        <td><a href="/locations/{{$setup->location->id}}">{{$setup->location->name}} @if($setup->location->stage) - {{$setup->location->stage->name}}@endif</a></td>
                         <td><a href="/cheeses/{{$setup->cheese->id}}">{{$setup->cheese->name}}<a/></td>
                     </tr>
                 @endforeach
@@ -32,5 +32,6 @@
                                                                  value="Back to Main"/></a>
         </div>
     </div>
+    <br/>
 
 @stop
