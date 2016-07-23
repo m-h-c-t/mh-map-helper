@@ -75,22 +75,18 @@ body {
     content: "\2b";
 }
 
-.gray {
-    color: gray;
-}
-
 .list-group.location {
     padding: 0px 7px;
     margin-bottom: 1em;
 }
 
-@media (min-width: 750px) {
+@media (min-width: 768px) {
     .location:nth-of-type(2n+1) {
         clear: both;
     }
 }
 
-@media (min-width: 970px) {
+@media (min-width: 992px) {
     .location:nth-of-type(2n+1) {
         clear: none;
     }

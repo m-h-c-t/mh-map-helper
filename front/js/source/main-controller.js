@@ -46,8 +46,15 @@ app.controller('MainController', ['$scope', '$http', function ($scope, $http) {
                     $scope.setups.locations[setup.location.name].name = setup.location.name;
 
                     // Add stage
-                    var stage_name = (setup.location.stage == null) ? '' : setup.location.stage.name;
-                    var stage_id = (setup.location.stage == null) ? '' : setup.location.stage.id;
+                    var stage_name = '';
+                    var stage_id = '';
+                    var stage_order = '';
+                    if (setup.location.stage != null) {
+                        stage_name = setup.location.stage.name;
+                        stage_id = setup.location.stage.id;
+                        stage_order = setup.location.stage.order;
+                    }
+
                     if (!(stage_id in $scope.setups.locations[setup.location.name].stages)) {
                         $scope.setups.locations[setup.location.name].stages[stage_id] = {};
                         $scope.setups.locations[setup.location.name].stages[stage_id].mice = {};
@@ -55,6 +62,7 @@ app.controller('MainController', ['$scope', '$http', function ($scope, $http) {
                     }
                     $scope.setups.locations[setup.location.name].stages[stage_id].id = stage_id;
                     $scope.setups.locations[setup.location.name].stages[stage_id].name = stage_name;
+                    $scope.setups.locations[setup.location.name].stages[stage_id].order = stage_order;
 
                     // Add mouse
                     if (!(setup.mouse.id in $scope.setups.locations[setup.location.name].stages[stage_id].mice)) {
