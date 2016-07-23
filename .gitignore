@@ -1,9 +1,7 @@
-config.php
-error_log
-/400.shtml
-/401.shtml
-/403.shtml
-/404.shtml
-/500.shtml
-/500.php
-
+api/vendor
+node_modules/
+api/public/storage
+api/public/build
+.env
+.idea
+dist/

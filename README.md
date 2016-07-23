@@ -21,10 +21,12 @@
 
  
 **Technologies used:**
-* Git / GitHub
-* Mysql / PhpMyAdmin
-* Dploy.io
-* Bootstrap / CSS
-* PHP
-* AngularJS / JavaScript / Ajax / JQuery
-* HTML
+* Frameworks: Laravel / AngularJS
+* Code Version Control: Git / GitHub
+* Database: Mysql / PhpMyAdmin / SequelPro
+* Deployment: Dploy.io
+* UI: Bootstrap / SASS / JQuery
+* Package Managers: Gulp / NPM / Composer
+* Languages: PHP, CSS, HTML, JavaScript, Sql
+* Servers: Apache / NGINX
+* Editors: PHP Storm / Sublime Text / Vim / Nano / MC

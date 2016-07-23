@@ -1,0 +1,67 @@
+<!-- Locations (with mice and cheese) -->
+<div class="container well" ng-show="setups.mice_count_number" id="main-search-results">
+    <i class="glyphicon glyphicon-remove pull-right clickable large-gray" ng-click="reset()"></i>
+    <h2 style="margin-top:0;"><i class="glyphicon glyphicon-globe"></i> Locations</h2>
+
+    <span class="text-muted hidden-xs">( Sorted by number of mice per location )</span>
+    <span class="text-muted">( Mice found: {{ setups.mice_count_number }} out of {{ setups.mice_count_number + invalid_mice.length }} )</span>
+    <br style="clear:both;"/><br/>
+    <div ng-repeat="location in setups.locations | orderBy: ['-mice_count_number', 'name']"
+         ng-if="location.mice_count_number" class="location col-sm-6 col-md-4 list-group">
+        <!-- Location Title -->
+        <a data-toggle="collapse" href="#location{{location.id}}"
+           class="text-capitalize list-group-item active collapsed collapse-toggle"
+           data-parent="#main-search-results">
+            {{ location.name | lowercase }}
+            <span class="badge pull-left">{{ location.mice_count_number }} {{ location.mice_count_number === 1 ? "mouse" : "mice" }}</span>
+        </a>
+        <!-- Mice dropdown -->
+        <div id="location{{location.id}}" class="collapse">
+            <!-- Stages -->
+            <div ng-repeat="stage in location.stages | orderBy: 'order'">
+                <a href="#stage{{stage.id}}" class="list-group-item text-capitalize collapsed collapse-toggle-two"
+                   style="background-color:lightgray"
+                   ng-if="stage.name.length && stage.mice_count_number"
+                   data-toggle="collapse" data-parent="#stage{{stage.id}}">
+                    <span class="badge pull-left">{{ stage.mice_count_number }} {{ stage.mice_count_number === 1 ? "mouse" : "mice" }}</span>
+                    {{ stage.name | lowercase }}
+                </a>
+                <div id="stage{{stage.id}}" ng-attr-class="{{stage.name.length ? 'collapse' : undefined }}">
+                    <!-- Mice -->
+                    <div class="list-group-item" ng-repeat="mouse in stage.mice | orderBy: 'name'"
+                         data-parent="#stage{{stage.id}}">
+                        <div class="row">
+                            <div class="text-capitalize col-xs-6 text-left">
+                                <i class="glyphicon glyphicon-remove pull-left clickable large-gray"
+                                   ng-click="remove_a_mouse(mouse.id)"></i>&nbsp;
+                                <a href="http://api.mhmaphelper.agiletravels.com/mice/{{mouse.id}}">{{mouse.name |
+                                    lowercase}}</a>
+                            </div>
+                            <!-- Cheeses -->
+                            <ul class="col-xs-6 list-group list-unstyled pull-right" style="margin-bottom:0;">
+                                <li class="text-capitalize small list-group-item-warning"
+                                    ng-repeat="cheese in mouse.cheeses | orderBy: 'name'">
+                                    <small>{{cheese.name | lowercase}}</small>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Mice not found -->
+<div class="container" ng-show="invalid_mice.length">
+    <div class="list-group col-sm-6 col-sm-offset-3" id="invalid_mice_parent">
+        <a href="#invalid_mice_list" class="list-group-item list-group-item-danger collapsed collapse-toggle"
+           data-parent="#invalid_mice_parent" data-toggle="collapse"><strong>Could not find {{
+            invalid_mice.length }}
+            mice</strong></a>
+        <div id="invalid_mice_list" class="collapse">
+            <div class="list-group-item" data-parent="#invalid_mice_parent"
+                 ng-repeat="mouse_name in invalid_mice">{{mouse_name}}
+            </div>
+        </div>
+    </div>
+</div>
