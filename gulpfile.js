@@ -19,7 +19,7 @@ gulp.task('watch', function() {
 
 // JAVASCRIPTS
 const minify = require('gulp-minify');
-gulp.task('js', function () {
+gulp.task('js', ['css'], function () {
     gulp.src('node_modules/js-cookie/src/js.cookie.js')
         // .pipe(gulp.dest('api/public/js/dist'))
         .pipe(gulp.dest('front/js/dist'));
@@ -34,6 +34,7 @@ gulp.task('js', function () {
             // exclude: ['tasks'],
             // ignoreFiles: ['rev-replace.js']
         }))
+        .pipe(gulp.dest('front/js/dist'))
         .pipe(rev())
         .pipe(gulp.dest('front/js/dist'))
         // .pipe(gulp.dest('api/public/js/dist'))
@@ -61,6 +62,8 @@ gulp.task('css', function () {
         .pipe(rename({
             suffix: '.min'
         }))
+        .pipe(gulp.dest('front/css/dist'))
+        .pipe(gulp.dest('api/public/css/dist'))
         .pipe(rev())
         .pipe(gulp.dest('front/css/dist'))
         .pipe(gulp.dest('api/public/css/dist'))
