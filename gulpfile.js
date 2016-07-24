@@ -34,6 +34,7 @@ gulp.task('js', function () {
             // ignoreFiles: ['.combo.js', '-min.js']
         }))
         .pipe(gulp.dest('front/js/dist'))
+        // .pipe(gulp.dest('api/public/js/dist'))
         .pipe(livereload());
 });
 
@@ -43,6 +44,7 @@ gulp.task('img', function () {
     gulp.src('front/images/source/*')
         .pipe(imagemin())
         .pipe(gulp.dest('front/images/dist'))
+        .pipe(gulp.dest('api/public/images/dist'))
         .pipe(livereload());
 });
 
@@ -55,5 +57,6 @@ gulp.task('css', function () {
             suffix: '.min'
         }))
         .pipe(gulp.dest('front/css/dist'))
+        .pipe(gulp.dest('api/public/css/dist'))
         .pipe(livereload());
 });
