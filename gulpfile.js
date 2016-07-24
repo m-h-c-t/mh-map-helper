@@ -38,9 +38,10 @@ gulp.task('js', ['css'], function () {
         .pipe(rev())
         .pipe(gulp.dest('front/js/dist'))
         // .pipe(gulp.dest('api/public/js/dist'))
-        .pipe(rev.manifest({merge: true}))
+        .pipe(rev.manifest('rev-manifest.json', {base: process.cwd(), merge: true}))
+        .pipe(gulp.dest('./'))
         .pipe(gulp.dest('front'))
-        // .pipe(gulp.dest('api/public'))
+        .pipe(gulp.dest('api/public'))
         .pipe(livereload());
 });
 
@@ -67,7 +68,8 @@ gulp.task('css', function () {
         .pipe(rev())
         .pipe(gulp.dest('front/css/dist'))
         .pipe(gulp.dest('api/public/css/dist'))
-        .pipe(rev.manifest({merge: true}))
+        .pipe(rev.manifest('rev-manifest.json', {base: process.cwd(), merge: true}))
+        .pipe(gulp.dest('./'))
         .pipe(gulp.dest('front'))
         .pipe(gulp.dest('api/public'))
         .pipe(livereload());
