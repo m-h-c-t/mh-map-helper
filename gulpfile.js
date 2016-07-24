@@ -1,8 +1,8 @@
-// Includes // TODO: move this all to /front/ gulp
-// var elixir = require('laravel-elixir');
+// Includes
 const gulp = require('gulp');
 const rename = require('gulp-rename');
 const livereload = require('gulp-livereload');
+const rev = require('gulp-rev');
 
 // DEFAULT
 gulp.task('default', function() {
@@ -21,6 +21,7 @@ gulp.task('watch', function() {
 const minify = require('gulp-minify');
 gulp.task('js', function () {
     gulp.src('node_modules/js-cookie/src/js.cookie.js')
+        // .pipe(gulp.dest('api/public/js/dist'))
         .pipe(gulp.dest('front/js/dist'));
 
     gulp.src('front/js/source/*.js')
@@ -31,9 +32,14 @@ gulp.task('js', function () {
             },
             noSource: true
             // exclude: ['tasks'],
-            // ignoreFiles: ['.combo.js', '-min.js']
+            // ignoreFiles: ['rev-replace.js']
         }))
+        .pipe(rev())
         .pipe(gulp.dest('front/js/dist'))
+        // .pipe(gulp.dest('api/public/js/dist'))
+        .pipe(rev.manifest({merge: true}))
+        .pipe(gulp.dest('front'))
+        // .pipe(gulp.dest('api/public'))
         .pipe(livereload());
 });
 
@@ -43,6 +49,7 @@ gulp.task('img', function () {
     gulp.src('front/images/source/*')
         .pipe(imagemin())
         .pipe(gulp.dest('front/images/dist'))
+        .pipe(gulp.dest('api/public/images/dist'))
         .pipe(livereload());
 });
 
@@ -54,6 +61,11 @@ gulp.task('css', function () {
         .pipe(rename({
             suffix: '.min'
         }))
+        .pipe(rev())
         .pipe(gulp.dest('front/css/dist'))
+        .pipe(gulp.dest('api/public/css/dist'))
+        .pipe(rev.manifest({merge: true}))
+        .pipe(gulp.dest('front'))
+        .pipe(gulp.dest('api/public'))
         .pipe(livereload());
 });
