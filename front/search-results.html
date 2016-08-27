@@ -57,7 +57,7 @@
         <a href="#invalid_mice_list" class="list-group-item list-group-item-danger collapsed collapse-toggle"
            data-parent="#invalid_mice_parent" data-toggle="collapse"><strong>Could not find {{
             invalid_mice.length }}
-            mice</strong></a>
+            {{ invalid_mice.length === 1 ? "mouse" : "mice" }}</strong></a>
         <div id="invalid_mice_list" class="collapse">
             <div class="list-group-item" data-parent="#invalid_mice_parent"
                  ng-repeat="mouse_name in invalid_mice">{{mouse_name}}
