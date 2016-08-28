@@ -95,3 +95,7 @@ body {
         clear: both;
     }
 }
+
+.m-r-1 {
+    margin-right: 1rem;
+}
