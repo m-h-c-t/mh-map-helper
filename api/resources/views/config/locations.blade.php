@@ -8,7 +8,7 @@
                 <input type="text" class="form-control" name="name" placeholder="Location Name..." required/>
                 <select class="form-control" name="stage_id">
                     <option value="">No Stage</option>
-                    @foreach($stages as $stage)
+                    @foreach($stages->sortBy('name') as $stage)
                         <option value="{{ $stage->id }}">{{ $stage->name }}</option>
                     @endforeach
                 </select>
@@ -28,7 +28,7 @@
         </a>
 
         <div id="locations" class="collapse">
-            @foreach( $locations as $location )
+            @foreach( $locations->sortBy('name') as $location )
                 <li class="list-group-item"><span class="pull-left">{{ $location->id }}</span>
                     <a href="locations/{{ $location->id }}">{{ $location->name }} @if($location->stage) - {{ $location->stage->name }} @endif </a>
                     <a href="/config/locations/remove/{{ $location->id }}">

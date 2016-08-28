@@ -61,18 +61,46 @@ class SearchController extends Controller
     }
 
     public function mouseDetails(Mouse $mouse) {
-        return view('individual', ['main' => $mouse, 'setups' => $mouse->setups]);
+        return view('individual', [
+            'main' => $mouse,
+            'type' => 'mouse',
+            'setups' => $mouse->setups,
+            'mice' => Mouse::all(),
+            'locations' => Location::all(),
+            'cheeses' => Cheese::all()
+        ]);
     }
 
     public function locationDetails(Location $location) {
-        return view('individual', ['main' => $location, 'setups' => Setup::where('location_id', $location->id)->get()]);
+        return view('individual', [
+            'main' => $location,
+            'type' => 'location',
+            'setups' => Setup::where('location_id', $location->id)->get(),
+            'mice' => Mouse::all(),
+            'locations' => Location::all(),
+            'cheeses' => Cheese::all()
+        ]);
     }
 
     public function stageDetails(Stage $stage) {
-        return view('individual', ['main' => $stage, 'setups' => Setup::where('location_id', $stage->location->id)->get()]);
+        return view('individual', [
+            'main' => $stage,
+            'type' => 'stage',
+            'setups' => Setup::where('location_id', $stage->location->id)->get(),
+            'mice' => Mouse::all(),
+            'locations' => Location::all(),
+            'cheeses' => Cheese::all()
+        ]);
     }
 
     public function cheeseDetails(Cheese $cheese) {
-        return view('individual', ['main' => $cheese, 'setups' => Setup::where('cheese_id', $cheese->id)->get()]);
+        return view('individual', [
+            'main' => $cheese,
+            'type' => 'cheese',
+            'setups' => Setup::where('cheese_id', $cheese->id)->get(),
+            'mice' => Mouse::all(),
+            'locations' => Location::all(),
+            'cheeses' => Cheese::all()
+        ]);
     }
 }

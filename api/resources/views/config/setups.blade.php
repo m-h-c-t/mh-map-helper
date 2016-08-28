@@ -6,18 +6,18 @@
             <div class="form-group input-group">
                 <span class="input-group-addon">New Setup:</span>
                 <select class="form-control" name="location">
-                    @foreach($locations as $location)
+                    @foreach($locations->sortBy('name') as $location)
                         <option value="{{ $location->id }}">{{ $location->name }} @if($location->stage)
                                 - {{ $location->stage->name }} @endif</option>
                     @endforeach
                 </select>
                 <select class="form-control" name="mouse">
-                    @foreach($mice as $mouse)
+                    @foreach($mice->sortBy('name') as $mouse)
                         <option value="{{ $mouse->id }}">{{ $mouse->name }}</option>
                     @endforeach
                 </select>
                 <select class="form-control" name="cheese">
-                    @foreach($cheeses as $cheese)
+                    @foreach($cheeses->sortBy('name') as $cheese)
                         <option value="{{ $cheese->id }}">{{ $cheese->name }}</option>
                     @endforeach
                 </select>
