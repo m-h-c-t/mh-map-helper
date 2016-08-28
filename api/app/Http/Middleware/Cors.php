@@ -7,10 +7,11 @@ use Closure;
 class Cors {
     public function handle($request, Closure $next)
     {
-        if ($_SERVER['HTTP_ORIGIN'] == 'http://mhmaphelper.agiletravels.com') {
+        $url = explode('.', $_SERVER['HTTP_HOST']);
+        if ($_SERVER['HTTP_ORIGIN'] == 'http://' . implode('.', [$url[1], $url[2], $url[3]])) {
             return $next($request)
                 ->header('Access-Control-Allow-Origin', '*')
-                ->header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
+                ->header('Access-Control-Allow-Methods', 'GET, POST');
         } else {
             return $next($request);
         }
