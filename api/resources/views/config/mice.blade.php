@@ -32,6 +32,6 @@
         </div>
     </ul>
 
-    <a href="/config/mice/update_wiki_urls"><input type="button" value="Update All Mouse Wiki URLs"
+    <a href="/config/mice/update_wiki_urls"><input type="button" value="Add All Missing Mouse Wiki URLs"
                                                    class="btn btn-primary"/></a>
 </div>

@@ -28,7 +28,7 @@
         </div>
 
         <div class="row col-md-offset-5 col-xs-2">
-            <a href="http://mhmaphelper.agiletravels.com"><input type="button" class="btn btn-default"
+            <a href="/config"><input type="button" class="btn btn-default"
                                                                  value="Back to Main"/></a>
         </div>
     </div>
