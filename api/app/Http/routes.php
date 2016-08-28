@@ -15,12 +15,12 @@
 
 Route::get('search', array('middleware' => 'cors', 'uses' => 'SearchController@search'));
 
-Route::get('mice/{mouse}', 'SearchController@mouseDetails');
-Route::get('locations/{location}', 'SearchController@locationDetails');
-Route::get('stages/{stage}', 'SearchController@stageDetails');
-Route::get('cheeses/{cheese}', 'SearchController@cheeseDetails');
-
 Route::group(['middleware' => 'auth.basic'], function () {
+
+    Route::get('mice/{mouse}', 'SearchController@mouseDetails');
+    Route::get('locations/{location}', 'SearchController@locationDetails');
+    Route::get('stages/{stage}', 'SearchController@stageDetails');
+    Route::get('cheeses/{cheese}', 'SearchController@cheeseDetails');
 
     // Config
     Route::get('config', 'ConfigController@main');
