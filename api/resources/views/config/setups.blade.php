@@ -39,7 +39,7 @@
         <div id="setups" class="collapse">
             @foreach( $setups as $setup )
                 <li class="list-group-item"><span class="pull-left">{{ $setup->id }}</span>
-                    {{ $setup->location->name }} @if($location->stage) - {{ $location->stage->name }} @endif -
+                    {{ $setup->location->name }} @if($setup->location->stage)- {{ $setup->location->stage->name }} @endif -
                     {{ $setup->mouse->name }} -
                     {{ $setup->cheese->name }}
                     <a href="/config/setups/remove/{{ $setup->id }}">
