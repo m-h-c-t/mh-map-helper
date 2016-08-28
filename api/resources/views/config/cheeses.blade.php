@@ -24,7 +24,7 @@
         </a>
 
         <div id="cheeses" class="collapse">
-            @foreach( $cheeses as $cheese )
+            @foreach( $cheeses->sortBy('name') as $cheese )
                 <li class="list-group-item"><span class="pull-left">{{ $cheese->id }}</span><a href="cheeses/{{ $cheese->id }}">{{ $cheese->name }}</a>
                     <a href="/config/cheeses/remove/{{ $cheese->id }}">
                         <i class="pull-right glyphicon glyphicon-remove text-danger" style="font-size: 1.4em;"></i>

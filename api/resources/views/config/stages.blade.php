@@ -24,7 +24,7 @@
         </a>
 
         <div id="stages" class="collapse">
-            @foreach( $stages as $stage )
+            @foreach( $stages->sortBy('name') as $stage )
                 <li class="list-group-item"><span class="pull-left">{{ $stage->id }}</span><a href="stages/{{ $stage->id }}">{{ $stage->name }}</a>
                     <a href="/config/stages/remove/{{ $stage->id }}">
                         <i class="pull-right glyphicon glyphicon-remove text-danger" style="font-size: 1.4em;"></i>

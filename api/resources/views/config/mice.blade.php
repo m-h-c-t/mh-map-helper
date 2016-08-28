@@ -22,7 +22,7 @@
         </a>
 
         <div id="mice" class="collapse">
-            @foreach( $mice as $mouse )
+            @foreach( $mice->sortBy('name') as $mouse )
                 <li class="list-group-item"><span class="pull-left">{{ $mouse->id }}</span><a href="mice/{{ $mouse->id }}">{{ $mouse->name }}</a>
                     <a href="/config/mice/remove/{{ $mouse->id }}">
                         <i class="pull-right glyphicon glyphicon-remove text-danger" style="font-size: 1.4em;"></i>
