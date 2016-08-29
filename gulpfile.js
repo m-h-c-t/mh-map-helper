@@ -3,25 +3,36 @@ const gulp = require('gulp');
 const rename = require('gulp-rename');
 const livereload = require('gulp-livereload');
 const rev = require('gulp-rev');
+const clean = require('gulp-clean');
+    // js
+const minify = require('gulp-minify');
+    // images
+const imagemin = require('gulp-imagemin');
+    // css
+const cleanCSS = require('gulp-clean-css');
 
 // DEFAULT
-gulp.task('default', function() {
-    gulp.start('js', 'img', 'css');
+gulp.task('default', function () {
+    gulp.start('img', 'css', 'js');
 });
 
 // WATCH
-gulp.task('watch', function() {
+gulp.task('watch', function () {
     livereload.listen();
-    gulp.watch('front/js/source/*.js', { usePolling: true }, ['js']);
-    gulp.watch('front/css/source/*.css', { usePolling: true }, ['css']);
-    gulp.watch('front/images/source/*', { usePolling: true }, ['img']);
+    gulp.watch('front/js/source/*.js', {usePolling: true}, ['js']);
+    gulp.watch('front/css/source/*.css', {usePolling: true}, ['css']);
+    gulp.watch('front/images/source/*', {usePolling: true}, ['img']);
 });
 
 // JAVASCRIPTS
-const minify = require('gulp-minify');
-gulp.task('js', ['css'], function () {
+gulp.task('js-clean', function () {
+    gulp.src('front/js/dist/main-controller*.js', {read: false})
+        .pipe(clean({force: true}));
+});
+
+gulp.task('js', ['css', 'js-clean'], function () {
     gulp.src('node_modules/js-cookie/src/js.cookie.js')
-        // .pipe(gulp.dest('api/public/js/dist'))
+    // .pipe(gulp.dest('api/public/js/dist'))
         .pipe(gulp.dest('front/js/dist'));
 
     gulp.src('front/js/source/*.js')
@@ -34,7 +45,7 @@ gulp.task('js', ['css'], function () {
             // exclude: ['tasks'],
             // ignoreFiles: ['rev-replace.js']
         }))
-        .pipe(gulp.dest('front/js/dist'))
+        // .pipe(gulp.dest('front/js/dist'))
         .pipe(rev())
         .pipe(gulp.dest('front/js/dist'))
         // .pipe(gulp.dest('api/public/js/dist'))
@@ -46,7 +57,6 @@ gulp.task('js', ['css'], function () {
 });
 
 // IMAGES
-const imagemin = require('gulp-imagemin');
 gulp.task('img', function () {
     gulp.src('front/images/source/*')
         .pipe(imagemin())
@@ -56,7 +66,6 @@ gulp.task('img', function () {
 });
 
 // CSS
-const cleanCSS = require('gulp-clean-css');
 gulp.task('css', function () {
     return gulp.src('front/css/source/*.css')
         .pipe(cleanCSS({compatibility: 'ie8'}))
