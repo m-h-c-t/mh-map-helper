@@ -1,15 +1,24 @@
-var app = angular.module('mainapp', []);
-app.controller('MainController', ['$scope', '$http', function ($scope, $http) {
-    $scope.mice_list = [];
+(function() {
+var app = angular.module('mainapp', ['ngRoute']);
+
+app.config(['$routeProvider', '$locationProvider', function($routeProvider, $locationProvider) {
+   $routeProvider
+       .when('/', {})
+       .when("/mice/:mice", {
+           templateUrl: 'search-results.html'
+       })
+       .otherwise({ redirectTo: '/' });
+
+    $locationProvider.html5Mode(true);
+}]);
+
+app.controller('MainController', ['$scope', '$http', '$location', '$route', function ($scope, $http, $location, $route) {
+    $scope.mice_list = {text: []};
     $scope.invalid_mice = [];
     $scope.setups = {};
     $scope.setups.locations = {};
     $scope.setups.mice_count = [];
     $scope.setups.mice_count_number = 0;
-
-    if (Cookies.get('mice') != null) {
-        var cookie_mice = JSON.parse(Cookies.get('mice'));
-    }
 
     // Get locations and cheese for each mouse
     $scope.search = function () {
@@ -23,15 +32,13 @@ app.controller('MainController', ['$scope', '$http', function ($scope, $http) {
         $http.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded;charset=utf-8';
         $http.get("http://api." + window.location.hostname + "/search", {
             params: {
-                mice: JSON.stringify($scope.mice_list),
+                mice: JSON.stringify($scope.mice_list.text),
             }
         }).success(function (response) {
             $scope.invalid_mice = response.invalid_mice;
-            cookie_mice = [];
 
             // Build structured array and dedup everything by grouping
             angular.forEach(response.valid_mice, function (mouse) {
-                cookie_mice.push(mouse.name);
 
                 angular.forEach(mouse.setups, function (setup) {
 
@@ -113,24 +120,31 @@ app.controller('MainController', ['$scope', '$http', function ($scope, $http) {
                 $scope.setups.locations.push(location);
             });
 
-            Cookies.set('mice', JSON.stringify(cookie_mice), { expires: 30 });
             $('#custom_loader').fadeOut('slow');
         });
     };
 
 
-    if (cookie_mice != null && cookie_mice.length) {
-        $scope.mice_list = cookie_mice;
-        $scope.search();
-    }
+    // check if mice exist in url, and if they do, search for them
+    $scope.$on('$routeChangeSuccess', function () {
+        // $route.current.params should be populated here
+        $scope.mice_list = {text: []};
+
+        if ($location.path().match('^/mice/')
+            && $route.current.params.mice != null && $route.current.params.mice.length) {
+            $scope.mice_list = {text: $route.current.params.mice.split('--')};
+            $scope.search();
+        }
+    });
+
+    // store searched mice in the url
+    $scope.form_submit = function() {
+        $location.path("/mice/" + $scope.mice_list.text.join('--'));
+    };
 
     // Reset everything
     $scope.reset = function () {
-        $scope.mice_list = [];
-        $scope.invalid_mice = [];
-        $scope.setups = {};
-        cookie_mice = '';
-        Cookies.remove('mice');
+        $location.path("/");
     };
 
     // Remove a mouse from list
@@ -157,15 +171,18 @@ app.controller('MainController', ['$scope', '$http', function ($scope, $http) {
 
         if (removed_mouse) {
             $scope.setups.mice_count_number--;
+            remove_mouse_name = remove_mouse_name.toUpperCase();
 
-            // Update cookie
-            cookie_mice = JSON.parse(Cookies.get('mice'));
-            angular.forEach(cookie_mice, function (cookie_mouse_name, index) {
-                if (remove_mouse_name == cookie_mouse_name) {
-                    cookie_mice.splice(index, 1);
+            // Update textarea
+            var temp_mice_list = $route.current.params.mice.split('--');
+            angular.forEach(temp_mice_list, function (url_mouse_name, index) {
+                if (remove_mouse_name === url_mouse_name.toUpperCase()) {
+                    temp_mice_list.splice(index, 1);
                 }
             });
-            Cookies.set('mice', JSON.stringify(cookie_mice), { expires: 30 });
+            $scope.mice_list = {text: temp_mice_list};
+            // Redirect disabled for now
+            // $location.path("/mice/" + temp_mice_list.join('--'));
         }
     };
 
@@ -176,14 +193,6 @@ app.directive('miceListForm', function () {
     return {
         restrict: 'E',
         templateUrl: 'mice-list-form.html'
-    };
-});
-
-// Search Results
-app.directive('searchResults', function () {
-    return {
-        restrict: 'E',
-        templateUrl: 'search-results.html'
     };
 });
 
@@ -202,3 +211,5 @@ app.directive('customHeader', function () {
         templateUrl: 'custom-header.html'
     };
 });
+
+})();
