@@ -11,7 +11,7 @@ class Cors {
         if ($_SERVER['HTTP_ORIGIN'] == 'http://' . implode('.', [$url[1], $url[2], $url[3]])) {
             return $next($request)
                 ->header('Access-Control-Allow-Origin', '*')
-                ->header('Access-Control-Allow-Methods', 'GET, POST');
+                ->header('Access-Control-Allow-Methods', 'GET');
         } else {
             return $next($request);
         }
