@@ -6,7 +6,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class Cheese extends Model
 {
-//    public $name = '';
 
     public $timestamps = false;
     protected $table = 'cheeses';

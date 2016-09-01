@@ -23,11 +23,11 @@
                     </tr>
                     @foreach( $setups as $setup )
                         <tr>
-                            <td><a href="/mice/{{$setup->mouse->id}}">{{$setup->mouse->name}}</a></td>
+                            <td><a href="/config/mice/{{$setup->mouse->id}}">{{$setup->mouse->name}}</a></td>
                             <td>
-                                <a href="/locations/{{$setup->location->id}}">{{$setup->location->name}} @if($setup->location->stage)
+                                <a href="/config/locations/{{$setup->location->id}}">{{$setup->location->name}} @if($setup->location->stage)
                                         - {{$setup->location->stage->name}}@endif</a></td>
-                            <td><a href="/cheeses/{{$setup->cheese->id}}">{{$setup->cheese->name}}<a/></td>
+                            <td><a href="/config/cheeses/{{$setup->cheese->id}}">{{$setup->cheese->name}}<a/></td>
                             <td><a href="/config/setups/remove/{{ $setup->id }}">
                                     <i class="glyphicon glyphicon-remove text-danger" style="font-size: 1.4em;"></i>
                                 </a>
