@@ -1,14 +1,14 @@
-// Includes
+// Includes - global
 const gulp = require('gulp');
 const rename = require('gulp-rename');
 const livereload = require('gulp-livereload');
 const rev = require('gulp-rev');
 const clean = require('gulp-clean');
-    // js
+// Includes - js
 const minify = require('gulp-minify');
-    // images
+// Includes - images
 const imagemin = require('gulp-imagemin');
-    // css
+// Includes - css
 const cleanCSS = require('gulp-clean-css');
 
 // DEFAULT
@@ -32,7 +32,6 @@ gulp.task('js-clean', function () {
 
 gulp.task('js', ['css', 'js-clean'], function () {
     gulp.src('node_modules/js-cookie/src/js.cookie.js')
-    // .pipe(gulp.dest('api/public/js/dist'))
         .pipe(gulp.dest('front/js/dist'));
 
     gulp.src('front/js/source/*.js')
@@ -42,13 +41,9 @@ gulp.task('js', ['css', 'js-clean'], function () {
                 min: '.min.js'
             },
             noSource: true
-            // exclude: ['tasks'],
-            // ignoreFiles: ['rev-replace.js']
         }))
-        // .pipe(gulp.dest('front/js/dist'))
         .pipe(rev())
         .pipe(gulp.dest('front/js/dist'))
-        // .pipe(gulp.dest('api/public/js/dist'))
         .pipe(rev.manifest('rev-manifest.json', {base: process.cwd(), merge: true}))
         .pipe(gulp.dest('./'))
         .pipe(gulp.dest('front'))
@@ -66,13 +61,12 @@ gulp.task('img', function () {
 });
 
 // CSS
-gulp.task('css', function () {
+gulp.task('css', ['css-clean'], function () {
     return gulp.src('front/css/source/*.css')
         .pipe(cleanCSS({compatibility: 'ie8'}))
         .pipe(rename({
             suffix: '.min'
         }))
-        .pipe(gulp.dest('front/css/dist'))
         .pipe(gulp.dest('api/public/css/dist'))
         .pipe(rev())
         .pipe(gulp.dest('front/css/dist'))
@@ -82,4 +76,11 @@ gulp.task('css', function () {
         .pipe(gulp.dest('front'))
         .pipe(gulp.dest('api/public'))
         .pipe(livereload());
+});
+
+gulp.task('css-clean', function () {
+    gulp.src('front/css/dist/custom*.css', {read: false})
+        .pipe(clean({force: true}));
+    gulp.src('api/public/css/dist/custom*.css', {read: false})
+        .pipe(clean({force: true}));
 });
