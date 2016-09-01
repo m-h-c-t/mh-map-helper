@@ -3,24 +3,44 @@
 @section('content')
 
     <div class="container">
-
-        <h3>@if($main->location) {{ $main->location->name }} - @endif
-            {{ $main->name }}
-            @if($main->stage) - {{ $main->stage->name }} @endif<br/>
-            @if($type == 'mouse')
+        <div class="row">
+            <a class="col-xs-2" href="/config">
+                <input type="button" class="btn btn-default" value="Back to Main"/>
+            </a>
+            <div class="col-xs-8" style="font-size: 200%;">
+                @if($main->location) {{ $main->location->name }} - @endif
+                {{ $main->name }}
+                @if($main->stage) - {{ $main->stage->name }} @endif
+            </div>
+        </div>
+        @if($type == 'mouse')
+            <div class="row col-md-10 col-md-offset-1">
                 <form method="POST" action="/config/mice/{{$main->id}}/update_wiki_url" accept-charset="UTF-8">
                     {{ csrf_field() }}
                     <input name="_method" type="hidden" value="PATCH">
                     <div class="form-group input-group">
-                        <span class="input-group-addon">Wiki:</span>
+                        <span class="input-group-addon">Wiki: http://mhwiki.hitgrab.com/wiki/index.php/</span>
                         <input type="text" class="form-control" name="wiki_url" value="{{$main->wiki_url}}" required />
                         <span class="input-group-btn">
                             <button type="submit" class="btn btn-primary">Update</button>
                         </span>
                     </div>
                 </form>
-            @endif
-        </h3>
+                <form method="POST" action="/config/mice/{{$main->id}}/update_ht_id" accept-charset="UTF-8">
+                    {{ csrf_field() }}
+                    <input name="_method" type="hidden" value="PATCH">
+                    <div class="form-group input-group">
+                        <span class="input-group-addon">HornTracker ID: http://horntracker.com/index.php?mouse=</span>
+                        <input type="text" class="form-control" name="ht_id" value="{{$main->ht_id}}" required />
+                        <span class="input-group-addon">|false</span>
+                        <span class="input-group-btn">
+                            <button type="submit" class="btn btn-primary">Update</button>
+                        </span>
+                    </div>
+                </form>
+            </div>
+        @endif
+
         <div class="row col-md-10 col-md-offset-1">
             <form method="POST" action="/config/setups/add">
                 {{ csrf_field() }}

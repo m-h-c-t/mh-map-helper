@@ -14,6 +14,7 @@ class MouseTest extends TestCase
         $this->assertInstanceOf(Mouse::class, $mouse);
         $this->assertInternalType('int', $mouse->id);
         $this->assertEquals('WHITE', $mouse->name);
-        $this->assertStringStartsWith('http://mhwiki.hitgrab.com/wiki/index.php/', $mouse->wiki_url);
+        $this->assertNotEmpty($mouse->wiki_url);
+        $this->assertInternalType('int', $mouse->ht_id);
     }
 }

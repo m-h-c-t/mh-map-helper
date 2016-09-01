@@ -77,6 +77,20 @@ class ConfigController extends Controller
             ->with(['message' => 'Updated mouse #' . $mouse->id . ' named: ' . $mouse->name . ' with wiki url: ' . $mouse->wiki_url . '!']);
     }
 
+    public function updateMouseHTID(Mouse $mouse, Request $request)
+    {
+        if (!$request->has("ht_id")) {
+            return redirect('config')->with(['message' => 'Could not update without id!', 'message_type' => 'error']);
+        }
+
+        $mouse->ht_id = $request->ht_id;
+
+        $mouse->save();
+
+        return back()
+            ->with(['message' => 'Updated mouse #' . $mouse->id . ' named: ' . $mouse->name . ' with HT ID: ' . $mouse->ht_id . '!']);
+    }
+
     public function locationDetails(Location $location)
     {
         return view('config/individual', [
