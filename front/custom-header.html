@@ -5,6 +5,3 @@
         <p>Tool to help you catch map mice asap.</p>
     </div>
 </div>
-
-<!-- Loading Screen -->
-<div id="custom_loader"></div>

@@ -17,6 +17,8 @@
     <script defer src="js/dist/<?php echo asset_path('main-controller.min.js'); ?>"></script>
 </head>
 <body class="text-center" ng-controller="MainController">
+    <!-- Loading Screen -->
+    <div id="custom_loader"></div>
 
     <custom-header></custom-header>
 
