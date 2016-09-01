@@ -79,6 +79,7 @@ app.controller('MainController', ['$scope', '$http', '$location', '$route', func
                     $scope.setups.locations[setup.location.name].stages[stage_id].mice[setup.mouse.id].id = setup.mouse.id;
                     $scope.setups.locations[setup.location.name].stages[stage_id].mice[setup.mouse.id].name = setup.mouse.name;
                     $scope.setups.locations[setup.location.name].stages[stage_id].mice[setup.mouse.id].wiki_url = setup.mouse.wiki_url;
+                    $scope.setups.locations[setup.location.name].stages[stage_id].mice[setup.mouse.id].ht_id = setup.mouse.ht_id;
 
                     // Add cheese
                     if (!(setup.cheese.id in $scope.setups.locations[setup.location.name].stages[stage_id].mice[setup.mouse.id].cheeses)) {

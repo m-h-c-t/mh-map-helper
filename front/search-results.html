@@ -30,10 +30,10 @@
                     <!-- Mice -->
                     <div class="list-group-item mouse-list" ng-repeat="mouse in stage.mice | orderBy: 'name'"
                          data-parent="#stage{{stage.id}}">
-                        <div class="text-capitalize text-center mouse-list-cell mouse-list-mouse">
-                            <a href="{{ mouse.wiki_url }}">{{mouse.name |
-                                lowercase}}</a>
-                        </div>
+                        <a href="http://mhwiki.hitgrab.com/wiki/index.php/{{ mouse.wiki_url }}" class="text-capitalize text-center mouse-list-cell mouse-list-mouse">
+                            {{mouse.name |lowercase}}
+                        </a>
+
                         <!-- Cheeses -->
                         <ul class="list-group list-unstyled mouse-list-cell mouse-list-cheese">
                             <li class="text-capitalize small"
@@ -41,7 +41,7 @@
                                 <small>{{cheese.name | lowercase}}</small>
                             </li>
                         </ul>
-                        <div class="mouse-list-cell mouse-list-ht">HT</div>
+                        <a class="mouse-list-cell mouse-list-ht" href="http://horntracker.com/index.php?mouse={{mouse.ht_id}}|false">HT</a>
                         <i class="glyphicon glyphicon-remove clickable large-gray mouse-list-cell mouse-list-delete"
                            ng-click="remove_a_mouse(mouse.id)"></i>
                     </div>

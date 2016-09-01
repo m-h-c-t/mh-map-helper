@@ -35,4 +35,30 @@ class Mouse extends Model
         }
         return $counter;
     }
+
+    public static function importJsonHTUrls() {
+        // Put the file in laravel root
+        $jsonFile = base_path() . "/ht_mice.json";
+        if (! fileExists($jsonFile))
+            return "JSON input file not found.";
+        $mice = json_decode(file_get_contents($jsonFile), true);
+
+        $total_count = 0;
+        $bad_count = 0;
+        foreach ($mice as $id => $name) {
+            $mouse = '';
+            $name = Mouse::formatName($name);
+            $mouse = Mouse::where('name', $name)->first();
+            if ($mouse instanceof Mouse) {
+                $mouse->ht_id = $id;
+                $mouse->save();
+            }
+            else {
+                print $id . " => " . $name . "\n";
+                $bad_count++;
+            }
+            $total_count++;
+        }
+        return $bad_count . " bad out of " . $total_count;
+    }
 }
