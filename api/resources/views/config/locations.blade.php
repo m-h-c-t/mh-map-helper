@@ -12,7 +12,7 @@
                         <option value="{{ $stage->id }}">{{ $stage->name }}</option>
                     @endforeach
                 </select>
-                <span class="input-group-btn">
+                <span class="input-group-addon">
                         <button type="submit" class="btn btn-primary">Add</button>
                     </span>
             </div>
