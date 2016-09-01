@@ -7,8 +7,8 @@
                 <span class="input-group-addon">New Mouse:</span>
                 <input type="text" class="form-control" name="name" placeholder="Mouse Name..." required/>
                 <span class="input-group-btn">
-                        <button type="submit" class="btn btn-primary">Add</button>
-                    </span>
+                    <button type="submit" class="btn btn-primary">Add</button>
+                </span>
             </div>
         </div>
     </form>

@@ -7,8 +7,18 @@
         <h3>@if($main->location) {{ $main->location->name }} - @endif
             {{ $main->name }}
             @if($main->stage) - {{ $main->stage->name }} @endif<br/>
-            @if($main->wiki_url)
-                <small>Wiki: <a href="{{$main->wiki_url}}">{{$main->wiki_url}}</a></small>
+            @if($type == 'mouse')
+                <form method="POST" action="/config/mice/{{$main->id}}/update_wiki_url" accept-charset="UTF-8">
+                    {{ csrf_field() }}
+                    <input name="_method" type="hidden" value="PATCH">
+                    <div class="form-group input-group">
+                        <span class="input-group-addon">Wiki:</span>
+                        <input type="text" class="form-control" name="wiki_url" value="{{$main->wiki_url}}" required />
+                        <span class="input-group-btn">
+                            <button type="submit" class="btn btn-primary">Update</button>
+                        </span>
+                    </div>
+                </form>
             @endif
         </h3>
         <div class="row col-md-10 col-md-offset-1">

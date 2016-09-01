@@ -63,6 +63,20 @@ class ConfigController extends Controller
             ->with(['message' => 'Removed mouse #' . $id . ' named ' . $name . '!']);
     }
 
+    public function updateMouseWikiUrl(Mouse $mouse, Request $request)
+    {
+        if (!$request->has("wiki_url")) {
+            return redirect('config')->with(['message' => 'Could not update without url!', 'message_type' => 'error']);
+        }
+
+        $mouse->wiki_url = $request->wiki_url;
+
+        $mouse->save();
+
+        return back()
+            ->with(['message' => 'Updated mouse #' . $mouse->id . ' named: ' . $mouse->name . ' with wiki url: ' . $mouse->wiki_url . '!']);
+    }
+
     public function locationDetails(Location $location)
     {
         return view('config/individual', [
