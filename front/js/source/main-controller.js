@@ -22,7 +22,7 @@ app.controller('MainController', ['$scope', '$http', '$location', '$route', func
 
     // Get locations and cheese for each mouse
     $scope.search = function () {
-        $('#custom_loader').show();
+        $('#custom_loader:hidden').show();
         $scope.invalid_mice = [];
         $scope.setups = {};
         $scope.setups.locations = {};
@@ -134,6 +134,9 @@ app.controller('MainController', ['$scope', '$http', '$location', '$route', func
             && $route.current.params.mice != null && $route.current.params.mice.length) {
             $scope.mice_list = {text: $route.current.params.mice.split('--')};
             $scope.search();
+        }
+        else {
+            $('#custom_loader').fadeOut('slow');
         }
     });
 
