@@ -28,23 +28,22 @@
                 </a>
                 <div id="stage{{stage.id}}" ng-attr-class="{{stage.name.length ? 'collapse' : undefined }}">
                     <!-- Mice -->
-                    <div class="list-group-item" ng-repeat="mouse in stage.mice | orderBy: 'name'"
+                    <div class="list-group-item mouse-list" ng-repeat="mouse in stage.mice | orderBy: 'name'"
                          data-parent="#stage{{stage.id}}">
-                        <div class="row">
-                            <div class="text-capitalize col-xs-6 text-left">
-                                <i class="glyphicon glyphicon-remove pull-left clickable large-gray m-r-1"
-                                   ng-click="remove_a_mouse(mouse.id)"></i>
-                                <a href="{{ mouse.wiki_url }}">{{mouse.name |
-                                    lowercase}}</a>
-                            </div>
-                            <!-- Cheeses -->
-                            <ul class="col-xs-6 list-group list-unstyled pull-right" style="margin-bottom:0;">
-                                <li class="text-capitalize small list-group-item-warning"
-                                    ng-repeat="cheese in mouse.cheeses | orderBy: 'name'">
-                                    <small>{{cheese.name | lowercase}}</small>
-                                </li>
-                            </ul>
+                        <div class="text-capitalize text-center mouse-list-cell mouse-list-mouse">
+                            <a href="{{ mouse.wiki_url }}">{{mouse.name |
+                                lowercase}}</a>
                         </div>
+                        <!-- Cheeses -->
+                        <ul class="list-group list-unstyled mouse-list-cell mouse-list-cheese">
+                            <li class="text-capitalize small"
+                                ng-repeat="cheese in mouse.cheeses | orderBy: 'name'">
+                                <small>{{cheese.name | lowercase}}</small>
+                            </li>
+                        </ul>
+                        <div class="mouse-list-cell mouse-list-ht">HT</div>
+                        <i class="glyphicon glyphicon-remove clickable large-gray mouse-list-cell mouse-list-delete"
+                           ng-click="remove_a_mouse(mouse.id)"></i>
                     </div>
                 </div>
             </div>
