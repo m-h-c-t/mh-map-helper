@@ -13,6 +13,7 @@ Route::group(['middleware' => 'auth.basic'], function () {
     Route::get('config/mice/remove/{mouse}', 'ConfigController@removeMouse');
     Route::get('config/mice/update_wiki_urls', 'ConfigController@updateMiceWikiUrls');
     Route::patch('config/mice/{mouse}/update_wiki_url', 'ConfigController@updateMouseWikiUrl');
+    Route::patch('config/mice/{mouse}/update_ht_id', 'ConfigController@updateMouseHTID');
 
 
     // Config - locations
