@@ -3,10 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Mouse;
-use App\Location;
-use App\Setup;
-use App\Stage;
-use App\Cheese;
 use Illuminate\Http\Request;
 
 class SearchController extends Controller
@@ -14,7 +10,6 @@ class SearchController extends Controller
 
     public function search(Request $request)
     {
-        $results = array();
         if (!$request->has("mice") || empty($request->input("mice"))) {
             return ['error' => 'No mice supplied'];
         }
@@ -58,49 +53,5 @@ class SearchController extends Controller
         $mice_names = array_unique($mice_names);
 
         return $mice_names;
-    }
-
-    public function mouseDetails(Mouse $mouse) {
-        return view('individual', [
-            'main' => $mouse,
-            'type' => 'mouse',
-            'setups' => $mouse->setups,
-            'mice' => Mouse::all(),
-            'locations' => Location::all(),
-            'cheeses' => Cheese::all()
-        ]);
-    }
-
-    public function locationDetails(Location $location) {
-        return view('individual', [
-            'main' => $location,
-            'type' => 'location',
-            'setups' => Setup::where('location_id', $location->id)->get(),
-            'mice' => Mouse::all(),
-            'locations' => Location::all(),
-            'cheeses' => Cheese::all()
-        ]);
-    }
-
-    public function stageDetails(Stage $stage) {
-        return view('individual', [
-            'main' => $stage,
-            'type' => 'stage',
-            'setups' => Setup::where('location_id', $stage->location->id)->get(),
-            'mice' => Mouse::all(),
-            'locations' => Location::all(),
-            'cheeses' => Cheese::all()
-        ]);
-    }
-
-    public function cheeseDetails(Cheese $cheese) {
-        return view('individual', [
-            'main' => $cheese,
-            'type' => 'cheese',
-            'setups' => Setup::where('cheese_id', $cheese->id)->get(),
-            'mice' => Mouse::all(),
-            'locations' => Location::all(),
-            'cheeses' => Cheese::all()
-        ]);
     }
 }

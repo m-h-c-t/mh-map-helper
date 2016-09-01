@@ -24,6 +24,18 @@ class ConfigController extends Controller
         ]);
     }
 
+    public function mouseDetails(Mouse $mouse)
+    {
+        return view('config/individual', [
+            'main' => $mouse,
+            'type' => 'mouse',
+            'setups' => $mouse->setups,
+            'mice' => Mouse::all(),
+            'locations' => Location::all(),
+            'cheeses' => Cheese::all()
+        ]);
+    }
+
     public function addMouse(Request $request)
     {
         if (!$request->has("name")) {
@@ -49,6 +61,18 @@ class ConfigController extends Controller
 
         return back()
             ->with(['message' => 'Removed mouse #' . $id . ' named ' . $name . '!']);
+    }
+
+    public function locationDetails(Location $location)
+    {
+        return view('config/individual', [
+            'main' => $location,
+            'type' => 'location',
+            'setups' => Setup::where('location_id', $location->id)->get(),
+            'mice' => Mouse::all(),
+            'locations' => Location::all(),
+            'cheeses' => Cheese::all()
+        ]);
     }
 
     public function addLocation(Request $request)
@@ -82,6 +106,18 @@ class ConfigController extends Controller
             ->with(['message' => 'Removed location #' . $id . ' named ' . $name . '!']);
     }
 
+    public function cheeseDetails(Cheese $cheese)
+    {
+        return view('config/individual', [
+            'main' => $cheese,
+            'type' => 'cheese',
+            'setups' => Setup::where('cheese_id', $cheese->id)->get(),
+            'mice' => Mouse::all(),
+            'locations' => Location::all(),
+            'cheeses' => Cheese::all()
+        ]);
+    }
+
     public function addCheese(Request $request)
     {
         if (!$request->has("name")) {
@@ -107,6 +143,18 @@ class ConfigController extends Controller
 
         return back()
             ->with(['message' => 'Removed cheese #' . $id . ' named ' . $name . '!']);
+    }
+
+    public function stageDetails(Stage $stage)
+    {
+        return view('config/individual', [
+            'main' => $stage,
+            'type' => 'stage',
+            'setups' => Setup::where('location_id', $stage->location->id)->get(),
+            'mice' => Mouse::all(),
+            'locations' => Location::all(),
+            'cheeses' => Cheese::all()
+        ]);
     }
 
     public function addStage(Request $request)
@@ -170,8 +218,9 @@ class ConfigController extends Controller
                 . '!']);
     }
 
-    public function updateMiceWikiUrls() {
+    public function updateMiceWikiUrls()
+    {
         $mice_updated = Mouse::updateWikiUrls();
-        return back() ->with(['message' => 'Updated ' . $mice_updated . ' mice!']);
+        return back()->with(['message' => 'Updated ' . $mice_updated . ' mice!']);
     }
 }

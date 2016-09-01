@@ -5,8 +5,6 @@ namespace App;
 use DB;
 use Illuminate\Database\Eloquent\Model;
 
-//require_once "__FILE__/../db/db.php";
-
 class Mouse extends Model
 {
     public $timestamps = false;
