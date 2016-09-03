@@ -30,22 +30,22 @@
                     <!-- Mice -->
                     <div class="list-group-item mouse-list" ng-repeat="mouse in stage.mice | orderBy: 'name'"
                          data-parent="#stage{{stage.id}}">
-                        <a href="http://mhwiki.hitgrab.com/wiki/index.php/{{ mouse.wiki_url }}" class="text-capitalize text-center mouse-list-cell mouse-list-mouse">
+                        <a href="http://mhwiki.hitgrab.com/wiki/index.php/{{ mouse.wiki_url }}" class="text-capitalize text-center mouse-list-cell mouse-list-mouse" title="Mouse (link to wiki)">
                             {{mouse.name |lowercase}}
                         </a>
 
                         <!-- Cheeses -->
-                        <ul class="list-group list-unstyled mouse-list-cell mouse-list-cheese">
+                        <ul class="list-group list-unstyled mouse-list-cell mouse-list-cheese" title="Cheese">
                             <li class="text-capitalize small"
                                 ng-repeat="cheese in mouse.cheeses | orderBy: 'name'">
                                 <small>{{cheese.name | lowercase}}</small>
                             </li>
                         </ul>
-                        <a class="mouse-list-cell mouse-list-ht" href="http://horntracker.com/index.php?mouse={{mouse.ht_id}}|false">
+                        <a class="mouse-list-cell mouse-list-ht" href="http://horntracker.com/index.php?mouse={{mouse.ht_id}}|false"  title="HornTracker">
                             <i class="glyphicon glyphicon-stats large-gray"></i>
                         </a>
                         <i class="glyphicon glyphicon-remove clickable large-gray mouse-list-cell mouse-list-delete"
-                           ng-click="remove_a_mouse(mouse.id)"></i>
+                           ng-click="remove_a_mouse(mouse.id)"  title="Remove the mouse"></i>
                     </div>
                 </div>
             </div>
