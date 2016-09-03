@@ -1,0 +1,11 @@
+language: php
+php:
+  - '7.0'
+  
+before_install:
+  - cd api
+install:
+  - composer install
+  - npm i
+script:
+  - api/vendor/bin/phpunit --configuration api/phpunit.xml api/tests
