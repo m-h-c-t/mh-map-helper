@@ -41,7 +41,9 @@
                                 <small>{{cheese.name | lowercase}}</small>
                             </li>
                         </ul>
-                        <a class="mouse-list-cell mouse-list-ht" href="http://horntracker.com/index.php?mouse={{mouse.ht_id}}|false">HT</a>
+                        <a class="mouse-list-cell mouse-list-ht" href="http://horntracker.com/index.php?mouse={{mouse.ht_id}}|false">
+                            <i class="glyphicon glyphicon-stats large-gray"></i>
+                        </a>
                         <i class="glyphicon glyphicon-remove clickable large-gray mouse-list-cell mouse-list-delete"
                            ng-click="remove_a_mouse(mouse.id)"></i>
                     </div>
