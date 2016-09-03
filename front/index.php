@@ -20,13 +20,19 @@
     <!-- Loading Screen -->
     <div id="custom_loader"></div>
 
-    <custom-header></custom-header>
+    <div class="header">
+        <custom-header></custom-header>
+    </div>
 
-    <ng-view></ng-view>
+    <div class="content">
+        <ng-view></ng-view>
 
-    <mice-list-form></mice-list-form>
+        <mice-list-form></mice-list-form>
+    </div>
 
-    <custom-footer></custom-footer>
+    <div class="footer">
+        <custom-footer></custom-footer>
+    </div>
 
     <!-- JS Includes -->
     <script defer src="//code.jquery.com/jquery-1.11.3.min.js"></script>
