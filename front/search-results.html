@@ -35,10 +35,10 @@
                         </a>
 
                         <!-- Cheeses -->
-                        <ul class="list-group list-unstyled mouse-list-cell mouse-list-cheese" title="Cheese">
-                            <li class="text-capitalize small"
-                                ng-repeat="cheese in mouse.cheeses | orderBy: 'name'">
-                                <small>{{cheese.name | lowercase}}</small>
+                        <ul class="list-group list-unstyled mouse-list-cell mouse-list-cheese-ar" title="Cheese">
+                            <li class="text-capitalize"
+                                ng-repeat="cheese in mouse.cheeses | orderBy:['-ar', 'name']">
+                                <div class="mouse-list-cheese-ar-cell mouse-list-cheese">{{cheese.name | lowercase}}</div><div class="mouse-list-cheese-ar-cell mouse-list-ar">{{ cheese.ar ? '' + cheese.ar/100 + '%' : '' }}</div>
                             </li>
                         </ul>
                         <a class="mouse-list-cell mouse-list-ht" href="http://horntracker.com/index.php?mouse={{mouse.ht_id}}|false"  title="HornTracker">

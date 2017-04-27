@@ -12,6 +12,16 @@
     background: url("../../images/dist/croppedcat.jpg") center no-repeat;
     text-shadow: 0 0 1em black;
     color: white;
+    position: relative;
+}
+
+.jumbotron a, .jumbotron a:hover {
+    display: block;
+    position: absolute;
+    bottom: 0;
+    left: 1em;
+    color: white;
+    text-decoration: none;
 }
 
 html {
@@ -109,6 +119,12 @@ body {
 @media only screen and (max-width: 1200px) {
     .container {
         width: 96%;
+        padding-left: 0;
+        padding-right: 0;
+    }
+
+    .glyphicon-remove {
+        margin-right: 1em;
     }
 }
 
@@ -130,18 +146,31 @@ body {
     padding: 10px 0;
 }
 
-.mouse-list-cheese {
+.mouse-list-cheese-ar {
     margin-bottom: 0;
+    width: 40%;
+}
+
+.mouse-list-cheese {
     background-color: #ffff99;
-    width: 35%;
+    width: 100%;
+}
+.mouse-list-ar {
+    background-color: #ffff99;
+}
+
+.mouse-list-cheese-ar-cell {
+    display: table-cell;
+    border: 1px solid #ddd;
+    vertical-align: middle;
 }
 
 .mouse-list-ht {
-    width: 20%;
+    width: 15%;
 }
 
 .mouse-list-delete {
-    width: 10%;
+    width: 15%;
     position: static;
     background-color: #ccc;
 }

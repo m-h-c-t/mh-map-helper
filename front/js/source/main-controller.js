@@ -87,6 +87,7 @@ app.controller('MainController', ['$scope', '$http', '$location', '$route', func
                     }
                     $scope.setups.locations[setup.location.name].stages[stage_id].mice[setup.mouse.id].cheeses[setup.cheese.id].id = setup.cheese.id;
                     $scope.setups.locations[setup.location.name].stages[stage_id].mice[setup.mouse.id].cheeses[setup.cheese.id].name = setup.cheese.name;
+                    $scope.setups.locations[setup.location.name].stages[stage_id].mice[setup.mouse.id].cheeses[setup.cheese.id].ar = setup.ar;
 
                     // Mice counts
                     $scope.setups.mice_count[setup.mouse.id] = true;

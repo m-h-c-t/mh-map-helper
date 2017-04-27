@@ -1,0 +1,54 @@
+-- UPDATE mhmaphelper.cheeses c1
+-- INNER JOIN id1346768_mhhh.cheese c2 ON c1.name LIKE upper(c2.name)
+-- SET c1.mhhh_id = c2.id;
+-- 
+-- UPDATE mhmaphelper.locations c1
+-- INNER JOIN mhhunthelper.locations c2 ON c1.name LIKE upper(c2.name)
+-- SET c1.mhhh_id = c2.id;
+-- 
+-- UPDATE mhmaphelper.mice c1
+-- INNER JOIN mhhunthelper.mice c2 ON c1.name LIKE upper(c2.name)
+-- SET c1.mhhh_id = c2.id;
+-- 
+-- UPDATE mhmaphelper.stages c1
+-- INNER JOIN mhhunthelper.stages c2 ON c1.name LIKE upper(c2.name)
+-- SET c1.mhhh_id = c2.id;
+
+# update ar without stages
+-- UPDATE mhmaphelper.setups s2
+-- INNER JOIN (
+-- SELECT ROUND(COUNT(DISTINCT h2.timestamp) / COUNT(DISTINCT(h.timestamp)) * 10000) AS ar, s.id
+-- FROM mhmaphelper.setups s
+-- INNER JOIN mhmaphelper.locations l ON s.location_id = l.id AND l.stage_id IS NULL
+-- INNER JOIN mhmaphelper.cheeses c ON s.cheese_id = c.id
+-- INNER JOIN mhmaphelper.mice m ON s.mouse_id = m.id
+-- INNER JOIN mhhunthelper.locations l2 ON l.mhhh_id = l2.id
+-- INNER JOIN mhhunthelper.cheese c2 ON c.mhhh_id = c2.id
+-- INNER JOIN mhhunthelper.mice m2 ON m.mhhh_id = m2.id
+-- INNER JOIN mhhunthelper.hunts h ON c2.id = h.cheese_id AND l2.id = h.location_id AND h.stage_id IS NULL
+-- LEFT JOIN mhhunthelper.hunts h2 ON c2.id = h2.cheese_id AND l2.id = h2.location_id AND h2.stage_id IS NULL AND m2.id = h2.mouse_id
+-- GROUP BY s.id
+-- HAVING COUNT(DISTINCT h2.timestamp) > 0 AND COUNT(DISTINCT h.timestamp) > 10
+-- ) AS s3 ON s2.id = s3.id
+-- SET s2.ar = s3.ar;
+
+# update ar with stages
+-- UPDATE mhmaphelper.setups s2
+-- INNER JOIN (
+-- SELECT ROUND(COUNT(DISTINCT h2.timestamp) / COUNT(DISTINCT(h.timestamp)) * 10000) as ar, s.id
+-- FROM mhmaphelper.setups s
+-- INNER JOIN mhmaphelper.locations l ON s.location_id = l.id
+-- INNER JOIN mhmaphelper.stages st on s.stage_id = st.id and l.stage_id = st.id
+-- INNER JOIN mhmaphelper.cheeses c ON s.cheese_id = c.id
+-- INNER JOIN mhmaphelper.mice m ON s.mouse_id = m.id
+-- INNER JOIN mhhunthelper.locations l2 ON l.mhhh_id = l2.id
+-- INNER JOIN mhhunthelper.stages st2 on st.mhhh_id = st2.id
+-- INNER JOIN mhhunthelper.cheese c2 ON c.mhhh_id = c2.id
+-- INNER JOIN mhhunthelper.mice m2 ON m.mhhh_id = m2.id
+-- INNER JOIN mhhunthelper.hunts h ON c2.id = h.cheese_id AND l2.id = h.location_id AND h.stage_id = st2.id
+-- LEFT JOIN mhhunthelper.hunts h2 ON c2.id = h2.cheese_id AND l2.id = h2.location_id AND h2.stage_id = st2.id AND m2.id = h2.mouse_id
+-- GROUP BY s.id
+-- HAVING COUNT(DISTINCT h2.timestamp) > 0 AND COUNT(DISTINCT h.timestamp) > 10
+-- ) AS s3 ON s2.id = s3.id
+-- SET s2.ar = s3.ar;
+
