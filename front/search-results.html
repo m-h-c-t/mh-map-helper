@@ -30,18 +30,19 @@
                     <!-- Mice -->
                     <div class="list-group-item mouse-list" ng-repeat="mouse in stage.mice | orderBy: 'name'"
                          data-parent="#stage{{stage.id}}">
-                        <a href="http://mhwiki.hitgrab.com/wiki/index.php/{{ mouse.wiki_url }}" class="text-capitalize text-center mouse-list-cell mouse-list-mouse" title="Mouse (link to wiki)">
+                        <a href="http://mhwiki.hitgrab.com/wiki/index.php/{{ mouse.wiki_url }}" class="text-capitalize text-center mouse-list-cell mouse-list-mouse" title="Mouse (link to wiki)" target="_blank">
                             {{mouse.name |lowercase}}
                         </a>
 
                         <!-- Cheeses -->
-                        <ul class="list-group list-unstyled mouse-list-cell mouse-list-cheese-ar" title="Cheese">
-                            <li class="text-capitalize"
-                                ng-repeat="cheese in mouse.cheeses | orderBy:['-ar', 'name']">
-                                <div class="mouse-list-cheese-ar-cell mouse-list-cheese">{{cheese.name | lowercase}}</div><div class="mouse-list-cheese-ar-cell mouse-list-ar">{{ cheese.ar ? '' + cheese.ar/100 + '%' : '' }}</div>
-                            </li>
-                        </ul>
-                        <a class="mouse-list-cell mouse-list-ht" href="http://horntracker.com/index.php?mouse={{mouse.ht_id}}|false"  title="HornTracker">
+                        <table class="table table-condensed mouse-list-cheese-ar">
+                            <tr ng-repeat="cheese in mouse.cheeses | orderBy:['+ar', 'name']" class="text-capitalize">
+                                <td class="text-left mouse-list-cheese" colspan="{{ cheese.ar ? '1' : '2' }}">{{cheese.name | lowercase}}</td>
+                                <td class="text-right mouse-list-ar" ng-if="cheese.ar"><a href="https://mhhunthelper.agiletravels.com/?mouse={{ mouse.mhhh_id }}" target="_blank">{{ cheese.ar/100 }}%</a></td>
+                            </tr>
+                        </table>
+
+                        <a class="mouse-list-cell mouse-list-ht" href="http://horntracker.com/index.php?mouse={{mouse.ht_id}}|false"  title="HornTracker"  target="_blank">
                             <i class="glyphicon glyphicon-stats large-gray"></i>
                         </a>
                         <i class="glyphicon glyphicon-remove clickable large-gray mouse-list-cell mouse-list-delete"

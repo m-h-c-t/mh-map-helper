@@ -80,6 +80,7 @@ app.controller('MainController', ['$scope', '$http', '$location', '$route', func
                     $scope.setups.locations[setup.location.name].stages[stage_id].mice[setup.mouse.id].name = setup.mouse.name;
                     $scope.setups.locations[setup.location.name].stages[stage_id].mice[setup.mouse.id].wiki_url = setup.mouse.wiki_url;
                     $scope.setups.locations[setup.location.name].stages[stage_id].mice[setup.mouse.id].ht_id = setup.mouse.ht_id;
+                    $scope.setups.locations[setup.location.name].stages[stage_id].mice[setup.mouse.id].mhhh_id = setup.mouse.mhhh_id;
 
                     // Add cheese
                     if (!(setup.cheese.id in $scope.setups.locations[setup.location.name].stages[stage_id].mice[setup.mouse.id].cheeses)) {
@@ -134,7 +135,7 @@ app.controller('MainController', ['$scope', '$http', '$location', '$route', func
 
         if ($location.path().match('^/mice/')
             && $route.current.params.mice != null && $route.current.params.mice.length) {
-            $scope.mice_list = {text: $route.current.params.mice.split('--')};
+            $scope.mice_list = {text: $route.current.params.mice.split('+')};
             $scope.search();
         }
         else {
@@ -144,7 +145,7 @@ app.controller('MainController', ['$scope', '$http', '$location', '$route', func
 
     // store searched mice in the url
     $scope.form_submit = function() {
-        $location.path("/mice/" + $scope.mice_list.text.join('--'));
+        $location.path("/mice/" + $scope.mice_list.text.join('+'));
     };
 
     // Reset everything
@@ -179,15 +180,16 @@ app.controller('MainController', ['$scope', '$http', '$location', '$route', func
             remove_mouse_name = remove_mouse_name.toUpperCase();
 
             // Update textarea
-            var temp_mice_list = $route.current.params.mice.split('--');
-            angular.forEach(temp_mice_list, function (url_mouse_name, index) {
-                if (remove_mouse_name === url_mouse_name.toUpperCase()) {
-                    temp_mice_list.splice(index, 1);
+            var temp_mice_list = $scope.mice_list.text;
+            $scope.mice_list = {text: []};
+            angular.forEach(temp_mice_list, function (text_mouse_name, index) {
+                if (remove_mouse_name !== text_mouse_name.toUpperCase()) {
+                    $scope.mice_list.text.push(text_mouse_name);
                 }
             });
-            $scope.mice_list = {text: temp_mice_list};
-            // Redirect disabled for now
-            // $location.path("/mice/" + temp_mice_list.join('--'));
+
+            // Redirect disabled for now because it collapses all, and loading animation
+            // $location.path("/mice/" + $scope.mice_list.text.join('+'));
         }
     };
 
