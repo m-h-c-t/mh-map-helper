@@ -154,10 +154,12 @@ body {
 
 .mouse-list-cheese {
     background-color: #ff9;
-    vertical-align:middle;
+    vertical-align: middle;
+    width: 100%;
 }
 .mouse-list-ar {
-    vertical-align:middle;
+    vertical-align: middle;
+    white-space: nowrap;
 }
 
 .mouse-list-ar a {
