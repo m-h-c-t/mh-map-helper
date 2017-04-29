@@ -35,12 +35,14 @@
                         </a>
 
                         <!-- Cheeses -->
-                        <table class="table table-condensed mouse-list-cheese-ar">
-                            <tr ng-repeat="cheese in mouse.cheeses | orderBy:['+ar', 'name']" class="text-capitalize">
-                                <td class="text-left mouse-list-cheese" colspan="{{ cheese.ar ? '1' : '2' }}">{{cheese.name | lowercase}}</td>
-                                <td class="text-right mouse-list-ar" ng-if="cheese.ar"><a href="https://mhhunthelper.agiletravels.com/?mouse={{ mouse.mhhh_id }}" target="_blank">{{ cheese.ar/100 }}%</a></td>
-                            </tr>
-                        </table>
+                        <div class="mouse_list_cheese_ar_wrapper">
+                            <table class="table-condensed mouse-list-cheese-ar">
+                                <tr ng-repeat="cheese in mouse.cheeses | orderBy:['+ar', 'name']" class="text-capitalize">
+                                    <td class="text-left mouse-list-cheese" colspan="{{ cheese.ar ? '1' : '2' }}">{{cheese.name | lowercase}}</td>
+                                    <td class="text-right mouse-list-ar" ng-if="cheese.ar"><a href="https://mhhunthelper.agiletravels.com/?mouse={{ mouse.mhhh_id }}" target="_blank">{{ cheese.ar/100 }}%</a></td>
+                                </tr>
+                            </table>
+                        </div>
 
                         <a class="mouse-list-cell mouse-list-ht" href="http://horntracker.com/index.php?mouse={{mouse.ht_id}}|false"  title="HornTracker"  target="_blank">
                             <i class="glyphicon glyphicon-stats large-gray"></i>
