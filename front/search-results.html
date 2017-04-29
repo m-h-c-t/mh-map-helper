@@ -37,7 +37,7 @@
                         <!-- Cheeses -->
                         <div class="mouse_list_cheese_ar_wrapper">
                             <table class="table-condensed mouse-list-cheese-ar">
-                                <tr ng-repeat="cheese in mouse.cheeses | orderBy:['+ar', 'name']" class="text-capitalize">
+                                <tr ng-repeat="cheese in mouse.cheeses | orderBy:['-ar', 'name']|emptyToEnd:'ar'" class="text-capitalize">
                                     <td class="text-left mouse-list-cheese">{{cheese.name | lowercase}}</td>
                                     <td class="text-right mouse-list-ar"><a href="https://mhhunthelper.agiletravels.com/?mouse={{ mouse.mhhh_id }}" target="_blank">{{ cheese.ar ? cheese.ar/100 : '-.--' }}%</a></td>
                                 </tr>
