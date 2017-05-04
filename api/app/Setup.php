@@ -9,7 +9,7 @@ class Setup extends Model
 {
     public $timestamps = false;
     protected $table = 'setups';
-    protected $with = ['mouse', 'location', 'cheese'];
+    protected $with = ['mouse', 'location', 'cheese', 'stage'];
 
     public function mouse()
     {
@@ -24,5 +24,10 @@ class Setup extends Model
     public function cheese()
     {
         return $this->belongsTo(Cheese::class);
+    }
+
+    public function stage()
+    {
+        return $this->belongsTo(Stage::class);
     }
 }

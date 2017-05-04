@@ -10,8 +10,8 @@ class Stage extends Model
     public $timestamps = false;
     protected $table = 'stages';
 
-    public function location()
+    public function setups()
     {
-        return $this->hasOne(Location::class);
+        return $this->hasMany(Setup::class);
     }
 }

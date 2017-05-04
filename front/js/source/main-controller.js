@@ -56,10 +56,10 @@ app.controller('MainController', ['$scope', '$http', '$location', '$route', func
                     var stage_name = '';
                     var stage_id = '';
                     var stage_order = '';
-                    if (setup.location.stage != null) {
-                        stage_name = setup.location.stage.name;
-                        stage_id = setup.location.stage.id;
-                        stage_order = setup.location.stage.order;
+                    if (setup.stage != null) {
+                        stage_name = setup.stage.name;
+                        stage_id = setup.stage.id;
+                        stage_order = setup.stage.order;
                     }
 
                     if (!(stage_id in $scope.setups.locations[setup.location.name].stages)) {
