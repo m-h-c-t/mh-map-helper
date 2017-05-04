@@ -17,8 +17,8 @@ class Mouse extends Model
     }
 
     public static function formatName($name) {
-        $name = strtoupper(trim($name));
-        $name = str_replace(' MOUSE', '', $name);
+        $name = trim($name);
+        $name = str_ireplace(' MOUSE', '', $name);
         return $name;
     }
 

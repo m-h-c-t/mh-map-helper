@@ -8,9 +8,7 @@
                 <input type="button" class="btn btn-default" value="Back to Main"/>
             </a>
             <div class="col-xs-8" style="font-size: 200%;">
-                @if($main->location) {{ $main->location->name }} - @endif
                 {{ $main->name }}
-                @if($main->stage) - {{ $main->stage->name }} @endif
             </div>
         </div>
         @if($type == 'mouse')
@@ -47,16 +45,16 @@
                 <table class="table table-striped table-bordered">
                     <tr>
                         <th class="text-center">Mouse</th>
-                        <th class="text-center">Location - Stage</th>
+                        <th class="text-center">Location</th>
+                        <th class="text-center">Stage</th>
                         <th class="text-center">Cheese</th>
                         <th></th>
                     </tr>
                     @foreach( $setups as $setup )
                         <tr>
                             <td><a href="/config/mice/{{$setup->mouse->id}}">{{$setup->mouse->name}}</a></td>
-                            <td>
-                                <a href="/config/locations/{{$setup->location->id}}">{{$setup->location->name}} @if($setup->location->stage)
-                                        - {{$setup->location->stage->name}}@endif</a></td>
+                            <td><a href="/config/locations/{{$setup->location->id}}">{{$setup->location->name}}</a></td>
+                            <td>@if($setup->stage)<a href="/config/stages/{{$setup->stage->id}}">{{$setup->stage->name}}@endif</a></td>
                             <td><a href="/config/cheeses/{{$setup->cheese->id}}">{{$setup->cheese->name}}<a/></td>
                             <td><a href="/config/setups/remove/{{ $setup->id }}">
                                     <i class="glyphicon glyphicon-remove text-danger" style="font-size: 1.4em;"></i>
@@ -68,6 +66,7 @@
                     <tr>
                         <td>
                             <select class="form-control" name="mouse">
+                                <option value="">Mouse</option>
                                 @foreach($mice->sortBy('name') as $mouse)
                                     <option value="{{ $mouse->id }}"
                                         @if($type == 'mouse' && $main->id == $mouse->id) selected @endif
@@ -77,17 +76,27 @@
                         </td>
                         <td>
                             <select class="form-control" name="location">
+                                <option value="">Location</option>
                                 @foreach($locations->sortBy('name') as $location)
                                     <option value="{{ $location->id }}"
-                                        @if(($type == 'location' && $main->id == $location->id)
-                                            || ($type == 'stage' && $main->location->id == $location->id)) selected @endif
-                                    >{{ $location->name }} @if($location->stage)
-                                            - {{ $location->stage->name }} @endif</option>
+                                        @if($type == 'location' && $main->id == $location->id) selected @endif
+                                    >{{ $location->name }}</option>
+                                @endforeach
+                            </select>
+                        </td>
+                        <td>
+                            <select class="form-control" name="stage">
+                                <option value="">Stage</option>
+                                @foreach($stages->sortBy('name') as $stage)
+                                    <option value="{{ $stage->id }}"
+                                            @if($type == 'stage' && $main->id == $stage->id) selected @endif
+                                    >{{ $stage->name }}</option>
                                 @endforeach
                             </select>
                         </td>
                         <td>
                             <select class="form-control" name="cheese">
+                                <option value="">Cheese</option>
                                 @foreach($cheeses->sortBy('name') as $cheese)
                                     <option value="{{ $cheese->id }}"
                                         @if(($type == 'cheese') && ($main->id == $cheese->id)) selected @endif

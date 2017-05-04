@@ -32,7 +32,8 @@ class ConfigController extends Controller
             'setups' => $mouse->setups,
             'mice' => Mouse::all(),
             'locations' => Location::all(),
-            'cheeses' => Cheese::all()
+            'cheeses' => Cheese::all(),
+            'stages' => Stage::all()
         ]);
     }
 
@@ -99,7 +100,8 @@ class ConfigController extends Controller
             'setups' => Setup::where('location_id', $location->id)->get(),
             'mice' => Mouse::all(),
             'locations' => Location::all(),
-            'cheeses' => Cheese::all()
+            'cheeses' => Cheese::all(),
+            'stages' => Stage::all()
         ]);
     }
 
@@ -110,11 +112,7 @@ class ConfigController extends Controller
         }
         $location = new Location();
 
-        $location->name = strtoupper(trim($request->name));
-
-        if ($request->has("stage_id") && is_numeric($request->stage_id)) {
-            $location->stage_id = $request->stage_id;
-        }
+        $location->name = trim($request->name);
 
         $location->save();
 
@@ -142,7 +140,8 @@ class ConfigController extends Controller
             'setups' => Setup::where('cheese_id', $cheese->id)->get(),
             'mice' => Mouse::all(),
             'locations' => Location::all(),
-            'cheeses' => Cheese::all()
+            'cheeses' => Cheese::all(),
+            'stages' => Stage::all()
         ]);
     }
 
@@ -153,7 +152,7 @@ class ConfigController extends Controller
         }
         $cheese = new Cheese();
 
-        $cheese->name = strtoupper(trim($request->name));
+        $cheese->name = trim($request->name);
 
         $cheese->save();
 
@@ -178,10 +177,11 @@ class ConfigController extends Controller
         return view('config/individual', [
             'main' => $stage,
             'type' => 'stage',
-            'setups' => Setup::where('location_id', $stage->location->id)->get(),
+            'setups' => Setup::where('stage_id', $stage->id)->get(),
             'mice' => Mouse::all(),
             'locations' => Location::all(),
-            'cheeses' => Cheese::all()
+            'cheeses' => Cheese::all(),
+            'stages' => Stage::all()
         ]);
     }
 
@@ -192,7 +192,7 @@ class ConfigController extends Controller
         }
         $stage = new Stage();
 
-        $stage->name = strtoupper(trim($request->name));
+        $stage->name = trim($request->name);
 
         $stage->save();
 
@@ -218,11 +218,13 @@ class ConfigController extends Controller
         $setup->location_id = $request->location;
         $setup->mouse_id = $request->mouse;
         $setup->cheese_id = $request->cheese;
+        $setup->stage_id = $request->stage;
         $setup->save();
 
         return back()
             ->with(['message' => 'Added setup #' . $setup->id
                 . ' Location: ' . $setup->location->name
+                . ' Stage: ' . $setup->stage->name
                 . ' Mouse: ' . $setup->mouse->name
                 . ' Cheese: ' . $setup->cheese->name
                 . '!']);
@@ -233,6 +235,7 @@ class ConfigController extends Controller
 
         $id = $setup->id;
         $location = $setup->location->name;
+        $stage = $setup->stage->name;
         $mouse = $setup->mouse->name;
         $cheese = $setup->cheese->name;
 
@@ -241,6 +244,7 @@ class ConfigController extends Controller
         return back()
             ->with(['message' => 'Removed setup #' . $id
                 . ' Location: ' . $location
+                . ' Stage: ' . $stage
                 . ' Mouse: ' . $mouse
                 . ' Cheese: ' . $cheese
                 . '!']);

@@ -6,17 +6,25 @@
             <div class="form-group input-group">
                 <span class="input-group-addon">New Setup:</span>
                 <select class="form-control" name="location">
+                    <option value="">Location</option>
                     @foreach($locations->sortBy('name') as $location)
-                        <option value="{{ $location->id }}">{{ $location->name }} @if($location->stage)
-                                - {{ $location->stage->name }} @endif</option>
+                        <option value="{{ $location->id }}">{{ $location->name }}</option>
+                    @endforeach
+                </select>
+                <select class="form-control" name="stage">
+                    <option value="">Stage</option>
+                    @foreach($stages->sortBy('name') as $stage)
+                        <option value="{{ $stage->id }}">{{ $stage->name }}</option>
                     @endforeach
                 </select>
                 <select class="form-control" name="mouse">
+                    <option value="">Mouse</option>
                     @foreach($mice->sortBy('name') as $mouse)
                         <option value="{{ $mouse->id }}">{{ $mouse->name }}</option>
                     @endforeach
                 </select>
                 <select class="form-control" name="cheese">
+                    <option value="">Cheese</option>
                     @foreach($cheeses->sortBy('name') as $cheese)
                         <option value="{{ $cheese->id }}">{{ $cheese->name }}</option>
                     @endforeach
@@ -39,7 +47,7 @@
         <div id="setups" class="collapse">
             @foreach( $setups as $setup )
                 <li class="list-group-item"><span class="pull-left">{{ $setup->id }}</span>
-                    {{ $setup->location->name }} @if($setup->location->stage)- {{ $setup->location->stage->name }} @endif -
+                    {{ $setup->location->name }} @if($setup->stage)- {{ $setup->stage->name }} @endif -
                     {{ $setup->mouse->name }} -
                     {{ $setup->cheese->name }}
                     <a href="/config/setups/remove/{{ $setup->id }}">

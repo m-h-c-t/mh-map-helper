@@ -16,8 +16,8 @@ class Cheese extends Model
     }
 
     public static function formatName($name) {
-        $name = strtoupper(trim($name));
-        $name = str_replace(' CHEESE', '', $name);
+        $name = trim($name);
+        $name = str_ireplace(' CHEESE', '', $name);
         return $name;
     }
 }
