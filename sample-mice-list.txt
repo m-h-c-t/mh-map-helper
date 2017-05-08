@@ -1,26 +1,3 @@
-Mystic Rook
-Puddlemancer
-Flutterby
-Effervescent
-Mermouse
-Elub Chieftain
-Pirate
-Magmarage
-Primal
-Swarm of Pygmy Mice
-Fetid Swamp
-Monk
-White
-Infiltrator
-Keeper
-Pocketwatch
-Conjurer
-Chameleon
-Nerg Chieftain
-Ooze
-Ravenous Zombie
-Snake Charmer
-Spice Merchant
 Master of the Cheese Fang
 Student of the Cheese Claw
 Polar Bear
@@ -33,4 +10,3 @@ Twisted Fiend
 Living Ice
 Balack the Banished
 Chipper
-
