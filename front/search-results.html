@@ -31,7 +31,7 @@
                     <div class="list-group-item mouse-list" ng-repeat="mouse in stage.mice | orderBy: 'name'"
                          data-parent="#stage{{stage.id}}">
                         <a href="http://mhwiki.hitgrab.com/wiki/index.php/{{ mouse.wiki_url }}" class="text-capitalize text-center mouse-list-cell mouse-list-mouse" title="Mouse (link to wiki)" target="_blank">
-                            {{mouse.name |lowercase}}
+                            {{ mouse.name | lowercase }}{{ mouse.special === 1 ? "*" : "" }}
                         </a>
 
                         <!-- Cheeses -->
@@ -54,6 +54,8 @@
             </div>
         </div>
     </div>
+    <br style="clear:both;" />
+    <span class="text-muted">* - See wiki for special conditions</span>
 </div>
 <!-- Mice not found -->
 <div class="container" ng-if="invalid_mice.length">
