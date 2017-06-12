@@ -6,3 +6,4 @@ api/public/build
 .idea
 dist/
 rev-manifest.json
+ga.php
