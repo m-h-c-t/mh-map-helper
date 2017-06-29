@@ -1,5 +1,6 @@
 {{--Add New Mouse--}}
 <div class="container well">
+    <H2>Mice</H2><br/>
     <form method="POST" action="/config/mice/add">
         {{ csrf_field() }}
         <div class="col-md-6 no-left-padding">
@@ -32,6 +33,6 @@
         </div>
     </ul>
 
-    <a href="/config/mice/update_wiki_urls"><input type="button" value="Add All Missing Mouse Wiki URLs"
+    <a href="/config/mice/update/missing_wiki_urls"><input type="button" value="Add all missing wiki URLs"
                                                    class="btn btn-primary"/></a>
 </div>

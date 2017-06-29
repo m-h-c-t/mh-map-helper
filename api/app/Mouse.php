@@ -22,13 +22,12 @@ class Mouse extends Model
         return $name;
     }
 
-    public static function updateWikiUrls() {
+    public static function updateMissingWikiUrls() {
         $counter = 0;
         foreach ( Mouse::all() as $one_mouse ){
             if (empty($one_mouse->wiki_url)) {
                 $one_mouse->wiki_url = str_replace(' ', '_', ucwords(strtolower($one_mouse->name)));
                 $one_mouse->wiki_url = (substr($one_mouse->name, -5, 5) === 'MOUSE' ? $one_mouse->wiki_url : $one_mouse->wiki_url . '_Mouse');
-                $one_mouse->wiki_url = 'http://mhwiki.hitgrab.com/wiki/index.php/' . $one_mouse->wiki_url;
                 $one_mouse->save();
                 $counter++;
             }

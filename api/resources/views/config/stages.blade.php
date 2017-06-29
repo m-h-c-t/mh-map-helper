@@ -1,5 +1,6 @@
 {{--Add New Stage--}}
 <div class="container well">
+    <H2>Stages</H2><br/>
     <form method="POST" action="/config/stages/add">
         {{ csrf_field() }}
 

@@ -1,5 +1,6 @@
 {{--Add New Location--}}
 <div class="container well">
+    <H2>Locations</H2><br/>
     <form method="POST" action="/config/locations/add">
         {{ csrf_field() }}
 

@@ -250,9 +250,9 @@ class ConfigController extends Controller
                 . '!']);
     }
 
-    public function updateMiceWikiUrls()
+    public function updateMiceMissingWikiUrls()
     {
-        $mice_updated = Mouse::updateWikiUrls();
+        $mice_updated = Mouse::updateMissingWikiUrls();
         return back()->with(['message' => 'Updated ' . $mice_updated . ' mice!']);
     }
 }

@@ -1,5 +1,6 @@
 {{--Add New Setup--}}
 <div class="container well">
+    <H2>Setups</H2><br/>
     <form method="POST" action="/config/setups/add">
         {{ csrf_field() }}
         <div class="col-md-6 col-md-offset-3 no-left-padding">
