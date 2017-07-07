@@ -19,17 +19,17 @@
         <div id="location{{location.id}}" class="collapse">
             <!-- Stages -->
             <div ng-repeat="stage in location.stages | orderBy: 'order'">
-                <a href='' data-target="#stage{{stage.id}}" class="list-group-item text-capitalize collapsed collapse-toggle-two"
+                <a href='' data-target="#stage{{stage.id}}_{{location.id}}" class="list-group-item text-capitalize collapsed collapse-toggle-two"
                    style="background-color:lightgray"
                    ng-if="stage.name.length && stage.mice_count_number"
-                   data-toggle="collapse" data-parent="#stage{{stage.id}}">
+                   data-toggle="collapse" data-parent="#stage{{stage.id}}_{{location.id}}">
                     <span class="badge pull-left">{{ stage.mice_count_number }} {{ stage.mice_count_number === 1 ? "mouse" : "mice" }}</span>
                     {{ stage.name | lowercase }}
                 </a>
-                <div id="stage{{stage.id}}" ng-attr-class="{{stage.name.length ? 'collapse' : undefined }}">
+                <div id="stage{{stage.id}}_{{location.id}}" ng-attr-class="{{stage.name.length ? 'collapse' : undefined }}">
                     <!-- Mice -->
                     <div class="list-group-item mouse-list" ng-repeat="mouse in stage.mice | orderBy: 'name'"
-                         data-parent="#stage{{stage.id}}">
+                         data-parent="#stage{{stage.id}}_{{location.id}}">
                         <a href="http://mhwiki.hitgrab.com/wiki/index.php/{{ mouse.wiki_url }}" class="text-capitalize text-center mouse-list-cell mouse-list-mouse" title="Mouse (link to wiki)" target="_blank">
                             {{ mouse.name | lowercase }}{{ mouse.special === 1 ? "*" : "" }}
                         </a>
