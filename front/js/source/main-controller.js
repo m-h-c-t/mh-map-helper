@@ -19,6 +19,9 @@ app.controller('MainController', ['$scope', '$http', '$location', '$route', func
     $scope.setups.locations = {};
     $scope.setups.mice_count = [];
     $scope.setups.mice_count_number = 0;
+    $scope.toggle_all = function() {
+        $('.collapse').collapse('toggle');
+    };
 
     // Get locations and cheese for each mouse
     $scope.search = function () {

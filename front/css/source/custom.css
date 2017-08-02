@@ -116,6 +116,12 @@ body {
     }
 }
 
+.glyphicon-transfer {
+    -ms-transform: rotate(90deg);
+    -webkit-transform: rotate(90deg);
+    transform: rotate(90deg);
+}
+
 @media only screen and (max-width: 1200px) {
     .container {
         width: 96%;
@@ -125,6 +131,10 @@ body {
 
     .glyphicon-remove {
         margin-right: 1em;
+    }
+
+    .glyphicon-transfer {
+        margin-left: 1em;
     }
 }
 
