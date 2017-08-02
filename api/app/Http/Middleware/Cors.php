@@ -7,8 +7,7 @@ use Closure;
 class Cors {
     public function handle($request, Closure $next)
     {
-        $url = explode('.', $_SERVER['HTTP_HOST']);
-        if ($_SERVER['HTTP_ORIGIN'] == 'https://' . implode('.', [$url[1], $url[2], $url[3]])) {
+        if ($_SERVER['HTTP_ORIGIN'] == 'https://mhmaphelper.agiletravels.com') {
             return $next($request)
                 ->header('Access-Control-Allow-Origin', '*')
                 ->header('Access-Control-Allow-Methods', 'GET');

@@ -2,7 +2,7 @@
 
 class TestCase extends Illuminate\Foundation\Testing\TestCase
 {
-    protected $baseUrl = 'http://api.mhmaphelper.agiletravels.dev';
+    protected $baseUrl = 'https://apimhmaphelper.agiletravels.dev';
 
     /**
      * Creates the application.

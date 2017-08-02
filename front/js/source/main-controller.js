@@ -30,7 +30,7 @@ app.controller('MainController', ['$scope', '$http', '$location', '$route', func
         $scope.setups.mice_count_number = 0;
 
         $http.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded;charset=utf-8';
-        $http.get("https://api." + window.location.hostname + "/search", {
+        $http.get("https://apimhmaphelper.agiletravels.com/search", {
             params: {
                 mice: JSON.stringify($scope.mice_list.text),
             }
