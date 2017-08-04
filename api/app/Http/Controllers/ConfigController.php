@@ -235,7 +235,10 @@ class ConfigController extends Controller
 
         $id = $setup->id;
         $location = $setup->location->name;
-        $stage = $setup->stage->name;
+        $stage = 'none';
+        if (isset($setup->stage)) {
+            $stage = $setup->stage->name;
+        }
         $mouse = $setup->mouse->name;
         $cheese = $setup->cheese->name;
 
