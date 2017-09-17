@@ -37,8 +37,9 @@
         </div>
     </form>
 
-    {{--List All Setups--}}
-    <ul class="list-group col-md-8 col-md-offset-2">
+    {{--List All Setups DISABLED--}}
+	{{--
+	<ul class="list-group col-md-8 col-md-offset-2">
         <a data-toggle="collapse" href="#setups"
            class="list-group-item active collapse-toggle collapsed">
             Current Setups
@@ -58,4 +59,5 @@
             @endforeach
         </div>
     </ul>
+	--}}
 </div>
