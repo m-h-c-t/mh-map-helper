@@ -17,8 +17,8 @@
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
     <!-- <link rel="stylesheet" href="css/bootstrap-theme.min.css"> -->
     <link rel="stylesheet" href="css/dist/<?php echo asset_path('custom.min.css'); ?>">
-    <script defer src="//ajax.googleapis.com/ajax/libs/angularjs/1.5.11/angular.min.js"></script>
-    <script defer src="//ajax.googleapis.com/ajax/libs/angularjs/1.5.11/angular-route.min.js"></script>
+    <script defer src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.11/angular.min.js"></script>
+    <script defer src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.11/angular-route.min.js"></script>
     <script defer src="js/dist/js.cookie.js"></script>
     <script defer src="js/dist/<?php echo asset_path('main-controller.min.js'); ?>"></script>
 </head>
@@ -41,7 +41,7 @@
     </div>
 
     <!-- JS Includes -->
-    <script defer src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+    <script defer src="//cdnjs.cloudflare.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <script defer src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
     <?php include_once("ga.php") ?>
 </body>
