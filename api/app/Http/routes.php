@@ -1,6 +1,6 @@
 <?php
 
-Route::get('search', array('middleware' => ['cors', 'customheaders'], 'uses' => 'SearchController@search'));
+Route::get('search', array('middleware' => 'cors', 'uses' => 'SearchController@search'));
 
 Route::group(['middleware' => 'auth.basic'], function () {
 
