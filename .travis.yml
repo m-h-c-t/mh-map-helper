@@ -1,0 +1,12 @@
+sudo: required
+dist: trusty
+language: php
+php: '7.0'
+  
+before_install: cd api
+
+install:
+  - composer install
+  - npm i
+
+script: vendor/bin/phpunit --configuration phpunit.xml tests

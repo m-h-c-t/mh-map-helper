@@ -1,0 +1,193 @@
+#custom_loader {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 9999;
+    background: url("../../images/dist/loader.gif") center no-repeat #fff;
+}
+
+.jumbotron {
+    background: url("../../images/dist/croppedcat.jpg") center no-repeat;
+    text-shadow: 0 0 1em black;
+    color: white;
+    position: relative;
+}
+
+.jumbotron a, .jumbotron a:hover {
+    display: block;
+    position: absolute;
+    bottom: 0;
+    left: 1em;
+    color: white;
+    text-decoration: none;
+}
+
+html {
+    height: 100%;
+}
+
+body {
+    height: 100%;
+    display: table;
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.header {
+    display: table-row;
+    height: 1px;
+}
+
+.content {
+    display: table-row;
+    height: auto;
+}
+
+.footer {
+    display: table-row;
+    height: 1px;
+    background-color: #f5f5f5;
+    border-top: 1px solid #ccc;
+}
+
+.footer p {
+    margin: 1em auto;
+}
+
+.clickable {
+    cursor: pointer;
+}
+
+.large-gray {
+    color: #999;
+    font-size: 1.5em;
+}
+
+.ng-dirty .ng-valid {
+    border-color: #5cb85c;
+    box-shadow: 0 0 3px 1px #5cb85c;
+}
+
+.ng-dirty .ng-invalid {
+    border-color: #d9534f;
+    box-shadow: 0 0 3px 1px #d9534f;
+}
+
+.collapse-toggle:after {
+    font-family: 'Glyphicons Halflings';
+    content: "\e113";
+    float: right;
+}
+
+.collapse-toggle.collapsed:after {
+    content: "\e114";
+}
+
+.collapse-toggle-two:after {
+    font-family: 'Glyphicons Halflings';
+    content: "\2212";
+    float: right;
+}
+
+.collapse-toggle-two.collapsed:after {
+    content: "\2b";
+}
+
+.list-group.location {
+    padding: 0px 7px;
+    margin-bottom: 1em;
+}
+
+@media (min-width: 768px) {
+    .location:nth-of-type(2n+1) {
+        clear: both;
+    }
+}
+
+@media (min-width: 992px) {
+    .location:nth-of-type(2n+1) {
+        clear: none;
+    }
+
+    .location:nth-of-type(3n+1) {
+        clear: both;
+    }
+}
+
+.glyphicon-transfer {
+    -ms-transform: rotate(90deg);
+    -webkit-transform: rotate(90deg);
+    transform: rotate(90deg);
+}
+
+@media only screen and (max-width: 1200px) {
+    .container {
+        width: 96%;
+        padding-left: 0;
+        padding-right: 0;
+    }
+
+    .glyphicon-remove {
+        margin-right: 1em;
+    }
+
+    .glyphicon-transfer {
+        margin-left: 1em;
+    }
+}
+
+.mouse-list {
+    display: table;
+    width: 100%;
+    padding: 0;
+    margin: 0;
+}
+
+.mouse-list-cell {
+    display: table-cell;
+    border-left: 1px solid #ccc;
+    border-right: 1px solid #ccc;
+    vertical-align: middle;
+}
+
+.mouse-list-mouse {
+    padding: 10px 0;
+    width: 30%;
+}
+
+.mouse-list-cheese-ar {
+    margin-bottom: 0;
+    border-color: #ccc;
+}
+
+.mouse-list-cheese {
+    background-color: #ff9;
+    vertical-align: middle;
+    width: 100%;
+}
+.mouse-list-ar {
+    vertical-align: middle;
+    white-space: nowrap;
+}
+
+.mouse-list-ar a {
+    display: block;
+}
+
+.mouse_list_cheese_ar_wrapper {
+    display: table-cell;
+    vertical-align: middle;
+    background-color: #ff9;
+}
+
+.mouse-list-ht {
+    width: 15%;
+}
+
+.mouse-list-delete {
+    width: 15%;
+    position: static;
+    background-color: #ccc;
+}

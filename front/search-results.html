@@ -1,0 +1,74 @@
+<!-- Locations (with mice and cheese) -->
+<div class="container well" ng-if="setups.mice_count_number" id="main-search-results">
+    <i class="glyphicon glyphicon-transfer pull-left clickable large-gray" ng-click="toggle_all()"></i>
+    <i class="glyphicon glyphicon-remove pull-right clickable large-gray" ng-click="reset()"></i>
+    <h2 style="margin-top:0;"><i class="glyphicon glyphicon-globe"></i> Locations</h2>
+
+    <span class="text-muted hidden-xs">( Sorted by number of mice per location )</span>
+    <span class="text-muted">( Mice found: {{ setups.mice_count_number }} out of {{ setups.mice_count_number + invalid_mice.length }} )</span>
+    <br style="clear:both;"/><br/>
+    <div ng-repeat="location in setups.locations | orderBy: ['-mice_count_number', 'name']"
+         ng-if="location.mice_count_number" class="location col-sm-6 col-md-4 list-group">
+        <!-- Location Title -->
+        <a data-toggle="collapse" href='' data-target="#location{{location.id}}"
+           class="text-capitalize list-group-item active collapsed collapse-toggle"
+           data-parent="#main-search-results">
+            {{ location.name | lowercase }}
+            <span class="badge pull-left">{{ location.mice_count_number }} {{ location.mice_count_number === 1 ? "mouse" : "mice" }}</span>
+        </a>
+        <!-- Mice dropdown -->
+        <div id="location{{location.id}}" class="collapse">
+            <!-- Stages -->
+            <div ng-repeat="stage in location.stages | orderBy: 'order'">
+                <a href='' data-target="#stage{{stage.id}}_{{location.id}}" class="list-group-item text-capitalize collapsed collapse-toggle-two"
+                   style="background-color:lightgray"
+                   ng-if="stage.name.length && stage.mice_count_number"
+                   data-toggle="collapse" data-parent="#stage{{stage.id}}_{{location.id}}">
+                    <span class="badge pull-left">{{ stage.mice_count_number }} {{ stage.mice_count_number === 1 ? "mouse" : "mice" }}</span>
+                    {{ stage.name | lowercase }}
+                </a>
+                <div id="stage{{stage.id}}_{{location.id}}" ng-attr-class="{{stage.name.length ? 'collapse' : undefined }}">
+                    <!-- Mice -->
+                    <div class="list-group-item mouse-list" ng-repeat="mouse in stage.mice | orderBy: 'name'"
+                         data-parent="#stage{{stage.id}}_{{location.id}}">
+                        <a href="http://mhwiki.hitgrab.com/wiki/index.php/{{ mouse.wiki_url }}" class="text-capitalize text-center mouse-list-cell mouse-list-mouse" title="Mouse (link to wiki)" target="_blank">
+                            {{ mouse.name | lowercase }}{{ mouse.special === 1 ? "*" : "" }}
+                        </a>
+
+                        <!-- Cheeses -->
+                        <div class="mouse_list_cheese_ar_wrapper">
+                            <table class="table-condensed mouse-list-cheese-ar">
+                                <tr ng-repeat="cheese in mouse.cheeses | orderBy:['!-ar', '-ar', 'name']" class="text-capitalize">
+                                    <td class="text-left mouse-list-cheese">{{cheese.name | lowercase}}</td>
+                                    <td class="text-right mouse-list-ar"><a href="https://mhhunthelper.agiletravels.com/?mouse={{ mouse.mhhh_id }}" target="_blank">{{ cheese.ar ? cheese.ar/100 : '-.--' }}%</a></td>
+                                </tr>
+                            </table>
+                        </div>
+
+                        <a class="mouse-list-cell mouse-list-ht" href="http://horntracker.com/index.php?mouse={{mouse.ht_id}}|false"  title="HornTracker"  target="_blank">
+                            <i class="glyphicon glyphicon-stats large-gray"></i>
+                        </a>
+                        <i class="glyphicon glyphicon-remove clickable large-gray mouse-list-cell mouse-list-delete"
+                           ng-click="remove_a_mouse(mouse.id)"  title="Remove the mouse"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br style="clear:both;" />
+    <span class="text-muted">* - See wiki for special conditions</span>
+</div>
+<!-- Mice not found -->
+<div class="container" ng-if="invalid_mice.length">
+    <div class="list-group col-sm-6 col-sm-offset-3" id="invalid_mice_parent">
+        <a href='' data-target="#invalid_mice_list" class="list-group-item list-group-item-danger collapsed collapse-toggle"
+           data-parent="#invalid_mice_parent" data-toggle="collapse"><strong>Could not find {{
+            invalid_mice.length }}
+            {{ invalid_mice.length === 1 ? "mouse" : "mice" }}</strong></a>
+        <div id="invalid_mice_list" class="collapse">
+            <div class="list-group-item" data-parent="#invalid_mice_parent"
+                 ng-repeat="mouse_name in invalid_mice">{{mouse_name}}
+            </div>
+        </div>
+    </div>
+</div>

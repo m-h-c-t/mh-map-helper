@@ -1,0 +1,13 @@
+<!-- Mice list -->
+<div class="container">
+<form ng-submit="mice_list_form.$valid && form_submit()" novalidate name="mice_list_form">
+    <div class="form-group row">
+        <h2><i class="glyphicon glyphicon-pencil"></i> Mice</h2>
+        <textarea rows="10" class="form-control input-lg" placeholder="Copy map mice list here..." ng-model="mice_list.text" ng-trim="false" ng-list="&#10;" required ng-maxlength="2000"></textarea>
+    </div>
+    <div class="form-group row">
+        <button type="submit" class="btn btn-lg btn-primary col-xs-4 col-xs-offset-1 col-sm-2 col-sm-offset-3">Search</button>
+        <button type="button" class="btn btn-lg btn-danger col-xs-4 col-xs-offset-2 col-sm-2 col-sm-offset-2" ng-click="reset()">Reset</button>
+    </div>
+</form>
+</div>

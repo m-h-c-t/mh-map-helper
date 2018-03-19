@@ -1,0 +1,9 @@
+api/vendor
+node_modules/
+api/public/storage
+api/public/build
+.env
+.idea
+dist/
+rev-manifest.json
+ga.php
