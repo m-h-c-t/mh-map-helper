@@ -19,6 +19,7 @@ class SearchController extends Controller
         $invalid_mice = array();
         $valid_mice = array();
         foreach ($mice_names as $mouse_name) {
+            $mouse_name = str_replace("’", "'", $mouse_name);
 
             $mouse = Mouse::where('name', $mouse_name)->first();
 
