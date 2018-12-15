@@ -29,7 +29,7 @@
     <div class="header">
         <custom-header></custom-header>
     </div>
-
+<!-- <H1 style="color:red;">(Performing updates... Will be back shortly)</H1> -->
     <div class="content">
         <ng-view></ng-view>
 

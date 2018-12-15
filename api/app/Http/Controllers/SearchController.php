@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Mouse;
 use Illuminate\Http\Request;
+use Carbon\Carbon;
 
 class SearchController extends Controller
 {
@@ -29,7 +30,7 @@ class SearchController extends Controller
             }
 
             // Load all relationships
-            $mouse->setups;
+            $mouse->setups = $mouse->setups()->where('timestamp', '>', Carbon::now()->subMonths(10))->get();
 
             $valid_mice[] = $mouse;
         }
