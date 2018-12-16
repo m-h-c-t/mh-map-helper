@@ -22,15 +22,36 @@ app.controller('MainController', ['$scope', '$http', '$location', '$route', func
     $scope.toggle_all = function() {
         $('.collapse').collapse('toggle');
     };
+    $scope.shortened_url = '(Shorten URL)';
+
+    // Shorten url
+    $scope.shortenurl = function() {
+        if ($scope.shortened_url != '(Shorten URL)') {
+            return;
+        }
+        console.log("Fired1");
+        $http.get("https://apimhmaphelper.agiletravels.com/link", {
+            params: {
+                "long_url": window.location.href
+            }
+        }).success(function(response) {
+                if (response == null || response.length == 0) {
+                    $scope.shortened_url = "Could not shorten... :(";
+                } else {
+                    $scope.shortened_url = response['short_link'];
+                }
+        });
+    }
 
     // Get locations and cheese for each mouse
-    $scope.search = function () {
+    $scope.search = function() {
         $('#custom_loader:hidden').show();
         $scope.invalid_mice = [];
         $scope.setups = {};
         $scope.setups.locations = {};
         $scope.setups.mice_count = {};
         $scope.setups.mice_count_number = 0;
+        $scope.shortened_url = '(Shorten URL)';
 
         $http.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded;charset=utf-8';
         $http.get("https://apimhmaphelper.agiletravels.com/search", {

@@ -1,6 +1,7 @@
 <?php
 
 Route::get('search', array('middleware' => 'cors', 'uses' => 'SearchController@search'));
+Route::get('link', array('middleware' => 'cors', 'uses' => 'SearchController@shortlink'));
 
 Route::group(['middleware' => 'auth.basic'], function () {
 

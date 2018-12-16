@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Mouse;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
+use GuzzleHttp\Exception\GuzzleException;
+use GuzzleHttp\Client;
 
 class SearchController extends Controller
 {
@@ -38,6 +40,34 @@ class SearchController extends Controller
         return response()->json([
             'valid_mice' => $valid_mice,
             'invalid_mice' => $invalid_mice
+        ]);
+    }
+
+    public function shortlink(Request $request)
+    {
+        if (!$request->has("long_url")
+            || empty($request->input("long_url"))
+            || $request->input("long_url") == "https://mhmaphelper.agiletravels.com/") {
+            return;
+        }
+
+        $client = new Client(); //GuzzleHttp\Client
+        $result = $client->post(
+            'https://api-ssl.bitly.com/v4/shorten',
+            [
+                'json' => [
+                    'long_url' => $request->input("long_url")
+                ],
+                'headers' => [
+                    'Authorization' => 'Bearer c0e922486160b5e0f48d59b4af43c4216ee0910a',
+                    'Content-Type' => 'application/json'
+                ]
+            ]
+        );
+
+        $bitly_response = json_decode($result->getBody());
+        return response()->json([
+            'short_link' => print_r($bitly_response->link, true)
         ]);
     }
 
