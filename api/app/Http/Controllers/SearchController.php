@@ -59,7 +59,7 @@ class SearchController extends Controller
                     'long_url' => $request->input("long_url")
                 ],
                 'headers' => [
-                    'Authorization' => 'Bearer c0e922486160b5e0f48d59b4af43c4216ee0910a',
+                    'Authorization' => 'Bearer ' . env('BITLY_TOKEN', ''),
                     'Content-Type' => 'application/json'
                 ]
             ]
