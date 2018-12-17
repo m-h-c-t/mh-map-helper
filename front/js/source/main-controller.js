@@ -29,7 +29,7 @@ app.controller('MainController', ['$scope', '$http', '$location', '$route', func
         if ($scope.shortened_url != '(Shorten URL)') {
             return;
         }
-        console.log("Fired1");
+
         $http.get("https://apimhmaphelper.agiletravels.com/link", {
             params: {
                 "long_url": window.location.href
