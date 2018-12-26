@@ -23,6 +23,7 @@ app.controller('MainController', ['$scope', '$http', '$location', '$route', func
         $('.collapse').collapse('toggle');
     };
     $scope.shortened_url = '(Shorten URL)';
+    $scope.shorturl_css = 'cursor:pointer;';
 
     // Shorten url
     $scope.shortenurl = function() {
@@ -39,6 +40,7 @@ app.controller('MainController', ['$scope', '$http', '$location', '$route', func
                     $scope.shortened_url = "Could not shorten... :(";
                 } else {
                     $scope.shortened_url = response['short_link'];
+                    $scope.shorturl_css = 'cursor:text;';
                 }
         });
     }
@@ -52,6 +54,7 @@ app.controller('MainController', ['$scope', '$http', '$location', '$route', func
         $scope.setups.mice_count = {};
         $scope.setups.mice_count_number = 0;
         $scope.shortened_url = '(Shorten URL)';
+        $scope.shorturl_css = 'cursor:pointer;';
 
         $http.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded;charset=utf-8';
         $http.get("https://apimhmaphelper.agiletravels.com/search", {

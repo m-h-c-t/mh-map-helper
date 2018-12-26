@@ -2,7 +2,7 @@
 <div class="container well" ng-if="setups.mice_count_number" id="main-search-results">
     <i class="glyphicon glyphicon-transfer pull-left clickable large-gray" ng-click="toggle_all()"></i>
     <i class="glyphicon glyphicon-remove pull-right clickable large-gray" ng-click="reset()"></i>
-    <div><h2 style="margin-top:0;"><i class="glyphicon glyphicon-globe"></i> Locations <span class="text-muted" style="font-size:small;" ng-click="shortenurl()">{{ shortened_url }}</span></h2>
+    <div><h2 style="margin-top:0;"><i class="glyphicon glyphicon-globe"></i> Locations <span class="text-muted" style="font-size:small; {{ shorturl_css }}" ng-click="shortenurl()">{{ shortened_url }}</span></h2>
 
     <span class="text-muted hidden-xs">( Sorted by number of mice per location )</span>
     <span class="text-muted">( Mice found: {{ setups.mice_count_number }} out of {{ setups.mice_count_number + invalid_mice.length }} )</span>
