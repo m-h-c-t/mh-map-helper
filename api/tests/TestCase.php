@@ -1,20 +1,14 @@
 <?php
 
-class TestCase extends Illuminate\Foundation\Testing\TestCase
+abstract class TestCase extends Laravel\Lumen\Testing\TestCase
 {
-    protected $baseUrl = 'https://apimhmaphelper.agiletravels.dev';
-
     /**
      * Creates the application.
      *
-     * @return \Illuminate\Foundation\Application
+     * @return \Laravel\Lumen\Application
      */
     public function createApplication()
     {
-        $app = require __DIR__ . '/../bootstrap/app.php';
-
-        $app->make(Illuminate\Contracts\Console\Kernel::class)->bootstrap();
-
-        return $app;
+        return require __DIR__.'/../bootstrap/app.php';
     }
 }
