@@ -223,28 +223,17 @@ app.controller('MainController', ['$scope', '$http', '$location', '$route', func
 
 }]);
 
-// Input form
-app.directive('miceListForm', function () {
-    return {
-        restrict: 'E',
-        templateUrl: 'mice-list-form.html'
-    };
-});
-
-// Footer
-app.directive('customFooter', function () {
-    return {
-        restrict: 'E',
-        templateUrl: 'custom-footer.html'
-    };
-});
-
-// Header
-app.directive('customHeader', function () {
-    return {
-        restrict: 'E',
-        templateUrl: 'custom-header.html'
-    };
+[
+    { name: 'miceListForm', templateUrl: 'mice-list-form.html' },
+    { name: 'customFooter', templateUrl: 'custom-footer.html' },
+    { name: 'customHeader', templateUrl: 'custom-header.html' },
+].forEach(obj => {
+    app.directive(obj.name, function () {
+        return {
+            restrict: 'E',
+            templateUrl: obj.templateUrl,
+        };
+    });
 });
 
 })();
