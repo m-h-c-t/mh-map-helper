@@ -3,7 +3,7 @@ const gulp = require('gulp');
 const rename = require('gulp-rename');
 const livereload = require('gulp-livereload');
 const rev = require('gulp-rev');
-const gulpClean = require('gulp-clean');
+const del = require('del');
 // Includes - js
 const minify = require('gulp-minify');
 // Includes - images
@@ -12,10 +12,10 @@ const imagemin = require('gulp-imagemin');
 const cleanCSS = require('gulp-clean-css');
 
 /**
- * Delete files matching the fileglob
+ * Delete files matching the fileglob using `del`
  * @param {string} srcGlob path and glob of files to be deleted by the gulp task.
  */
-const cleanFiles = (srcGlob) => gulp.src(srcGlob, {read: false}).pipe(gulpClean({force: true}));
+const cleanFiles = (srcGlob) => del(srcGlob);
 
 // WATCH
 gulp.task('watch', function () {

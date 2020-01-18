@@ -5,8 +5,8 @@
   "main": "gulpfile.js",
   "dependencies": {},
   "devDependencies": {
+    "del": "^5.1.0",
     "gulp": "^4.0.2",
-    "gulp-clean": "^0.4.0",
     "gulp-clean-css": "^4.2.0",
     "gulp-imagemin": "^6.2.0",
     "gulp-livereload": "^4.0.2",
