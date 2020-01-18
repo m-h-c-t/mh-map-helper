@@ -5,6 +5,7 @@
   "main": "gulpfile.js",
   "dependencies": {},
   "devDependencies": {
+    "@types/angular": "1.5.11",
     "del": "^5.1.0",
     "gulp": "^4.0.2",
     "gulp-clean-css": "^4.2.0",
