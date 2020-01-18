@@ -3,19 +3,17 @@
   "version": "1.0.0",
   "description": "MHCT's MouseHunt Map Helper",
   "main": "gulpfile.js",
-  "dependencies": {
-    "gulp": "^3.9.1"
-  },
+  "dependencies": {},
   "devDependencies": {
-    "gulp": "^3.9.1",
-    "gulp-clean": "^0.3.2",
-    "gulp-clean-css": "^2.0.11",
-    "gulp-imagemin": "^3.0.2",
-    "gulp-livereload": "^3.8.1",
-    "gulp-minify": "0.0.13",
+    "gulp": "^4.0.2",
+    "gulp-clean": "^0.4.0",
+    "gulp-clean-css": "^4.2.0",
+    "gulp-imagemin": "^6.2.0",
+    "gulp-livereload": "^4.0.2",
+    "gulp-minify": "3.1.0",
     "gulp-rename": "^1.2.2",
-    "gulp-rev": "^7.1.0",
-    "js-cookie": "^2.1.2"
+    "gulp-rev": "^9.0.0",
+    "js-cookie": "^2.2.1"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -24,7 +22,7 @@
     "type": "git",
     "url": "git+https://github.com/mh-community-tools/mh-map-helper/.git"
   },
-  "author": "",
+  "author": "@DevJackSmith",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/mh-community-tools/mh-map-helper/issues"
