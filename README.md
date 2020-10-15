@@ -1,4 +1,4 @@
-# MouseHunt map helper
+# MouseHunt map helper [DEPRECATED in favor of crowdsourced one at https://github.com/mh-community-tools/mh-hunt-helper]
 
 ### This tool is designed to help you catch MouseHunt game map mice as soon as possible.
 
